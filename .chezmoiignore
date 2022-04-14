@@ -5,6 +5,8 @@ README.md
 
 {{ if ne .chezmoi.os "darwin" }}
 # only include these files on mac
+.hammerspoon/*
+.config/system/mac_*
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
 # only include these files on linux

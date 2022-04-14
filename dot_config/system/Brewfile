@@ -48,11 +48,11 @@ brew "fzf" # fuzzy search
 brew "zsh-completions"
 brew "zsh"
 brew "ranger" # file browser
-brew "tmux"
+# brew "tmux"
 brew "wifi-password"
 brew "ripgrep" # super fast txt file search
 brew "reattach-to-user-namespace" # for tmux
-brew "neovim"
+# brew "neovim"
 brew "mosh" # better ssh
 brew "git"
 brew "htop"
