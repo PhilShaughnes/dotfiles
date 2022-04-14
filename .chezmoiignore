@@ -1,0 +1,11 @@
+README.md
+{{- if ne .chezmoi.hostname "PSMac"}}
+# only manage these files if the hostname matches PSMac	
+{{- end }}
+
+{{ if ne .chezmoi.os "darwin" }}
+# only include these files on mac
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+# only include these files on linux
+{{ end }}

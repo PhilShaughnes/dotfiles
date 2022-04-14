@@ -1,0 +1,36 @@
+# Filesystem aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+
+alias gs='git status'
+alias g='git'
+alias pull='git pull'
+alias push='git push'
+alias gco='git checkout'
+alias gacm='git add -A && git commit -m'
+alias gac='git add -A && git commit -v'
+alias wip='git add -A && git commit -m "wip"'
+# alias unwip='git reset head^' # currently this is in a fn that only resets if last commit is wip
+alias gdb='git branch -D $(git branch | fzf -m)' # git delete branch - multi-select in fzf
+alias gb='git checkout -' # git back - go back to previous branch
+alias ga='git add -p' # interactive mode
+alias gc='git commit -v'
+
+alias ll='ls -laph'
+# [ "$(uname)" != "Darwin" ] && alias ls='ls --color' # conditionally only use this on linux
+# alias fd='rg --files'
+# alias tkl='tmux kill-session -t $(tmux list-sessions -F "#{session_name}" | fzf --height 20% --reverse -m)'
+
+alias jqp='pbpaste | jq .'
+
+alias mkdir='mkdir -pv'
+alias v='nvim'
+alias nv='nvim -u ~/.dotfiles/vetc/dev_vimrc'
+alias k='kak'
+
+alias icat="kitty +kitten icat --align=left"
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
+alias ip='curl ifconfig.me'

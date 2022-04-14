@@ -1,0 +1,97 @@
+#!/usr/bin/env sh
+
+n () {
+  # Block nesting of nnn in subshells
+  if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+      echo "nnn is already running"
+      return
+  fi
+
+  NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+  nnn -e "$@"
+
+  if [ -f "$NNN_TMPFILE" ]; then
+    . "$NNN_TMPFILE"
+    rm -f "$NNN_TMPFILE" > /dev/null
+  fi
+}
+
+unwip() {
+  if [[ "$(git log -1 --pretty=%B)" = "wip" ]]; then
+    git reset head^
+  fi
+}
+
+mcd () {
+  mkdir -pv $1
+  cd $1
+}
+
+# fh - repeat history
+fh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --height 25% --reverse | sed 's/ *[0-9]* *//')
+}
+
+# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
+# `tm` will allow you to select your tmux session via fzf.
+# `tm irc` will attach to the irc session (if it exists), else it will create it.
+tm() {
+  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+  if [ $1 ]; then
+    tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+  fi
+  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0 --height 20% --reverse) &&
+    tmux $change -t "$session" || echo "No sessions found."
+}
+
+# fbr - checkout git branch
+fbr() {
+  local branches branch cmd="vv"
+
+  while getopts "a" OPTION
+  do
+    case $OPTION in
+      a) cmd="vva" ;;
+    esac
+  done
+
+  branches=$(git branch -$cmd) &&
+  branch=$(echo "$branches" | fzf +m --height 25% --reverse) &&
+  # git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+  git checkout $(echo "$branch" | awk '{print $1}' | awk -F "/" '{print $NF}' | sed "s/.* //")
+}
+
+# fdir - cd to selected directory
+fdir() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m --height 25% --reverse) &&
+  cd "$dir"
+}
+
+# fshow - git commit browser
+fshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index \
+      --preview 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1; }; f {}' \
+      --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
+# relies on genact, which is found at https://github.com/svenstaro/genact
+gen() {
+  if [ $1 ]; then
+    MODULES=$(genact -l | fzf --query $@ | tr -d ' ')
+  else
+    MODULES=$(genact -l | fzf | tr -d ' ')
+  fi
+  echo "running $MODULES"
+  # go a bit faster, using the selected modules
+  genact -s 2 -m "$MODULES"
+}
+

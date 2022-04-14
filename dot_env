@@ -1,0 +1,40 @@
+#!/usr/bin/env sh
+
+if [ -d "$HOME/bin" ] ; then
+  PATH="$HOME/bin:$PATH"
+fi
+
+# if [ -d "$HOME/dotfiles" ] ; then
+#   export DOTFILES=$HOME/dotfiles
+# elif [ -d "$HOME/.dotfiles" ] ; then
+#   export DOTFILES=$HOME/.dotfiles
+# else
+#   echo "UH-OH! No dotfiles directory found!"
+# fi
+# export XDG_CONFIG_HOME=$HOME/.config
+export DOTFILES=$HOME/.dotfiles
+export CONFIG_PATH=$HOME/.config
+
+
+
+export EDITOR=nvim
+export VISUAL=nvim
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --type f'
+export KITTY_LISTEN_ON=unix:/tmp/kitty
+export NNN_FIFO=/tmp/nnn.fifo
+export NNN_PLUG='o:fzopen;p:preview-tui'
+# export NNN_OPENER='~/.config/nnn/plugins/nuke'
+export ERL_AFLAGS="-kernel shell_history enabled"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+homebrew=/usr/local/bin:/usr/local/sbin
+export PATH="$HOME/.local/bin:$homebrew:$PATH"
+
+if [ -e "$HOME/.env.local" ] ; then
+  source $HOME/.env.local
+fi
