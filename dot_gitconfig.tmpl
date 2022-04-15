@@ -4,7 +4,7 @@
 [core]
 	autocrlf = false
 	safecrlf = true
-	excludesfile = ~/.gitignore_global
+	excludesfile = $HOME/.gitignore_global
 	editor = nvim
 
 [alias]
@@ -24,3 +24,30 @@
 	; helper = store
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = main
+
+[github]
+	user = philshaughnes
+
+{{- if eq .comp "ggp" }}
+[merge]
+	keepBackup = false
+	tool = p4merge
+
+[mergetool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
+	keepTemporaries = false
+	trustExitCode = false
+	keepBackup = false
+
+[mergetool]
+	keepBackup = false
+
+[diff]
+	tool = p4merge
+
+[difftool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "$LOCAL" "$REMOTE"
+[branch]
+	autosetupmerge = true
+{{- end }}
