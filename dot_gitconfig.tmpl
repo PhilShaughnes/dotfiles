@@ -1,0 +1,26 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+[core]
+	autocrlf = false
+	safecrlf = true
+	excludesfile = ~/.gitignore_global
+	editor = nvim
+
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	lg = log --stat --abbrev-commit --show-signature
+	tree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	type = cat-file -t
+	dump = cat-file -p
+	a = add -A
+	c = commit -v
+	l = log -1 --pretty=%B
+[credential]
+	# this is a comment
+	; helper = store
+[init]
+	templatedir = ~/.git_template
