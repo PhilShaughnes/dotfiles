@@ -128,6 +128,7 @@ local function filetype_config()
       extensions = {
         -- Set the filetype of *.pn files to potion
         log = "log",
+        hbs = "handlebars",
       },
       literal = {
         -- Set the filetype of files named "MyBackupFile" to lua
