@@ -7,6 +7,7 @@ vim.opt.packpath:append(paqpath)
 local paq = require "paq"
 paq:setup({paqdir=paqpath..'/'})
 
+vim.opt.termguicolors = true
 
 local function load_paq()
   -- cmd 'packadd paq-nvim'         -- Load package
@@ -36,7 +37,7 @@ local function load_paq()
     -- {'numtostr/FTerm.nvim'};
     {'akinsho/toggleterm.nvim'};
 
-    {'nathom/filetype.nvim'};
+    -- {'nathom/filetype.nvim'};
     {'nvim-treesitter/nvim-treesitter'};
     {'RRethy/nvim-treesitter-endwise'};
     {'p00f/nvim-ts-rainbow'};
@@ -131,6 +132,8 @@ local function filetype_config()
       literal = {
         -- Set the filetype of files named "MyBackupFile" to lua
         -- MyBackupFile = "lua",
+        ["dot_tmux.conf.tmpl"] = "tmux",
+        ["dot_gitconfig.tmpl"] = "gitconfig",
       },
       complex = {
         -- Set the filetype of any full filename matching the regex to gitconfig
@@ -239,11 +242,16 @@ local function treesitter_config()
     'html', 'css', 'sql', 'java',
   }
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = { "ruby", "bash", "c", "cmake", "comment", "css",
+      "dockerfile", "eex", "elixir", "erlang", "glimmer", "go", "graphql",
+      "heex", "help", "html", "java", "javascript", "jsdoc", "json", "lua",
+      "make", "python", "regex", "rust", "scss", "toml", "typescript", "tsx",
+      "vim", "vue", "yaml", },
     -- ignore_install = {"elixir"},
     highlight = {
       enable = true,              -- false will disable the whole extension
-      disable = { "c", "rust" },  -- list of language that will be disabled
+      disable = { "rust" },  -- list of language that will be disabled
     },
     endwise = { enable = true },
     -- rainbow = { enable = true },
@@ -285,7 +293,7 @@ vim_nnn_config()
 lualine_config()
 gitsigns_config()
 treesitter_config()
-filetype_config()
+-- filetype_config()
 toggleterm_config()
 -- require 'config/cmp_config'
 -- require 'config/keys'

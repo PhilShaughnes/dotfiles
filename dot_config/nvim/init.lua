@@ -1,8 +1,8 @@
---		 dBBBBBb.dBBBBP
---				 dB'BP					Phil Shaughnessy
---		 dBBBP' `BBBBb			https://github.com/philshaughnes
---		dBP        dBP
---	 dBP    dBBBBP'
+--     dBBBBBb.dBBBBP
+--         dB'BP          Phil Shaughnessy
+--     dBBBP' `BBBBb      https://github.com/philshaughnes
+--    dBP        dBP
+--   dBP    dBBBBP'
 
 
 local function load(name)
