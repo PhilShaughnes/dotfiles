@@ -29,6 +29,9 @@
 [github]
 	user = philshaughnes
 
+[pull]
+	rebase = false
+
 {{- if eq .comp "ggp" }}
 [merge]
 	keepBackup = false
@@ -51,3 +54,4 @@
 [branch]
 	autosetupmerge = true
 {{- end }}
+
