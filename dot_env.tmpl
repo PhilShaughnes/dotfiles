@@ -27,13 +27,14 @@ export NNN_FIFO=/tmp/nnn.fifo
 export NNN_PLUG='o:fzopen;p:preview-tui'
 # export NNN_OPENER='~/.config/nnn/plugins/nuke'
 export ERL_AFLAGS="-kernel shell_history enabled"
+{{- if eq .chezmoi.os "darwin" }}
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+homebrew=/usr/local/bin:/usr/local/sbin
+export PATH="$HOME/.local/bin:$homebrew:$PATH"
+{{- end }}
 
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
-
-homebrew=/usr/local/bin:/usr/local/sbin
-export PATH="$HOME/.local/bin:$homebrew:$PATH"
 
 if [ -e "$HOME/.env.local" ] ; then
   source $HOME/.env.local
