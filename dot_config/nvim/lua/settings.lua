@@ -9,9 +9,8 @@ g.loaded_netrwPlugin = 1
 
 g.mapleader = ' '
 g.vimsyn_embeded = 'lr'
-
-vim.cmd('filetype plugin on')
-
+-- g.did_load_filetypes = 1
+g.do_filetype_lua = 1
 
 set.backup = false
 set.swapfile = false
@@ -26,8 +25,8 @@ set.linebreak = true
 set.wrap = false
 set.number = true
 set.relativenumber = false
-set.cursorcolumn = true
-set.cursorline = true
+-- set.cursorcolumn = true
+-- set.cursorline = true
 set.ruler = true
 set.splitbelow = true
 set.splitright = true
