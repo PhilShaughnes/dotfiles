@@ -75,7 +75,7 @@ local lsp_integrated = {
 	['[d'] = { function() vim.diagnostic.goto_prev() end, "prev diagnostic" },
 	[']d'] = { function() vim.diagnostic.goto_next() end, "next diagnostic" },
 	K = { function() vim.lsp.buf.hover() end, "documentation" },
-	gd = { function() vim.lsp.buf.definition() end, "show definition" },
+	-- gd = { function() vim.lsp.buf.definition() end, "show definition" },
 	gr = { function() vim.lsp.buf.references() end, "references" },
 }
 local lsp_leader = {
@@ -113,6 +113,18 @@ local nnn_leader = {
 
 -- fzf
 local fzf = require('fzf-lua')
+fzf.setup({keymap = { builtin = {
+	["<C-f>"]        = "toggle-fullscreen",
+	-- Only valid with the 'builtin' previewer
+	["<C-w>"]        = "toggle-preview-wrap",
+	["<C-p>"]        = "toggle-preview",
+	-- Rotate preview clockwise/counter-clockwise
+	["<C-l>"]        = "toggle-preview-ccw",
+	["<C-h>"]        = "toggle-preview-cw",
+	["<S-down>"]     = "preview-page-down",
+	["<S-up>"]       = "preview-page-up",
+	["<S-left>"]     = "preview-page-reset",
+}}})
 local find_leader = {
 	name = 'find',
 	-- f = { ':Files<CR>', 'find files' },
