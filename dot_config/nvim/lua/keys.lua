@@ -17,6 +17,20 @@ function M.tmap(table, opts) M.map('t', table, opts) end
 function M.vmap(table, opts) M.map('v', table, opts) end
 function M.imap(table, opts) M.map('i', table, opts) end
 
+M.line_end_toggle = function (char)
+  local fn = vim.fn
+  local line = fn.getline '.'
+  local newline = ''
+
+  if char == string.sub(line, #line) then
+    newline = line:sub(1, -2)
+  else
+    newline = line .. char
+  end
+
+  return fn.setline('.', newline)
+end
+
 
 --qf
 local qf = {
@@ -189,7 +203,8 @@ local leader = {
 	m = {
 		name = 'markdown',
 	},
-
+	[","] = {function() M.line_end_toggle(',') end, "toggle , at end of line"},
+	[";"] = {function() M.line_end_toggle(';') end, "toggle , at end of line"},
 }
 M.nmap({['<leader>'] = leader})
 local verbose_leader = {
