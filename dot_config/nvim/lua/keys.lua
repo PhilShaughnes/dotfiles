@@ -16,6 +16,10 @@ function M.nmap(table, opts) M.map('n', table, opts) end
 function M.tmap(table, opts) M.map('t', table, opts) end
 function M.vmap(table, opts) M.map('v', table, opts) end
 function M.imap(table, opts) M.map('i', table, opts) end
+function M.oxmap(table, opts)
+	M.map('x', table, opts)
+	M.map('o', table, opts)
+end
 
 M.line_end_toggle = function (char)
   local fn = vim.fn
@@ -58,24 +62,6 @@ local tterm = {
 M.tmap(h.merge(term, tterm))
 M.nmap(term)
 M.vmap({['<C-t>l'] = {':ToggleTermSendVisualSelection 2<CR>', "send visual selection to terminal"}})
--- local terminal_from_n = {
---	['<C-t>'] = {
---		name ='terminal',
---		t = { function() require('FTerm').toggle() end, "toggle popup terminal"},
---		s = { '<cmd>vsp term://bash<CR>', "open terminal in split" },
---	}
--- }
--- local terminal_from_t = {
---	['<C-t>'] = {
---		name ='terminal',
---		t = { function() require('FTerm').toggle() end, "toggle popup terminal"},
---		q = { function() require('FTerm').exit() end, "exit popup terminal"},
---		s = { '<cmd>q<CR>', "close terminal in split" },
---	}
--- }
--- M.nmap(terminal_from_n)
--- M.tmap(terminal_from_t)
-
 
 --lsp
 local toggle_state = true
@@ -108,22 +94,14 @@ local lsp_leader = {
 }
 M.nmap(lsp_integrated)
 
-
 -- nnn
 local nnn_leader = {
 	name = 'nnn file manager',
-	n = {':call nnn#pick(getcwd())<CR>', "nnn window in root"},
-	m = {":call nnn#pick(expand('%:p:h'))<CR>", "nnn window in dir of current file"},
-	r = {
-		":call nnn#pick(getcwd(), {'layout':{'left':'~20%'}})<CR>",
-		"nnn sidebar in root"
-	},
-	l = {
-		":call nnn#pick(expand('%:p:h'), {'layout':{'left':'~20%'}})<CR>",
-		"nnn sidebar in dir of current file"
-	},
+	n = {':NnnPicker<CR>', "nnn window in root"},
+	m = {":NnnPicker %:p:h<CR>", "nnn window in dir of current file"},
+	r = { ":NnnExplorer<CR>", "nnn sidebar in root" },
+	l = { ":NnnExplorer %:p:h<CR>", "nnn sidebar in dir of current file" },
 }
-
 
 -- fzf
 local fzf = require('fzf-lua')
@@ -141,10 +119,6 @@ fzf.setup({keymap = { builtin = {
 }}})
 local find_leader = {
 	name = 'find',
-	-- f = { ':Files<CR>', 'find files' },
-	-- b = { ':Buffers<CR>', 'find buffers' },
-	-- c = { ':Commits<CR>', 'find commits' },
-	-- t = { ':Rg<CR>', 'find text' },
 	f = { function() fzf.files({fd_opts = "--color=never --type f --follow --exclude .git"}) end, 'find files' },
 	h = { function() fzf.files() end, 'find hidden files' },
 	b = { function() fzf.buffers() end, 'find buffers' },
@@ -187,6 +161,32 @@ local gitsigns_leader = {
 	c = {function() gs.blame_line{full=true} end, "show commit info"},
 	b = {function() gs.toggle_current_line_blame() end, "toggle line blame"},
 }
+
+M.oxmap({ ['ih'] = {":<C-U>Gitsigns select_hunk<CR>", "select hunk"} })
+
+local nv_gitsigns = {
+	["<leader>hs"] = {':Gitsigns stage_hunk<CR>', "stage hunk"},
+	["<leader>hr"] = {':Gitsigns reset_hunk<CR>', "stage hunk"},
+}
+M.nmap(nv_gitsigns, {silent = false})
+M.vmap(nv_gitsigns, {silent = false})
+
+local gitsigns = {
+	[']c'] = {function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end,
+	"next hunk"},
+	['[c'] = {function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end,
+	"prev hunk"},
+}
+M.nmap(gitsigns, {silent = false})
+
 
 local git_leader = {
 	g = {':Git<CR>', "open git view"},

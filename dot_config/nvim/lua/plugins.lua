@@ -1,4 +1,3 @@
-
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local paqpath = vim.fn.expand("$HOME/.local/share/nvim/paq-plugins")
@@ -26,24 +25,19 @@ local function load_paq()
     {'kana/vim-niceblock'};
 
 
-    -- {'rbgrouleff/bclose.vim'};                         -- close buffer without closing windows
     {'tommcdo/vim-lion'};                              -- gl and gL align around a character (so glip=)
     {'justinmk/vim-gtfo'};                             -- got and gof open current file in terminal/file manager
-    -- {'jeetsukumaran/vim-indentwise'};
     {'michaeljsmith/vim-indent-object'};               -- use indent level like ii or ai
-    -- {'tpope/vim-sleuth'};
     {'Darazaki/indent-o-matic'};
 
-    -- {'numtostr/FTerm.nvim'};
     {'akinsho/toggleterm.nvim'};
 
-    -- {'nathom/filetype.nvim'};
     {'nvim-treesitter/nvim-treesitter'};
     {'RRethy/nvim-treesitter-endwise'};
     {'p00f/nvim-ts-rainbow'};
     {'nvim-lua/plenary.nvim'};
     {'lewis6991/gitsigns.nvim'};
-    {'mcchrish/nnn.vim'};
+    {'luukvbaal/nnn.nvim'};
 
     {'tpope/vim-projectionist', opt=true};
     {'vimwiki/vimwiki'};
@@ -65,7 +59,6 @@ local function load_paq()
     {'hrsh7th/cmp-nvim-lua'};
     {'saadparwaiz1/cmp_luasnip'};
 
-
     {'mtdl9/vim-log-highlighting'};
     {'othree/csscomplete.vim'};
     {'norcalli/nvim-colorizer.lua'};
@@ -73,28 +66,24 @@ local function load_paq()
     {'mattn/emmet-vim'};
     {'moll/vim-node'};
     {'pangloss/vim-javascript'};
+    {'jose-elias-alvarez/typescript.nvim'};
 
     {'vim-ruby/vim-ruby'};
     {'elixir-editors/vim-elixir'};
-    -- {'xolox/vim-misc'};
-    -- {'xolox/vim-lua-ftplugin'};
-    -- {'cespare/vim-toml'};
-    -- {'fatih/vim-go'};
-    -- {'mrk21/yaml-vim'};
-    {'junegunn/goyo.vim'};                             -- distraction free vim
-    {'junegunn/limelight.vim'};
 
     {'kyazdani42/nvim-web-devicons'};
     {'sainnhe/sonokai'};
     {'sainnhe/edge'};
     {'folke/tokyonight.nvim'};
     {'wuelnerdotexe/vim-enfocado'};
+    {'shaeinst/roshnivim-cs'};
     {'nvim-lualine/lualine.nvim'};
   }
 end
 
 local function gen_config()
   require('colorizer').setup()
+  require("typescript").setup()
   require('Comment').setup()
   require('indent-o-matic').setup({})
   require('nvim-autopairs').setup{}
@@ -120,61 +109,6 @@ local function toggleterm_config()
     })
 end
 
-local function filetype_config()
-  -- In init.lua or filetype.nvim's config file
-  -- use extension or literal overrides before complex if possible for perf
-  require("filetype").setup({
-    overrides = {
-      extensions = {
-        -- Set the filetype of *.pn files to potion
-        log = "log",
-        hbs = "handlebars",
-      },
-      literal = {
-        -- Set the filetype of files named "MyBackupFile" to lua
-        -- MyBackupFile = "lua",
-        ["dot_tmux.conf.tmpl"] = "tmux",
-        ["dot_gitconfig.tmpl"] = "gitconfig",
-      },
-      complex = {
-        -- Set the filetype of any full filename matching the regex to gitconfig
-        -- [".*git/config"] = "gitconfig", -- Included in the plugin
-      },
-
-      -- The same as the ones above except the keys map to functions
-      function_extensions = {
-        ["cpp"] = function()
-          vim.bo.filetype = "cpp"
-          -- Remove annoying indent jumping
-          vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
-        end,
-        ["pdf"] = function()
-          vim.bo.filetype = "pdf"
-          -- Open in PDF viewer (Skim.app) automatically
-          vim.fn.jobstart(
-            "open " .. '"' .. vim.fn.expand("%") .. '"'
-          )
-        end,
-      },
-      -- function_literal = {
-      --  Brewfile = function()
-      --    vim.cmd("syntax off")
-      --  end,
-      -- },
-      -- function_complex = {
-      --  ["*.math_notes/%w+"] = function()
-      --    vim.cmd("iabbrev $ $$")
-      --  end,
-      -- },
-
-      shebang = {
-        -- Set the filetype of files with a dash shebang to sh
-        dash = "sh",
-      },
-    },
-  })
-end
-
 local function emmet_config()
   g['user_emmet_leader_key'] = ','
   g['user_emmet_settings'] = {
@@ -182,18 +116,17 @@ local function emmet_config()
   }
 end
 
-local function vim_nnn_config()
-  require('nnn').setup({
-    set_default_mappings = 0,
-    replace_netrw = 1,
-    command = 'nnn -o',
-    layout = {
-      window = {
+local function nnn_config()
+  require("nnn").setup({
+    picker = {
+      cmd = 'nnn -o',
+      style = {
         width = 0.5,
         height = 0.7,
-        highlight = 'debug'
       }
-    }
+    },
+    explorer = { cmd = "nnn -o" },
+    replace_netrw = 'picker',
   })
 end
 
@@ -290,13 +223,11 @@ end
 
 load_paq()
 gen_config()
-vim_nnn_config()
+nnn_config()
 lualine_config()
 gitsigns_config()
 treesitter_config()
--- filetype_config()
 toggleterm_config()
--- require 'config/cmp_config'
--- require 'config/keys'
 vimwiki_config()
 emmet_config()
+
