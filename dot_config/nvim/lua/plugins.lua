@@ -17,12 +17,13 @@ local function load_paq()
     {'ibhagwan/fzf-lua'};
     {'numToStr/Comment.nvim'};
     {'tpope/vim-fugitive'};
-    {'junegunn/gv.vim'};
+    {'junegunn/gv.vim'};    -- :GV commit browser
     {'romainl/vim-qf'};
     {'romainl/vim-cool'};
     {'markonm/traces.vim'};
     {'machakann/vim-sandwich'};
     {'kana/vim-niceblock'};
+    {'luukvbaal/nnn.nvim'};
 
 
     {'tommcdo/vim-lion'};                              -- gl and gL align around a character (so glip=)
@@ -37,7 +38,6 @@ local function load_paq()
     {'p00f/nvim-ts-rainbow'};
     {'nvim-lua/plenary.nvim'};
     {'lewis6991/gitsigns.nvim'};
-    {'luukvbaal/nnn.nvim'};
 
     {'tpope/vim-projectionist', opt=true};
     {'vimwiki/vimwiki'};
@@ -60,30 +60,26 @@ local function load_paq()
     {'saadparwaiz1/cmp_luasnip'};
 
     {'mtdl9/vim-log-highlighting'};
-    {'othree/csscomplete.vim'};
     {'norcalli/nvim-colorizer.lua'};
-    {'alvan/vim-closetag'};
-    {'mattn/emmet-vim'};
-    {'moll/vim-node'};
-    {'pangloss/vim-javascript'};
-    {'jose-elias-alvarez/typescript.nvim'};
+    -- {'mattn/emmet-vim'};
+    -- {'moll/vim-node'};
+    -- {'jose-elias-alvarez/typescript.nvim'};
 
-    {'vim-ruby/vim-ruby'};
-    {'elixir-editors/vim-elixir'};
+    -- {'vim-ruby/vim-ruby'};
+    -- {'mhanberg/elixir.nvim'};
 
     {'kyazdani42/nvim-web-devicons'};
     {'sainnhe/sonokai'};
-    {'sainnhe/edge'};
     {'folke/tokyonight.nvim'};
     {'wuelnerdotexe/vim-enfocado'};
-    {'shaeinst/roshnivim-cs'};
+    {'savq/melange'};
     {'nvim-lualine/lualine.nvim'};
   }
 end
 
 local function gen_config()
   require('colorizer').setup()
-  require("typescript").setup()
+  -- require("typescript").setup()
   require('Comment').setup()
   require('indent-o-matic').setup({})
   require('nvim-autopairs').setup{}

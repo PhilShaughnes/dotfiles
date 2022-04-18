@@ -20,3 +20,4 @@ load 'config/cmp_config'
 load 'config/lsp_config'
 
 vim.cmd('colorscheme sonokai')
+
