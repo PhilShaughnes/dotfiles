@@ -95,3 +95,22 @@ gen() {
   genact -s 2 -m "$MODULES"
 }
 
+pzf() {
+  list=$(fd . --base-directory ~/.password-store --extension gpg)
+  echo "$list" | sed -e 's:.gpg$::gi' | fzf --multi --reverse --height 10%
+}
+
+p() {
+  res=$(pzf)
+  if [ $# -eq 0 ] || ( [ $# -eq 1 ] && [ $1 = "-c" ] ); then
+    pass -c "$res"
+  else
+    pass $@ "$res";
+  fi
+}
+
+pshow() {
+  list=$(fd . --base-directory ~/.password-store --extension gpg)
+  select=$(echo "$list" | sed -e 's:.gpg$::gi' | fzf --multi --preview "pass show {}")
+  echo "$select" | sed -e 's:^:~/.password-store/:gi;s:$:.gpg:gi'
+}
