@@ -168,16 +168,16 @@ end
 
 local function treesitter_config()
   g.markdown_fenced_languages = {
-    'bash=sh', 'js=javascript', 'json', 'ruby', 'lua', 'elixir',
+    'bash=sh', 'js=javascript', 'json', 'ruby', 'lua',
     'html', 'css', 'sql', 'java',
   }
   require'nvim-treesitter.configs'.setup {
     -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = { "ruby", "bash", "c", "cmake", "comment", "css",
-      "dockerfile", "eex", "elixir", "erlang", "glimmer", "go", "graphql",
-      "heex", "help", "html", "java", "javascript", "jsdoc", "json", "lua",
-      "make", "python", "regex", "rust", "scss", "toml", "typescript", "tsx",
-      "vim", "vue", "yaml", },
+    "dockerfile", "eex", "elixir", "erlang", "glimmer", "go", "graphql",
+    "heex", "help", "html", "java", "javascript", "jsdoc", "json", "lua",
+    "make", "markdown", "python", "regex", "rust", "scss", "toml",
+    "typescript", "tsx", "vim", "vue", "yaml", },
     -- ignore_install = {"elixir"},
     highlight = {
       enable = true,              -- false will disable the whole extension
