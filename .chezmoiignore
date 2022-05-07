@@ -8,6 +8,7 @@ README.md
 .hammerspoon/*
 .config/system/mac_*
 .config/system/Brewfile
+.config/system/dnsmasq.sh
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
