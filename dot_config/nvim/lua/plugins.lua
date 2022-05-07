@@ -46,11 +46,14 @@ local function load_paq()
     {'folke/which-key.nvim'};
     {'windwp/nvim-autopairs'};
     {'L3MON4D3/LuaSnip'};
+    {'sindrets/diffview.nvim'};
 
     {'neovim/nvim-lspconfig'};
     {'williamboman/nvim-lsp-installer'};
     {'onsails/lspkind-nvim'};
-    {'ray-x/lsp_signature.nvim'};
+    -- {'ray-x/lsp_signature.nvim'};
+    {'j-hui/fidget.nvim'}; -- nvim-lsp progress ui
+    {'arkav/lualine-lsp-progress'};
     {'weilbith/nvim-code-action-menu'};
     {'hrsh7th/nvim-cmp'};
     {'hrsh7th/cmp-nvim-lsp'};
@@ -83,6 +86,7 @@ local function gen_config()
   require('Comment').setup()
   require('indent-o-matic').setup({})
   require('nvim-autopairs').setup{}
+  require('fidget').setup{}
   -- require('mkdnflow').setup({})
 
 end
@@ -238,7 +242,8 @@ function _G.lualine_config()
             hint  = { fg = get_fg({'DiagnosticHint',  'DiagnosticSignHint' })},
           }
         }
-      }
+      },
+      lualine_c = {'filename', 'lsp_progress'},
     }
   })
 

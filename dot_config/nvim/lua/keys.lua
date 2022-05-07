@@ -120,6 +120,7 @@ fzf.setup({keymap = { builtin = {
 local find_leader = {
 	name = 'find',
 	f = { function() fzf.files({fd_opts = "--color=never --type f --follow --exclude .git"}) end, 'find files' },
+	a = { function() fzf.files({fd_opts = "--color=never --type f --follow --no-ignore"}) end, 'find all files' },
 	h = { function() fzf.files() end, 'find hidden files' },
 	b = { function() fzf.buffers() end, 'find buffers' },
 	c = { function() fzf.git_commits() end, 'find commits' },
