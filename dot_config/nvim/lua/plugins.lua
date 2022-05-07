@@ -84,10 +84,19 @@ local function gen_config()
   require('indent-o-matic').setup({})
   require('nvim-autopairs').setup{}
   -- require('mkdnflow').setup({})
+
+end
+
+local function theme_config()
+  -- g['sonokai_menu_selection_background'] = 'red'
+  -- g['sonokai_better_performance'] = 1
+  g['sonokai_diagnostic_text_highlight'] = 1
+  g['sonokai_diagnostic_line_highlight'] = 1
+  g['sonokai_diagnostic_virtual_text'] = 'colored'
+  g['sonokai_enable_italics'] = 1
   g['tokyonight_style'] = 'night'
   -- g['enfocado_style'] = 'nature'
   g['enfocado_style'] = 'neon'
-
 end
 
 local function toggleterm_config()
@@ -205,6 +214,11 @@ local function treesitter_config()
   -- vim.wo.foldexpr = some function
 end
 
+local function get_fg(names)
+  local utils = require('lualine.utils.utils')
+  return utils.extract_color_from_hllist('fg', names, '#C26BDB')
+end
+
 function _G.lualine_config()
   require('lualine').setup({
     options = {
@@ -212,6 +226,19 @@ function _G.lualine_config()
       theme = 'auto',
       component_separators = {'', ''},
       -- section_separators = {'', ''},
+    },
+    sections = {
+      lualine_b = {
+        'branch', 'diff', {
+          'diagnostics',
+          diagnostics_color = {
+            error = { fg = get_fg({'DiagnosticError', 'DiagnosticSignError'})},
+            warn  = { fg = get_fg({'DiagnosticWarn',  'DiagnosticSignWarn' })},
+            info  = { fg = get_fg({'DiagnosticInfo',  'DiagnosticSignInfo' })},
+            hint  = { fg = get_fg({'DiagnosticHint',  'DiagnosticSignHint' })},
+          }
+        }
+      }
     }
   })
 
@@ -219,6 +246,7 @@ end
 
 load_paq()
 gen_config()
+theme_config()
 nnn_config()
 lualine_config()
 gitsigns_config()
