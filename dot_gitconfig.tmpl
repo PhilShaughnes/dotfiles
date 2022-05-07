@@ -51,7 +51,17 @@
 
 [difftool "p4merge"]
 	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "$LOCAL" "$REMOTE"
+
 [branch]
 	autosetupmerge = true
+{{- else}}
+[difftool]
+	prompt = true
+
+[diff]
+	tool = nvimdiff
+
+[difftool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 {{- end }}
 
