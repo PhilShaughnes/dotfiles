@@ -246,7 +246,6 @@ function _G.lualine_config()
       lualine_c = {'filename', 'lsp_progress'},
     }
   })
-
 end
 
 load_paq()

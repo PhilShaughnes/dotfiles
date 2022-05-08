@@ -38,8 +38,8 @@ end
 
 --qf
 local qf = {
-	['C-k'] = { '<Plug>(qf_qf_previous)', 'quickfix previous' },
-	['C-j'] = { '<Plug>(qf_qf_next)', 'quickfix next' },
+	['<C-k>'] = { '<Plug>(qf_qf_previous)', 'quickfix previous' },
+	['<C-j>'] = { '<Plug>(qf_qf_next)', 'quickfix next' },
 	['<leader>k'] = { '<Plug>(qf_loc_previous)', 'loclist previous' },
 	['<leader>j'] = { '<Plug>(qf_loc_next)', 'loclist next' },
 	['\\\\'] = { '<Plug>(qf_qf_toggle)', 'quickfix toggle' },
@@ -240,8 +240,8 @@ M.nmap({
 	['<C-k>'] = {':cp<CR>', 'up in quickfix window'},
 	['<C-q>'] = {'<C-w>w', 'cycle splits' },
 	['<C-w>m'] = {':tab split<CR>', 'open current buffer in new tab'},
-	-- ['c-h'] = {'5zh', 'scroll left 5 characters'},
-	-- ['c-l'] = {'5zh', 'scroll left 5 characters'}
+	-- ['<c-h>'] = {'5zh', 'scroll left 5 characters'},
+	-- ['<c-l>'] = {'5zh', 'scroll left 5 characters'}
 })
 M.vmap({
 	Q = {'@q', 'run default (q) macro on selection'},
