@@ -1,3 +1,4 @@
+local cmd = vim.cmd
 -- assume which key is installed
 -- maybe consider using https://github.com/mrjones2014/legendary.nvim
 local M = {}
@@ -35,7 +36,6 @@ M.line_end_toggle = function (char)
   return fn.setline('.', newline)
 end
 
-
 --qf
 local qf = {
 	['<C-k>'] = { '<Plug>(qf_qf_previous)', 'quickfix previous' },
@@ -45,7 +45,24 @@ local qf = {
 	['\\\\'] = { '<Plug>(qf_qf_toggle)', 'quickfix toggle' },
 	['\\|\\|'] = { '<Plug>(qf_loc_toggle)', 'loclist toggle' },
 }
-M.nmap(qf, {noremap = false})
+-- M.nmap(qf, {noremap = false})
+
+local toggle_qf = function ()
+	if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+		cmd("cclose")
+	else
+		cmd("copen")
+	end
+end
+
+local qf_local = {
+	['<C-k>'] = { ':cprev', 'quickfix previous' },
+	['<C-j>'] = { ':cnext', 'quickfix next' },
+	['<leader>k'] = { 'lprev', 'loclist previous' },
+	['<leader>j'] = { 'lnext', 'loclist next' },
+	['\\\\'] = { toggle_qf, 'quickfix toggle' },
+}
+M.nmap(qf_local)
 
 -- terminal
 local term = {
@@ -210,8 +227,10 @@ local leader = {
 M.nmap({['<leader>'] = leader})
 local verbose_leader = {
 	b = { ':ls<CR>:b<space>', "show buffers" },
-	[' '] = { ':set relativenumber!<bar> set list!<CR>',
-		'toggle relative number and tabs' },
+	-- [' '] = { ':set relativenumber!<bar> set list!<CR>',
+	-- 	'toggle relative number and tabs' },
+	[' '] = { ':set hlsearch!<CR>',
+		'toggle search highlight' },
 	['/'] = { [[:'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/]],
 		'replace all word in paragraph' },
 	['%'] = { [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
@@ -236,6 +255,8 @@ M.nmap({
 		'toggle cursor line and column highlight' },
 	['z.'] = { ':set relativenumber!<bar> set list!<CR>',
 		'toggle relative number and tabs' },
+	['z,'] = { ':set hlsearch!<CR>',
+		'toggle search highlight' },
 	['<C-j>'] = {':cn<CR>', 'down in quickfix window'},
 	['<C-k>'] = {':cp<CR>', 'up in quickfix window'},
 	['<C-q>'] = {'<C-w>w', 'cycle splits' },

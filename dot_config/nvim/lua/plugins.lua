@@ -1,4 +1,5 @@
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
+local cmd = vim.cmd  -- to call vim commands
 local g = vim.g      -- a table to access global variables
 local paqpath = vim.fn.expand("$HOME/.local/share/nvim/paq-plugins")
 
@@ -18,8 +19,7 @@ local function load_paq()
     {'numToStr/Comment.nvim'};
     {'tpope/vim-fugitive'};
     {'junegunn/gv.vim'};    -- :GV commit browser
-    {'romainl/vim-qf'};
-    {'romainl/vim-cool'};
+    {'kevinhwang91/nvim-bqf'};
     {'markonm/traces.vim'};
     {'machakann/vim-sandwich'};
     {'kana/vim-niceblock'};
@@ -51,7 +51,6 @@ local function load_paq()
     {'neovim/nvim-lspconfig'};
     {'williamboman/nvim-lsp-installer'};
     {'onsails/lspkind-nvim'};
-    -- {'ray-x/lsp_signature.nvim'};
     {'j-hui/fidget.nvim'}; -- nvim-lsp progress ui
     {'arkav/lualine-lsp-progress'};
     {'weilbith/nvim-code-action-menu'};
@@ -88,7 +87,7 @@ local function gen_config()
   require('nvim-autopairs').setup{}
   require('fidget').setup{}
   -- require('mkdnflow').setup({})
-
+  cmd('colorscheme sonokai')
 end
 
 local function theme_config()

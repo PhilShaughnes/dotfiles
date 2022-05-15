@@ -4,7 +4,6 @@
 --    dBP        dBP
 --   dBP    dBBBBP'
 
-
 local function load(name)
 	-- this resets the lua module cache so we can reload
 	package.loaded[name] = nil
@@ -18,6 +17,4 @@ load 'keys'
 load 'augroups'
 load 'config/cmp_config'
 load 'config/lsp_config'
-
-vim.cmd('colorscheme sonokai')
 
