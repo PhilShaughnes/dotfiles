@@ -48,6 +48,7 @@ brew "fzf" # fuzzy search
 brew "zsh-completions"
 brew "zsh"
 brew "ranger" # file browser
+brew "nnn" # file browser
 # brew "tmux"
 brew "wifi-password"
 brew "ripgrep" # super fast txt file search
@@ -56,6 +57,7 @@ brew "reattach-to-user-namespace" # for tmux
 brew "mosh" # better ssh
 brew "git"
 brew "htop"
+brew "sd" # better sed
 brew "gotop"
 brew "jq"  # json format (json | jq .)
 brew "wget"
