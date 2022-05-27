@@ -86,7 +86,7 @@ local function lsp_diag_toggle()
 	local toggled = not toggle_state
 	toggle_state = toggled
 	-- vim.diagnostic.config({virtual_text = toggled, underline = toggled})
-	vim.diagnostic.config({virtual_text = toggled})
+	vim.diagnostic.config({virtual_text = toggled, underline = toggled})
 end
 local lsp_integrated = {
 	['[d'] = { function() vim.diagnostic.goto_prev() end, "prev diagnostic" },

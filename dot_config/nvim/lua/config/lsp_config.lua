@@ -13,6 +13,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 lspconfig.tsserver.setup { capabilities = capabilities }
 lspconfig.ember.setup { capabilities = capabilities }
+lspconfig.eslint.setup { capabilities = capabilities }
 lspconfig.bashls.setup { capabilities = capabilities }
 lspconfig.dockerls.setup { capabilities = capabilities }
 lspconfig.sumneko_lua.setup {
