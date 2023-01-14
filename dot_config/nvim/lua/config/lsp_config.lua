@@ -10,10 +10,16 @@ end
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lspconfig.tsserver.setup { capabilities = capabilities }
 lspconfig.ember.setup { capabilities = capabilities }
-lspconfig.eslint.setup { capabilities = capabilities }
+lspconfig.jsonls.setup { capabilities = capabilities }
+lspconfig.eslint.setup { 
+  capabilities = capabilities,
+  -- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript",
+  -- "typescriptreact", "typescript.tsx", "vue", "json" }
+}
 lspconfig.bashls.setup { capabilities = capabilities }
 lspconfig.dockerls.setup { capabilities = capabilities }
 lspconfig.sumneko_lua.setup {

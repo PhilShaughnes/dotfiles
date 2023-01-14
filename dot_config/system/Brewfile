@@ -52,6 +52,7 @@ brew "nnn" # file browser
 # brew "tmux"
 brew "wifi-password"
 brew "ripgrep" # super fast txt file search
+brew "ms-jpq/sad/sad" # interactive (with diff) sed alternative
 brew "reattach-to-user-namespace" # for tmux
 # brew "neovim"
 brew "mosh" # better ssh

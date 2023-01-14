@@ -4,8 +4,9 @@ local g = vim.g      -- a table to access global variables
 local paqpath = vim.fn.expand("$HOME/.local/share/nvim/paq-plugins")
 
 vim.opt.packpath:append(paqpath)
+package.loaded['paq'] = nil
 local paq = require "paq"
-paq:setup({paqdir=paqpath..'/'})
+paq:setup({path=paqpath..'/'})
 
 vim.opt.termguicolors = true
 
@@ -38,12 +39,15 @@ local function load_paq()
     {'p00f/nvim-ts-rainbow'};
     {'nvim-lua/plenary.nvim'};
     {'lewis6991/gitsigns.nvim'};
+    {'nvim-telescope/telescope.nvim'};
+    {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'};
 
     {'tpope/vim-projectionist', opt=true};
-    {'vimwiki/vimwiki'};
-    -- {'dkarter/bullets.vim'};
-    -- {'jakewvincent/mkdnflow.nvim'};
+    {'vimwiki/vimwiki', opt = true};
+    {'jakewvincent/mkdnflow.nvim'};
     {'folke/which-key.nvim'};
+    {'linty-org/key-menu.nvim'};
+    {'tversteeg/registers.nvim'};
     {'windwp/nvim-autopairs'};
     {'L3MON4D3/LuaSnip'};
     {'sindrets/diffview.nvim'};
@@ -52,7 +56,7 @@ local function load_paq()
     {'williamboman/nvim-lsp-installer'};
     {'onsails/lspkind-nvim'};
     {'j-hui/fidget.nvim'}; -- nvim-lsp progress ui
-    {'arkav/lualine-lsp-progress'};
+    -- {'arkav/lualine-lsp-progress'};
     {'weilbith/nvim-code-action-menu'};
     {'hrsh7th/nvim-cmp'};
     {'hrsh7th/cmp-nvim-lsp'};
@@ -69,37 +73,75 @@ local function load_paq()
 
     -- {'vim-ruby/vim-ruby'};
     -- {'mhanberg/elixir.nvim'};
+    {'folke/lua-dev.nvim'};
 
     {'kyazdani42/nvim-web-devicons'};
     {'sainnhe/sonokai'};
-    {'folke/tokyonight.nvim'};
     {'wuelnerdotexe/vim-enfocado'};
-    {'savq/melange'};
     {'nvim-lualine/lualine.nvim'};
   }
 end
 
+
+
+
+function _G.try()
+  require('fzf-lua').register_ui_select()
+
+  vim.ui.select({'tabs', 'spaces'}, {
+    prompt = "pick one:",
+    format_item = function(item)
+      return "chooses " .. item
+    end,
+  }, function(choice)
+    if choice == 'spaces' then
+      vim.notify("chose spaces!")
+    else
+      vim.notify("chose tabs!")
+    end
+  end
+  )
+  require('fzf-lua').deregister_ui_select()
+end
+
 local function gen_config()
-  require('colorizer').setup()
+  require('colorizer').setup({
+
+  })
   -- require("typescript").setup()
   require('Comment').setup()
   require('indent-o-matic').setup({})
   require('nvim-autopairs').setup{}
   require('fidget').setup{}
   -- require('mkdnflow').setup({})
-  cmd('colorscheme sonokai')
+  -- require('fzf-lua').register_ui_select()
+  require('telescope').load_extension('fzf')
 end
 
 local function theme_config()
-  -- g['sonokai_menu_selection_background'] = 'red'
-  -- g['sonokai_better_performance'] = 1
+  g['sonokai_menu_selection_background'] = 'red'
+  g['sonokai_better_performance'] = 1
+  -- sonokai styles: default, atlantis, andromeda, shusia, maia, espresso 
+  -- default  : #2c2e34,
+  -- andromeda: #2b2d3a,
+  -- atlantis : #2a2f38,
+  -- maia     : #273136,
+  -- shusia   : #2d2a2e,
+  -- espresso : #312c2b,
+  --
+  -- g['sonokai_style'] = 'espresso'
+  -- g['sonokai_style'] = 'shusia'
+  -- g['sonokai_style'] = 'default'
+  g['sonokai_style'] = 'shusia'
   g['sonokai_diagnostic_text_highlight'] = 1
   g['sonokai_diagnostic_line_highlight'] = 1
   g['sonokai_diagnostic_virtual_text'] = 'colored'
-  g['sonokai_enable_italics'] = 1
-  g['tokyonight_style'] = 'night'
+  g['sonokai_enable_italic'] = 0
+  g['sonokai_disable_italic_comment'] = 0
   -- g['enfocado_style'] = 'nature'
   g['enfocado_style'] = 'neon'
+  cmd('colorscheme sonokai')
+  -- cmd('colorscheme enfocado')
 end
 
 local function toggleterm_config()
@@ -137,6 +179,31 @@ local function nnn_config()
     replace_netrw = 'picker',
   })
 end
+
+local function mkdnflow_config()
+  require('mkdnflow').setup({
+    mappings = {
+      MkdnNextLink =           {'n', '<Tab>'},
+      MkdnPrevLink =           {'n', '<S-Tab>'},
+      MkdnNextHeading =        {'n', '<leader>]'},
+      MkdnPrevHeading =        {'n', '<leader>['},
+      MkdnGoBack =             {'n', '<leader>mb'},
+      MkdnGoForward =          {'n', '<leader>mf'},
+      MkdnFollowLink =         {{'n', 'v'}, '<CR>'},
+      MkdnDestroyLink =        {'n', '<M-CR>'},
+      MkdnYankAnchorLink =     {'n', '<leader>mya'},
+      MkdnYankFileAnchorLink = {'n', '<leader>myf'},
+      MkdnIncreaseHeading =    {'n', '='},
+      MkdnDecreaseHeading =    {'n', '-'},
+      MkdnToggleToDo =         {{'n', 'v'}, '<leader>x'},
+      MkdnNewListItem =        {'i', '<CR>'},
+      MkdnMoveSource =         {'n', '<leader>mr'},
+      MkdnExtendList = false,
+      MkdnUpdateNumbering =    {'n', '<leader>mn'}
+    }
+  })
+end
+-- mkdnflow_config()
 
 local function vimwiki_config()
   -- local nested = {
@@ -188,8 +255,8 @@ local function treesitter_config()
     ensure_installed = { "ruby", "bash", "c", "cmake", "comment", "css",
     "dockerfile", "eex", "elixir", "erlang", "glimmer", "go", "graphql",
     "heex", "help", "html", "java", "javascript", "jsdoc", "json", "lua",
-    "make", "markdown", "python", "regex", "rust", "scss", "toml",
-    "typescript", "tsx", "vim", "vue", "yaml", },
+    "make", "python", "regex", "rust", "scss", "toml",
+    "typescript", "tsx", "vim", "vue", "yaml", "hcl",},
     -- ignore_install = {"elixir"},
     highlight = {
       enable = true,              -- false will disable the whole extension
@@ -255,6 +322,6 @@ lualine_config()
 gitsigns_config()
 treesitter_config()
 toggleterm_config()
-vimwiki_config()
+-- vimwiki_config()
 emmet_config()
 

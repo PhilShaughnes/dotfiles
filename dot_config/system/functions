@@ -2,7 +2,7 @@
 
 n () {
   # Block nesting of nnn in subshells
-  if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+  if [ -n "$NNNLVL" ] && [ "${NNNLVL:-0}" -ge 1 ]; then
       echo "nnn is already running"
       return
   fi
@@ -16,6 +16,11 @@ n () {
   fi
 }
 
+weather() {
+  loc="${1:-indianapolis}"
+  curl "wttr.in/$loc"
+}
+
 unwip() {
   if [[ "$(git log -1 --pretty=%B)" = "wip" ]]; then
     git reset head^
@@ -23,8 +28,8 @@ unwip() {
 }
 
 mcd () {
-  mkdir -pv $1
-  cd $1
+  mkdir -pv "$1"
+  cd "$1" || return
 }
 
 # fh - repeat history
@@ -86,7 +91,7 @@ FZF-EOF"
 # relies on genact, which is found at https://github.com/svenstaro/genact
 gen() {
   if [ $1 ]; then
-    MODULES=$(genact -l | fzf --query $@ | tr -d ' ')
+    MODULES=$(genact -l | fzf --query "$@" | tr -d ' ')
   else
     MODULES=$(genact -l | fzf | tr -d ' ')
   fi
@@ -105,7 +110,7 @@ p() {
   if [ $# -eq 0 ] || ( [ $# -eq 1 ] && [ $1 = "-c" ] ); then
     pass -c "$res"
   else
-    pass $@ "$res";
+    pass "$@" "$res";
   fi
 }
 
@@ -113,4 +118,8 @@ pshow() {
   list=$(fd . --base-directory ~/.password-store --extension gpg)
   select=$(echo "$list" | sed -e 's:.gpg$::gi' | fzf --multi --preview "pass show {}")
   echo "$select" | sed -e 's:^:~/.password-store/:gi;s:$:.gpg:gi'
+}
+
+ggpass() {
+  PASSWORD_STORE_DIR=~/.password-store-gg pass "$@"
 }

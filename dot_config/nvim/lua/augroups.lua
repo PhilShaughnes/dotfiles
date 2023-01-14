@@ -1,51 +1,90 @@
-local api = vim.api
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 
--- autocommands
-local autocmds = {
-		terminal = {
-			{ "BufEnter,TermOpen", "term://* startinsert" };
-			{ "TermOpen", "*", "setlocal nonumber norelativenumber signcolumn=no" };
-		};
-		interface = {
-			{ "BufNewFile,BufRead", "*", "if &syntax == '' | set syntax=sh | endif"	};
-			{ "TextYankPost", "*", [[silent! lua vim.highlight.on_yank() {higroup="IncSearch", timeout=400}]] };
-		};
-		saving = {
-			-- check if the file was updated somewhere else
-			{ "WinEnter,BufWinEnter,FocusGained", "*", "checktime" };
-		};
-		quickfix = {
-			{ "QuickFixCmdPost", "[^l]*", "cwindow" };
-			{ "QuickFixCmdPost", "l*",		"lwindow" };
-			{ "VimEnter",					"*",		"cwindow" };
-		};
+local term = augroup('term', {clear = true})
+autocmd({'BufEnter', 'TermOpen'}, {
+	pattern = 'term://*',
+	command = 'startinsert',
+	group = term
+})
+autocmd({'termOpen'}, {
+	callback = function()
+		vim.wo.number = false
+		vim.wo.relativenumber = false
+		vim.wo.signcolumn = 'no'
+	end,
+	group = term
+})
 
-	save_shada = {
-		{"VimLeave", "*", "wshada!"};
-	};
-	resize_windows_proportionally = {
-		{ "VimResized", "*", ":wincmd =" };
-	};
-	toggle_search_highlighting = {
-		{ "InsertEnter", "*", "setlocal nohlsearch" };
-	};
-	-- ansi_esc_log = {
-	--	 { "BufEnter", "*.log", ":AnsiEsc" };
-	-- };
-}
+local interface = augroup('interface', {clear = true})
+autocmd({'textYankPost'}, {
+	callback = function() vim.highlight.on_yank({higroup = 'IncSearch', timeout = 400}) end,
+	group = interface
+})
+autocmd({'InsertEnter'}, {
+	group = interface,
+	callback = function() vim.o.hlsearch = false end
+})
+-- keep split proportions when resizing terminal
+autocmd({'VimResized'}, {
+	group = interface,
+	command = 'wincmd ='
+})
 
---- This function is taken from https://github.com/norcalli/nvim_utils
-local function nvim_create_augroups(definitions)
-	for group_name, definition in pairs(definitions) do
-		api.nvim_command('augroup '..group_name)
-		api.nvim_command('autocmd!')
-		for _, def in ipairs(definition) do
-			local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-			api.nvim_command(command)
-		end
-		api.nvim_command('augroup END')
-	end
+local quickfix = augroup('quickfix', {clear = true})
+autocmd({"QuickFixCmdPost"}, {
+	group = quickfix,
+	pattern = "[^l]*",
+	command = 'cwindow'
+})
+autocmd({"QuickFixCmdPost"}, {
+	group = quickfix,
+	pattern = "l*",
+	command = 'lwindow'
+})
+
+local saving = augroup('saving', {clear = true})
+-- check if the file was updated somewhere else
+autocmd({'WinEnter', 'BufWinEnter', 'FocusGained'}, {
+	group = saving,
+	command = 'checktime'
+})
+-- save marks and other info (?)
+autocmd({'VimLeave'}, {
+	group = saving,
+	command = 'wshada!'
+})
+
+local h = require('helpers')
+local function mapbuf(mode, rhs, lhs, opts)
+	local defaults = {silent = true, buffer = true}
+	h.mapper(mode, rhs, lhs, opts, defaults)
+end
+local function nmapbuf(rhs, lhs, opts) mapbuf('n', rhs, lhs, opts) end
+
+local function vimwiki_mappings()
+	mapbuf({'n', 'v'}, '<leader>x', '<Plug>VimwikiToggleListItem',
+		{ desc = 'toggle list item', remap = true })
+	nmapbuf('<leader>mb', '<Plug>VimwikiGoBackLink', { desc = 'go back link' })
+	nmapbuf('=', '<Plug>VimwikiAddHeaderLevel', { desc = 'add header level' })
+	nmapbuf('-', '<Plug>VimwikiRemoveHeaderLevel', { desc = 'remove header level' })
 end
 
-nvim_create_augroups(autocmds)
 
+local ft = augroup('filetype', {clear = true})
+autocmd({"BufEnter"}, {
+	group = ft,
+	pattern = "*.wiki",
+	callback = function()
+		vimwiki_mappings()
+	end
+})
+autocmd({"BufEnter"}, {
+	group = ft,
+	pattern = "*.lua",
+	callback = function()
+		vim.opt_local.suffixesadd:prepend('.lua')
+		vim.opt_local.suffixesadd:prepend('init.lua')
+		vim.opt_local.path:prepend(vim.fn.stdpath('config')..'/lua')
+	end
+})

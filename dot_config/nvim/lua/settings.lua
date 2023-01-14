@@ -1,6 +1,7 @@
 local g = vim.g
 local set = vim.opt
 local nvim_dir = vim.fn.expand("$HOME/.config/nvim")
+local tmpdir = vim.fn.expand("$TMPDIR")
 
 -- don't load these built-in plugins
 g.loaded_netrw = 1
@@ -10,8 +11,12 @@ g.loaded_netrwPlugin = 1
 g.mapleader = ' '
 g.vimsyn_embeded = 'lr'
 -- g.did_load_filetypes = 1
-g.do_filetype_lua = 1
+-- g.did_load_filetypes = 0
+-- g.do_filetype_lua = 1
 
+--
+set.exrc = true
+--
 set.backup = false
 set.swapfile = false
 set.autoread = true
@@ -20,6 +25,8 @@ set.gdefault = true
 set.hidden = true
 set.hlsearch = true
 set.incsearch = true
+-- set.inccommand = 'nosplit'
+-- set.inccommand = 'split'
 set.lazyredraw = true
 set.linebreak = true
 set.wrap = false
@@ -34,11 +41,11 @@ set.ignorecase = true
 set.smartcase = true
 set.signcolumn = 'yes'
 set.colorcolumn = {80}
-set.scrolloff = 8
-set.laststatus = 2
+set.scrolloff = 10
+set.laststatus = 3
 set.mouse = 'a'
 set.shortmess = 'at'
-set.expandtab = false
+set.expandtab = true
 set.shiftround = true
 set.smarttab = true
 set.tabstop = 2
@@ -46,15 +53,19 @@ set.softtabstop = 2
 set.shiftwidth = 2
 set.thesaurus:append(nvim_dir .. '/thes/thesaurii.txt')
 set.clipboard = 'unnamed'
-set.completeopt = { 'menu', 'preview' }
+-- set.completeopt = { 'menu', 'preview' }
+set.completeopt = { 'menu', 'menuone', 'noselect' }
 set.list = false
 set.listchars = {
+  space = "·",
+	-- eol = "↴",
   tab = "» ",
   trail = "·",
   nbsp = "·"
 }
 set.undofile = true
-set.undodir = nvim_dir .. '/.vimundo'
+set.undodir = tmpdir
+-- set.undodir = nvim_dir .. '/.vimundo'
 set.grepprg = 'rg --smart-case --vimgrep'
 set.grepformat = '%f:%l:%c:%m'
 set.omnifunc = 'syntaxcomplete#Complete'

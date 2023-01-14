@@ -23,6 +23,7 @@ function M.oxmap(table, opts)
 end
 
 M.line_end_toggle = function (char)
+	
   local fn = vim.fn
   local line = fn.getline '.'
   local newline = ''
@@ -37,16 +38,6 @@ M.line_end_toggle = function (char)
 end
 
 --qf
-local qf = {
-	['<C-k>'] = { '<Plug>(qf_qf_previous)', 'quickfix previous' },
-	['<C-j>'] = { '<Plug>(qf_qf_next)', 'quickfix next' },
-	['<leader>k'] = { '<Plug>(qf_loc_previous)', 'loclist previous' },
-	['<leader>j'] = { '<Plug>(qf_loc_next)', 'loclist next' },
-	['\\\\'] = { '<Plug>(qf_qf_toggle)', 'quickfix toggle' },
-	['\\|\\|'] = { '<Plug>(qf_loc_toggle)', 'loclist toggle' },
-}
--- M.nmap(qf, {noremap = false})
-
 local toggle_qf = function ()
 	if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
 		cmd("cclose")
@@ -55,14 +46,28 @@ local toggle_qf = function ()
 	end
 end
 
-local qf_local = {
+local qf = {
 	['<C-k>'] = { ':cprev', 'quickfix previous' },
 	['<C-j>'] = { ':cnext', 'quickfix next' },
 	['<leader>k'] = { 'lprev', 'loclist previous' },
 	['<leader>j'] = { 'lnext', 'loclist next' },
 	['\\\\'] = { toggle_qf, 'quickfix toggle' },
 }
-M.nmap(qf_local)
+-- dump(qf)
+-- M.nmap('<C-k>', ':cprev', 'quickfix previous')
+-- M.nmap(qf)
+
+function M.mmap(mode, rhs, lhs, opts)
+	local options = {remap = false, silent = true}
+	if opts then options = vim.tbl_extend('force', options, opts) end
+	vim.keymap.set(mode, rhs, lhs, options)
+end
+
+M.mmap('n', '<C-k>',     ':cprev',  { desc = 'quickfix previous' })
+M.mmap('n', '<C-j>',     ':cnext',  { desc = 'quickfix next' })
+M.mmap('n', '<leader>k', 'lprev',   { desc = 'loclist previous' })
+M.mmap('n', '<leader>j', 'lnext',   { desc = 'loclist next' })
+M.mmap('n', '\\\\',      toggle_qf, { desc = 'quickfix toggle' })
 
 -- terminal
 local term = {
@@ -109,7 +114,12 @@ local lsp_leader = {
 	n = { function() vim.diagnostic.goto_next() end, "next diagnostic" },
 	a = { ':CodeActionMenu<CR>', "code actions menu" },
 }
-M.nmap(lsp_integrated)
+-- M.nmap(lsp_integrated)
+M.mmap('n', '[d', vim.diagnostic.goto_prev, { desc = 'prev diagnostic'})
+M.mmap('n', ']d', vim.diagnostic.goto_next, { desc = 'next diagnostic'})
+M.mmap('n', 'K',  vim.lsp.buf.hover,        { desc = 'documentation'})
+M.mmap('n', 'gd', vim.lsp.buf.definition,   { desc = 'show definition' })
+M.mmap('n', 'gr', vim.lsp.buf.references,   { desc = 'references'})
 
 -- nnn
 local nnn_leader = {
@@ -122,7 +132,25 @@ local nnn_leader = {
 
 -- fzf
 local fzf = require('fzf-lua')
-fzf.setup({keymap = { builtin = {
+local insert_mk_link = function (selected, _)
+  local line = vim.api.nvim_get_current_line()
+  local position = vim.api.nvim_win_get_cursor(0)
+  local row = position[1]
+  local col = position[2]
+  local cursor_word = vim.fn.expand('<cword>')
+  local left, right = string.find(line, cursor_word, nil, true)
+  while right < col do
+    left, right = string.find(line, cursor_word, right, true)
+  end
+  local replacement = {'['..cursor_word..']'..'('..selected[1]..')'}
+
+  vim.api.nvim_buf_set_text(
+    0, row - 1, left - 1, row - 1, right, replacement
+  )
+end
+
+fzf.setup({
+	keymap = { builtin = {
 	["<C-f>"]        = "toggle-fullscreen",
 	-- Only valid with the 'builtin' previewer
 	["<C-w>"]        = "toggle-preview-wrap",
@@ -134,10 +162,15 @@ fzf.setup({keymap = { builtin = {
 	["<S-up>"]       = "preview-page-up",
 	["<S-left>"]     = "preview-page-reset",
 }}})
+
 local find_leader = {
 	name = 'find',
-	f = { function() fzf.files({fd_opts = "--color=never --type f --follow --exclude .git"}) end, 'find files' },
-	a = { function() fzf.files({fd_opts = "--color=never --type f --follow --no-ignore"}) end, 'find all files' },
+	f = { function() fzf.files({
+			fd_opts = "--color=never --type f --follow --exclude .git", }) 
+		end, 'find files', },
+	a = { function() fzf.files({
+			fd_opts = "--color=never --type f --follow --no-ignore"})
+		end, 'find all files' },
 	h = { function() fzf.files() end, 'find hidden files' },
 	b = { function() fzf.buffers() end, 'find buffers' },
 	c = { function() fzf.git_commits() end, 'find commits' },
@@ -146,19 +179,25 @@ local find_leader = {
 	l = { function() fzf.live_grep_native() end, 'find text live' },
 	w = { function() fzf.grep_cword() end, 'find word under cursor' },
 	W = { function() fzf.grep_cWORD() end, 'find WORD under cursor' },
+	m = { function() fzf.files({
+			-- cwd = '~/wiki',
+			fd_opts = '--base-directory ~/wiki --type f',
+			actions = {['default'] = insert_mk_link},
+		}) end,
+		'create markdown link from filename',
+	},
 }
 M.vmap({ ['<leader>f'] = {
 	name = 'find',
 	f = {function() fzf.grep_visual() end, 'grep visual selection'},
 }})
 
-
 -- vimwiki
 local vimwiki_vleader = {
 	name = 'vimwiki',
 	x = {'<Plug>VimwikiToggleListItem', 'toggle list item'},
 }
-M.vmap({['<leader>'] = vimwiki_vleader}, {noremap = false})
+-- M.vmap({['<leader>'] = vimwiki_vleader}, {noremap = false})
 
 local vimwiki_leader = {
 	name = 'vimwiki',
@@ -167,7 +206,7 @@ local vimwiki_leader = {
 	['='] = {'<Plug>VimwikiAddHeaderLevel', 'add header level'},
 	['-'] = {'<Plug>VimwikiRemoveHeaderLevel', 'remove header level'},
 }
-M.nmap({['<leader>'] = vimwiki_leader}, {noremap = false})
+-- M.nmap({['<leader>'] = vimwiki_leader}, {noremap = false})
 
 -- gitsigns
 local gs = require('gitsigns')
