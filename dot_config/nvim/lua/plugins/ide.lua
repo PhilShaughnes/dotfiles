@@ -1,4 +1,4 @@
-local function lsp_settings() 
+local function lsp_settings()
 	vim.diagnostic.config {
 		severity_sort = true,
 		underline = { severity = {min = vim.diagnostic.severity.WARN} },
@@ -8,9 +8,9 @@ local function lsp_settings()
 	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
 	for type, icon in pairs(signs) do
-		local hl = "DiagnosticSign" .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-	end
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
 
 	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
 	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
@@ -19,7 +19,7 @@ end
 local M = {
 	{
     "williamboman/mason.nvim",
-		opts = { 
+		opts = {
 			-- ensure_installed = {
 				-- "prettierd",
 				-- "stylua",
@@ -31,20 +31,24 @@ local M = {
 			-- },
 		},
   },
+	{ 'folke/neodev.nvim', opts = { } },
 	{'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'},
 	{
 		"neovim/nvim-lspconfig",
+		init = function()
+		end,
 		config = function()
+			lsp_settings()
 			USER = vim.fn.expand("$HOME")
 
 			local lspconfig = require('lspconfig')
 			local lsp_defaults = lspconfig.util.default_config
 
 			lsp_defaults.capabilities = vim.tbl_deep_extend(
-				'force',
-				lsp_defaults.capabilities,
-				require('cmp_nvim_lsp').default_capabilities()
-			)
+        'force',
+        lsp_defaults.capabilities,
+        require('cmp_nvim_lsp').default_capabilities()
+      )
 
 			lspconfig.tsserver.setup{}
 			lspconfig.ember.setup{}
@@ -63,7 +67,8 @@ local M = {
 				settings = {
 					Lua = {
 						diagnostics = {
-							globals = {'vim', 'hs'}
+							globals = {'vim', 'hs'},
+							unusedLocalExclude = { '_*' },
 						},
 						runtime = {
 							version = "LuaJIT",

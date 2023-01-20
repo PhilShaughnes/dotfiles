@@ -13,13 +13,13 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 -- initalize lazy and load plugins
-require("lazy").setup("plugs", {
+require("lazy").setup("plugins", {
 	defaults = {
 		lazy = false, -- should plugins be lazy-loaded?
 	},
 	change_detection = {
-		enabled = false,
-		notify = false,
+		enabled = true,
+		notify = true,
 	},
 	install = {
 		-- try to load one of these colorschemes when starting an installation during startup
