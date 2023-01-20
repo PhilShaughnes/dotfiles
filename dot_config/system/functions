@@ -120,6 +120,10 @@ pshow() {
   echo "$select" | sed -e 's:^:~/.password-store/:gi;s:$:.gpg:gi'
 }
 
+killport() {
+  lsof -ti:"$1" | xargs -L1 kill -9
+}
+
 ggpass() {
   PASSWORD_STORE_DIR=~/.password-store-gg pass "$@"
 }

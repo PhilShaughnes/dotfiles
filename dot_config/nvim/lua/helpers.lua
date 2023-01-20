@@ -26,6 +26,14 @@ function M.dump(...)
   print(unpack(objects))
 end
 
+function M.trim_ws()
+	local saved = vim.fn.winsaveview()
+	-- vim.fn.keeppatterns([[%s/\s\+$//e]])
+	vim.cmd([[keeppatterns %s/\s\+$//e]])
+	vim.fn.winrestview(saved)
+end
+
 _G.dump = M.dump
+_G.trim_ws = M.trim_ws
 
 return M

@@ -14,9 +14,6 @@ g.vimsyn_embeded = 'lr'
 -- g.did_load_filetypes = 0
 -- g.do_filetype_lua = 1
 
---
-set.exrc = true
---
 set.backup = false
 set.swapfile = false
 set.autoread = true
@@ -25,7 +22,7 @@ set.gdefault = true
 set.hidden = true
 set.hlsearch = true
 set.incsearch = true
--- set.inccommand = 'nosplit'
+set.inccommand = 'nosplit'
 -- set.inccommand = 'split'
 set.lazyredraw = true
 set.linebreak = true
