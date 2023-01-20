@@ -12,12 +12,7 @@ end
 
 load 'helpers'
 load 'settings'
--- load 'plugins'
 load 'plugin'
--- load 'plugs'
--- load 'keys'
-load 'keymaps'
+load 'keys'
 load 'augroups'
--- load 'config/cmp_config'
--- load 'config/lsp_config'
 

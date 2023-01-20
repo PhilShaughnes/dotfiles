@@ -1,15 +1,21 @@
+local h = require('helpers')
 local M = {
 	{
+		'jbyuki/venn.nvim',
+		cmd = { 'VBox' },
+	},
+	{
 		'vimwiki/vimwiki',
-		keys = {
-			{"<leader>ww", "<cmd>VimwikiIndex<CR>", {desc = "open vimwiki"}}
-		},
+		cmd = "VimwikiIndex",
 		config = function()
 			vim.g.vimwiki_list = {
 				['path'] = '~/vimwiki',
 				['syntax'] = 'default',
 				['ext'] = '.wiki'
 			}
+		end,
+		init = function()
+			h.nmap("<leader>ww", "<cmd>VimwikiIndex<cr>", {desc = "open vimwiki"})
 		end
 	},
 	-- {

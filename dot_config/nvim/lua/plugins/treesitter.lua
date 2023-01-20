@@ -19,11 +19,12 @@ local M = {
 				ensure_installed = { "ruby", "bash", "c", "cmake", "comment", "css",
 					"dockerfile", "eex", "elixir", "erlang", "glimmer", "go", "graphql",
 					"heex", "html", "java", "javascript", "jsdoc", "json", "lua",
-					"make", "python", "regex", "rust", "scss", "toml", "norg", "markdown",
+					"make", "python", "regex", "scss", "toml", "markdown", "help",
 					"typescript", "tsx", "vim", "vue", "toml", "yaml", "hcl", "markdown_inline" },
 				-- ignore_install = {"elixir"},
 				highlight = {
 					enable = true,              -- false will disable the whole extension
+					additional_vim_regex_highlighting = { "markdown" },
 					disable = { "rust" },  -- list of language that will be disabled
 				},
 				endwise = { enable = true },
