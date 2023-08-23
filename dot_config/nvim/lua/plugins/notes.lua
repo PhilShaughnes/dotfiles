@@ -15,7 +15,7 @@ local M = {
 			}
 		end,
 		init = function()
-			h.nmap("<leader>ww", "<cmd>VimwikiIndex<cr>", {desc = "open vimwiki"})
+			h.nmap("<leader>ww", "<cmd>VimwikiIndex<cr>", { desc = "open vimwiki" })
 		end
 	},
 	-- {

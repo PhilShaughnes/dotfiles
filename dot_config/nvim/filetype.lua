@@ -3,14 +3,12 @@ vim.filetype.add({
 		sh = "bash",
 		log = "log",
 		sql = "sql",
-		-- tmpl = function(path, _bufnr)
-		-- 	if (path:match('tmux.conf.tmpl')) then return "tmux"
-		-- 	elseif (path:match('gitconfig.tmpl')) then return "gitconfig"
-		-- 	else return "template"
-		-- 	end
-		-- end,
+		tf = "hcl",
+		http = "hurl",
+		hurl = "hurl",
 	},
 	filename = {
+		['justfile'] = "just",
 		-- ['dot_tmux.conf.tmpl'] = "tmux",
 		-- ['dot_gitconfig.tmpl'] = "gitconfig",
 	},

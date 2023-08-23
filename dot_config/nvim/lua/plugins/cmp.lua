@@ -9,7 +9,12 @@ local M = {
     "hrsh7th/cmp-buffer",
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
-    'L3MON4D3/LuaSnip',
+    {
+      'L3MON4D3/LuaSnip',
+      config = function()
+        require("luasnip.loaders.from_snipmate").lazy_load()
+      end
+    },
     'saadparwaiz1/cmp_luasnip',
     -- 'hrsh7th/cmp-nvim-lua',
     'onsails/lspkind-nvim',

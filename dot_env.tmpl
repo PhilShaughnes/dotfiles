@@ -12,8 +12,6 @@ fi
 #   echo "UH-OH! No dotfiles directory found!"
 # fi
 # export XDG_CONFIG_HOME=$HOME/.config
-export DOTFILES="$HOME/.dotfiles"
-export CONFIG_PATH="$HOME/.config"
 
 
 export EDITOR=nvim
@@ -23,7 +21,7 @@ export VISUAL=nvim
 export FZF_DEFAULT_COMMAND='fd --type f'
 export KITTY_LISTEN_ON=unix:/tmp/kitty
 export NNN_FIFO=/tmp/nnn.fifo
-NNN_FOLDERS="w:$HOME/vimwiki;m:$HOME/notes/wiki"
+NNN_FOLDERS="w:$HOME/vimwiki;n:$HOME/notes/wiki"
 NNN_PLUGINS='o:fzopen;p:preview-tui'
 export NNN_PLUG="$NNN_FOLDERS;$NNN_PLUGINS"
 export NNN_OPENER="$HOME/.config/nnn/plugins/nuke"

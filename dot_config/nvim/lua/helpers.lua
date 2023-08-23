@@ -33,9 +33,10 @@ function M.imap(rhs, lhs, opts) M.map('i', rhs, lhs, opts) end
 function M.oxmap(rhs, lhs, opts) M.map({'x', 'o'}, rhs, lhs, opts) end
 
 function M.lazyload(plug)
-	return function(func)
+	return function(func, args)
 		if func then
-			return function(args)
+			return function()
+				vim.notify(plug, func, args)
 				require(plug)[func](args)
 			end
 		else

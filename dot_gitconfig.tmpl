@@ -13,7 +13,7 @@
 	co = checkout
 	ci = commit
 	st = status
-	br = branch
+	b = branch
 	lg = log --stat --abbrev-commit --show-signature
 	tree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	type = cat-file -t
@@ -24,12 +24,13 @@
 	last = show --stat
 	empty = commit --allow-empty -m "Empty-Commit"
 	e = commit --allow-empty -m "Empty-Commit"
+	br = rev-parse --abbrev-ref HEAD
 
 [credential]
 	# this is a comment
 	; helper = store
 [init]
-	templatedir = ~/.git_template
+	; templatedir = ~/.git_template
 	defaultBranch = main
 
 [github]
@@ -71,3 +72,4 @@
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 {{- end }}
 
+; git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*

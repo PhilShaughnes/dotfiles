@@ -101,7 +101,8 @@ gen() {
 }
 
 pzf() {
-  list=$(fd . --base-directory ~/.password-store --extension gpg)
+  pwdir="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+  list=$(fd . --base-directory "$pwdir" --extension gpg)
   echo "$list" | sed -e 's:.gpg$::gi' | fzf --multi --reverse --height 10%
 }
 
@@ -111,6 +112,15 @@ p() {
     pass -c "$res"
   else
     pass "$@" "$res";
+  fi
+}
+pp() {
+  if [ -d "/Volumes/ZERO/pass" ]; then
+    # PASSWORD_STORE_DIR="/Volumes/ZERO/pass/pass-store/"
+    pwdir="/Volumes/ZERO/pass/pass-store/"
+    PASSWORD_STORE_DIR="$pwdir" pass "$@"
+  else
+    pass "$@"
   fi
 }
 
@@ -126,4 +136,8 @@ killport() {
 
 ggpass() {
   PASSWORD_STORE_DIR=~/.password-store-gg pass "$@"
+}
+
+yt() {
+  yt-dlp --extract-audio --audio-format aac -P "~/Music/songs/yt" -o $@
 }

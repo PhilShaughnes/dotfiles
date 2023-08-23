@@ -18,6 +18,7 @@ alias gdb='git branch -D $(git branch | fzf -m)' # git delete branch - multi-sel
 alias gb='git checkout -' # git back - go back to previous branch
 alias ga='git add -p' # interactive mode
 alias gc='git commit -v'
+alias cpbr='git rev-parse --abbrev-ref HEAD | pbcopy'
 
 alias ll='ls -laph'
 # [ "$(uname)" != "Darwin" ] && alias ls='ls --color' # conditionally only use this on linux
@@ -34,3 +35,4 @@ alias k='kak'
 alias icat="kitty +kitten icat --align=left"
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias ip='curl ifconfig.me'
+alias httpstatus='curl -k https://www.iana.org/assignments/http-status-codes/http-status-codes.txt'

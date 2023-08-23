@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+# first step is to get git setup and pull the chezmoi repo
 
 source env
 
@@ -18,6 +19,7 @@ fi
 #     echo "Docker is installed"
 # fi
 
+# homebrew is probably already installed, but we'll do this anyways...
 if [ ! -x /usr/local/bin/brew ]; then
     echo "installing homebrew"
     /usr/bin/env ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -38,20 +40,19 @@ fi
 # mac settings
 echo "setting custom mac settings"
 # assume we are in the correct directory...
-# (cd $DOTFILES && . ./other/mac_settings.sh)
 source ./other/mac_settings.sh
 
 echo "brewing..."
 # assume we are in the correct directory...
-# (cd $DOTFILES && brew bundle)
 brew bundle
 
 # echo "fzf install..."
 # $(brew --prefix)/opt/fzf/install
 
-echo "linking dotfiles"
-export RCRC='$DOTFILES/rcrc'
-rcup -v
+# # uses rcm - we've switched to chezmoi
+# echo "linking dotfiles"
+# export RCRC='$DOTFILES/rcrc'
+# rcup -v
 
 echo "Ready to go!"
 # echo "You may want to to setup auto-install of asdf plugins"
@@ -68,18 +69,23 @@ asdf_plugin_update "nodejs" "https://github.com/asdf-vm/asdf-nodejs"
 export NODEJS_CHECK_SIGNATURES=no
 asdf install nodejs 16.6.1
 
-asdf_plugin_update "ruby" "https://github.com/asdf-vm/asdf-ruby"
-asdf install ruby 3.0.1
-
 asdf_plugin_update "tmux" "https://github.com/aphecetche/asdf-tmux.git"
-asdf install tmux 3.2
+asdf install tmux latest
 
 asdf_plugin_update "neovim"
-asdf install neovim 0.5.0
+asdf install neovim latest
 
-asdf_plugin_update "erlang" "https://github.com/asdf-vm/asdf-erlang.git"
-asdf install erlang 24.0.4
+asdf_plugin_update "sqlite"
+asdf install sqlite latest
 
-asdf_plugin_update "elixir" "https://github.com/asdf-vm/asdf-elixir.git"
-asdf install elixir 1.12.2-otp-24 
+asdf_plugin_update "cue"
+asdf install cue latest
 
+asdf_plugin_update "golang"
+asdf install golang latest
+
+asdf_plugin_update "helm"
+asdf install helm latest
+
+asdf_plugin_update "lua"
+asdf install lua latest

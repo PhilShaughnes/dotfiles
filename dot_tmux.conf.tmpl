@@ -94,6 +94,9 @@ set-option -s set-clipboard off
 COPYCMD='xclip -se c -i'
 {{- end }}
 
+# setup tmux to enable osc52
+set -as terminal-features ',rxvt-unicode-256color:clipboard'
+
 #if-shell "type 'reattach-to-user-namespace' >/dev/null" "set -g default-command 'reattach-to-user-namespace -l $SHELL'"
 bind-key -T copy-mode-vi WheelUpPane send -X scroll-up
 bind-key -T copy-mode-vi WheelDownPane send -X scroll-down

@@ -10,6 +10,7 @@ g.loaded_netrwPlugin = 1
 
 g.mapleader = ' '
 g.vimsyn_embeded = 'lr'
+-- g.editorconfig = true -- true is default
 -- g.did_load_filetypes = 1
 -- g.did_load_filetypes = 0
 -- g.do_filetype_lua = 1
@@ -28,7 +29,7 @@ set.lazyredraw = true
 set.linebreak = true
 set.wrap = false
 set.number = true
-set.relativenumber = false
+set.relativenumber = true
 -- set.cursorcolumn = true
 -- set.cursorline = true
 set.ruler = true
@@ -52,11 +53,13 @@ set.thesaurus:append(nvim_dir .. '/thes/thesaurii.txt')
 set.clipboard = 'unnamed'
 -- set.completeopt = { 'menu', 'preview' }
 set.completeopt = { 'menu', 'menuone', 'noselect' }
-set.list = false
+set.list = true
 set.listchars = {
   space = "·",
 	-- eol = "↴",
-  tab = "» ",
+  -- tab = "▸▹",
+  -- tab = "▹ ",
+  tab = "❘⠀",
   trail = "·",
   nbsp = "·"
 }
@@ -69,3 +72,6 @@ set.omnifunc = 'syntaxcomplete#Complete'
 
 set.termguicolors = true
 set.background = 'dark'
+
+-- set.statusline = '%f %<%= %p%% | %-l:%v | %L'
+

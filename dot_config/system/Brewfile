@@ -31,8 +31,8 @@ cask "font-jetbrains-mono-nerd-font"
 cask "font-fira-code-nerd-font"
 
 # for dotfiles
-tap "thoughtbot/formulae"
-brew "rcm"
+# tap "thoughtbot/formulae"
+# brew "rcm"
 
 brew "bash"
 brew "bash-completion"
@@ -40,7 +40,7 @@ brew "dash" # faster bash for scripting
 # brew "ctags"
 brew "dfu-util" # for keyboard
 brew "cowsay"
-brew "cmatrix" # the matrix
+# brew "cmatrix" # the matrix
 brew "sl" # a train
 brew "bat" # cat, but with syntax highlights
 brew "tree" # ls, but as a tree
@@ -58,23 +58,24 @@ brew "reattach-to-user-namespace" # for tmux
 brew "mosh" # better ssh
 brew "git"
 brew "htop"
-brew "sd" # better sed
-brew "gotop"
+# brew "sd" # better sed
+# brew "gotop"
 brew "jq"  # json format (json | jq .)
 brew "wget"
-brew "youtube-dl"
+# brew "yt-dlp" # better yt downloader
 brew 'hyperfine' # rust benchmark tool
 brew "tokei" # statitics on codebase
 brew "noti"  # push cli results to notification
 brew "entr"  # autorun stuff on changes
 brew "devd"  # local webserver with live reload (devd -ol .)
 brew "wrk"   # http benchmarking and load tool
-brew "moreutils" # lots of useful utils like vipe and vidir
+# brew "moreutils" # lots of useful utils like vipe and vidir
+brew "parallel"
 brew "tealdeer"
 brew "pass"
 brew "zoxide" # jump to frequently used directories with z
 brew "starship" # prompt
-# brew "just"
+brew "just"
 # brew "pgcli"
 
 
@@ -93,7 +94,7 @@ brew "unzip"
 brew "curl"
 brew "asdf"
 # additional erlang dependencies
-brew "wxmac"
+# brew "wxmac"
 
 brew "mas" # Apple App Store integration
 mas "amphetamine", id: 937984704

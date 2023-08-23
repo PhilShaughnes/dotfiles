@@ -8,10 +8,12 @@ fi
 #! /bin/zsh
 # zmodload zsh/zprof
 #
+export GG_ENV="local"
 
 . $HOME/.env
 . $HOME/.config/system/aliases
 . $HOME/.config/system/functions
+. $HOME/.config/system/tools
 
 export ZSH=$HOME/.config/zsh
 

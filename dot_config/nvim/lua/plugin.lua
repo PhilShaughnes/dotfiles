@@ -19,7 +19,7 @@ require("lazy").setup("plugins", {
 	},
 	change_detection = {
 		enabled = true,
-		notify = true,
+		notify = false,
 	},
 	install = {
 		-- try to load one of these colorschemes when starting an installation during startup
