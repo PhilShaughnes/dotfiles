@@ -14,7 +14,7 @@ local M = {
 
 			g.markdown_fenced_languages = {
 				'bash=sh', 'js=javascript', 'json', 'ruby', 'lua',
-				'html', 'css', 'sql', 'java', 'graphql', 'go'
+				'html', 'css', 'sql', 'java', 'go'
 			}
 			require 'nvim-treesitter.configs'.setup {
 				-- one of "all", "maintained" (parsers with maintainers), or a list of languages
