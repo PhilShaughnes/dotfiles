@@ -23,8 +23,8 @@ local M = {
 					"heex", "html", "hurl", "java", "javascript", "jsdoc", "json", "lua",
 					"make", "python", "regex", "scss", "markdown", "help",
 					"typescript", "tsx", "vim", "vue", "toml", "yaml", "hcl",
-					"markdown_inline", "gotmpl", "just", "cue" },
-				ignore_install = { "rust" },
+					"markdown_inline", "cue" },
+				ignore_install = { "help" },
 				highlight = {
 					enable = true,   -- false will disable the whole extension
 					additional_vim_regex_highlighting = { "markdown" },

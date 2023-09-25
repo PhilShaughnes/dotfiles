@@ -134,6 +134,11 @@ snippet fumh "http handler function on receiver"
 		${0:${VISUAL}}
 	}
 
+snippet fh "http handler function"
+	func ${1:funcName}(${2:w} http.ResponseWriter, ${3:r} *http.Request) {
+		${0:${VISUAL}}
+	}
+
 snippet lf "log printf"
 	log.Printf("%${1:s}", ${2:var})
 

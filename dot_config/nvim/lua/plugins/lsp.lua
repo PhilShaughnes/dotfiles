@@ -10,7 +10,14 @@ local function lsp_settings()
 		virtual_text = { severity = { min = vim.diagnostic.severity.WARN } }
 	}
 
-	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+	-- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+	  local signs = {
+			Error = '',
+			-- Error = '',
+			Warn = '',
+			Info = '',
+			Hint = '󰌵',
+		}
 
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
@@ -24,6 +31,7 @@ end
 local M = {
 	{
 		"williamboman/mason.nvim",
+		-- event = "VeryLazy",
 		opts = {
 			-- ensure_installed = {
 			-- "prettierd",

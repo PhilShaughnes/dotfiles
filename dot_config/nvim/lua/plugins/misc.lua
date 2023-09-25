@@ -78,7 +78,7 @@ local M = {
     },
     config = true,
     cmd = "Neogit",
-  }
+  },
 }
 
 return M

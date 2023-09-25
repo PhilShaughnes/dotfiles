@@ -30,6 +30,8 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 homebrew=/usr/local/bin:/usr/local/sbin
 export PATH="$HOME/.local/bin:$homebrew:$PATH"
+
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 {{- end }}
 
 export CLICOLOR=1
@@ -39,4 +41,6 @@ if [ -e "$HOME/.env.local" ] ; then
   . "$HOME/.env.local"
 fi
 
+{{- if eq .chezmoi.os "darwin" }}
 . $HOME/.asdf/asdf.sh
+{{- end }}

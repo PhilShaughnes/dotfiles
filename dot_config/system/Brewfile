@@ -10,9 +10,9 @@ tap "homebrew/cask"
 cask "ngrok"
 cask "dropbox"
 cask "karabiner-elements"
-cask "qlstephen" #quicklook for text files (without dedicated plugin)
-cask "qlcolorcode" # quicklook for code with synta highlighting
-cask "qlmarkdown" # quicklook markdown
+# cask "qlstephen" #quicklook for text files (without dedicated plugin)
+# cask "qlcolorcode" # quicklook for code with synta highlighting
+# cask "qlmarkdown" # quicklook markdown
 cask "kitty" # fast terminal emulator
 # cask "postman"
 # cask "visual-studio-code"
@@ -26,7 +26,8 @@ cask "kitty" # fast terminal emulator
 # cask "eclipse-ide"
 
 # fonts
-tap "caskroom/fonts"
+tap "homebrew/cask-fonts"
+
 cask "font-jetbrains-mono-nerd-font"
 cask "font-fira-code-nerd-font"
 
@@ -49,7 +50,7 @@ brew "zsh-completions"
 brew "zsh"
 # brew "ranger" # file browser
 brew "nnn" # file browser
-# brew "tmux"
+brew "tmux"
 brew "wifi-password"
 brew "ripgrep" # super fast txt file search
 # brew "ms-jpq/sad/sad" # interactive (with diff) sed alternative
@@ -92,7 +93,7 @@ brew "libtool"
 brew "unixodbc"
 brew "unzip"
 brew "curl"
-brew "asdf"
+# brew "asdf" # need to install from script
 # additional erlang dependencies
 # brew "wxmac"
 

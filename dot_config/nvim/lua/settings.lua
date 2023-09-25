@@ -73,5 +73,8 @@ set.omnifunc = 'syntaxcomplete#Complete'
 set.termguicolors = true
 set.background = 'dark'
 
--- set.statusline = '%f %<%= %p%% | %-l:%v | %L'
+-- set.statusline = '%f '..
+--   "%{get(b:,'gitsigns_status','')}"..
+--   '%<%= %p%% | %-l:%v |'..
+--   ' %L'
 

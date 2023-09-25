@@ -35,16 +35,31 @@ local M = {
     opts = { default_delay = 1 },
   },
   {
-    'b0o/incline.nvim',
-    config = true,
+    'ivanjermakov/troublesum.nvim',
+    config = { severity_format = { '', '', '', '󰌵' }, enabled = false },
     lazy = true,
     keys = {
-      {'<leader><leader>i', function() require('incline').toggle() end, desc = 'toggle filename on screen'}
-    }
+      {
+        '<leader>ud',
+        function()
+          local c = require("troublesum.config")
+          local t = require("troublesum")
+          if c.config.enabled == false then
+            c.config.enabled = true
+            require('troublesum').update()
+          else
+            require('troublesum').clear()
+            c.config.enabled = false
+          end
+        end,
+        desc = 'toggle diagnostics in corner'
+      }
+    },
   },
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
+    -- lazy = true,
     config = function()
       require('lualine').setup({
         options = {
@@ -56,75 +71,68 @@ local M = {
           -- section_separators = {'', ''},
         },
         sections = {
+          lualine_a = {
+            { 'mode', fmt = function(str) return str:sub(1, 1) end }
+          },
           lualine_b = {
-            'branch', 'diff', {
-              'diagnostics',
-              diagnostics_color = {
-                error = { fg = get_fg({ 'DiagnosticError', 'DiagnosticSignError' }) },
-                warn  = { fg = get_fg({ 'DiagnosticWarn', 'DiagnosticSignWarn' }) },
-                info  = { fg = get_fg({ 'DiagnosticInfo', 'DiagnosticSignInfo' }) },
-                hint  = { fg = get_fg({ 'DiagnosticHint', 'DiagnosticSignHint' }) },
-              }
-            }
+            'branch', 'diff',
           },
-					lualine_c = {
-            'filename',
-            -- 'lsp_progress',
-          },
-				}
-			})
-		end,
+          -- lualine_b = {
+          --   'branch', 'diff', {
+          --     'diagnostics',
+          --     diagnostics_color = {
+          --       error = { fg = get_fg({ 'DiagnosticError', 'DiagnosticSignError' }) },
+          --       warn  = { fg = get_fg({ 'DiagnosticWarn', 'DiagnosticSignWarn' }) },
+          --       info  = { fg = get_fg({ 'DiagnosticInfo', 'DiagnosticSignInfo' }) },
+          --       hint  = { fg = get_fg({ 'DiagnosticHint', 'DiagnosticSignHint' }) },
+          --     }
+          --   }
+          -- },
+          lualine_c = { 'filename' },
+          lualine_x = { 'filetype' },
+        }
+      })
+    end,
     dependencies = {
       -- 'WhoIsSethDaniel/lualine-lsp-progress.nvim',
       'kyazdani42/nvim-web-devicons',
     }
-	},
-	{
-		'NTBBloodbath/doom-one.nvim',
-		lazy = false,
-		priority = 1000,
-		config = function()
-			cmd([[colorscheme doom-one]])
-      sems()
-			cmd([[highlight Normal guibg=none]])
-		end
-	},
-	-- {'projekt0n/github-nvim-theme', lazy = true}, -- github_dark_default
-	{
-    'tiagovla/tokyodark.nvim',
-    lazy = true,
-		-- priority = 1000,
-		-- config = function()
-		-- 	cmd([[colorscheme tokyodark]])
-		-- end
-  },
-	{
-    'ellisonleao/gruvbox.nvim',
-    lazy = true,
-		-- priority = 1000,
-		-- config = function()
-		-- 	cmd([[colorscheme gruvbox]])
-		-- 	cmd([[highlight Normal guibg=none]])
-		-- end
   },
   {
-    'rose-pine/neovim',
-    name = 'rose-pine',
+    'NTBBloodbath/doom-one.nvim',
     lazy = true,
-		-- config = function()
-		-- 	cmd([[colorscheme rose-pine-moon]])
-		-- 	cmd([[highlight Normal guibg=none]])
-		-- end
-  },
-  {
-    'olivercederborg/poimandres.nvim',
-    lazy = true,
+    -- lazy = false,
+    -- priority = 1000,
+    -- config = function()
+    --  cmd([[colorscheme doom-one]])
+    --   sems()
+    --  cmd([[highlight Normal guibg=none]])
+    -- end
   },
   {
     'folke/tokyonight.nvim',
     lazy = true,
-  }
+  },
+  {
+    'rebelot/kanagawa.nvim',
+    -- lazy = true,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('kanagawa').setup({
+        compile = true,
+        transparent = true,
+      })
+      cmd([[colorscheme kanagawa]])
+      sems()
+    end,
+  },
 }
 
+_G.colo = function(cs)
+  cmd('colorscheme ' .. cs)
+  sems()
+  cmd([[highlight Normal guibg=none]])
+end
 _G.sems = sems
 return M
