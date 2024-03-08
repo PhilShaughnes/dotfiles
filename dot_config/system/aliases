@@ -28,7 +28,7 @@ alias ll='ls -laph'
 # alias tkl='tmux kill-session -t $(tmux list-sessions -F "#{session_name}" | fzf --height 20% --reverse -m)'
 alias cze='chezmoi edit --apply'
 alias cz='chezmoi'
-aliaz czpull='chezmoi git pull -- --autostash --rebase && chezmoi diff'
+alias czpull='chezmoi git pull -- --autostash --rebase && chezmoi diff'
 
 alias jqp='pbpaste | jq .'
 
