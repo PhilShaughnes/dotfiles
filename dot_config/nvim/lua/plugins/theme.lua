@@ -100,10 +100,19 @@ local M = {
 		}
 	},
 	{
-		'rebelot/kanagawa.nvim',
+		'p00f/alabaster.nvim',
 		-- lazy = true,
 		lazy = false,
 		priority = 1000,
+		config = function()
+			cmd([[colorscheme kanagawa]])
+		end,
+	},
+	{
+		'rebelot/kanagawa.nvim',
+		lazy = true,
+		-- lazy = false,
+		-- priority = 1000,
 		config = function()
 			require('kanagawa').setup({
 				compile = false,
