@@ -1,19 +1,19 @@
 vim.filetype.add({
-	extension = {
-		sh = "bash",
-		log = "log",
-		sql = "sql",
-		tf = "hcl",
-		http = "hurl",
-		hurl = "hurl",
-	},
-	filename = {
-		['justfile'] = "just",
-		-- ['dot_tmux.conf.tmpl'] = "tmux",
-		-- ['dot_gitconfig.tmpl'] = "gitconfig",
-	},
-	pattern = {
-		[".*tmux.conf.tmpl"] = "tmux",
-		[".*gitconfig.tmpl"] = "gitconfig",
-	},
+  extension = {
+    sh = "bash",
+    log = "log",
+    sql = "sql",
+    tf = "hcl",
+    http = "hurl",
+    hurl = "hurl",
+  },
+  filename = {
+    ['justfile'] = "just",
+    -- ['dot_tmux.conf.tmpl'] = "tmux",
+    -- ['dot_gitconfig.tmpl'] = "gitconfig",
+  },
+  pattern = {
+    [".*tmux.conf.tmpl"] = "tmux",
+    [".*gitconfig.tmpl"] = "gitconfig",
+  },
 })

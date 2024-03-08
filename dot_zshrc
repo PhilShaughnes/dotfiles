@@ -70,9 +70,9 @@ alias gs='nocorrect git status'
 ##PACKAGES
 ## zgen should handle loading compinit for us - if not consider limiting to one a day
 ## You can customize where you put it but it's generally recommended that you put in $HOME/.zgen
-# if [[ ! -d ~/.zgen ]];then
-#     git clone https://github.com/tarjoilija/zgen.git ~/.zgen
-# fi
+if [[ ! -d ~/.zgen ]];then
+    git clone https://github.com/tarjoilija/zgen.git ~/.zgen
+fi
 source ~/.zgen/zgen.zsh
 
 # if the init script doesn't exist
@@ -109,4 +109,7 @@ eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval "$(direnv hook zsh)"
+
 # zprof

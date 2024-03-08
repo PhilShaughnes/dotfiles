@@ -1,0 +1,7 @@
+
+[include]
+  path = ~/.gitconfig
+
+[user]
+	name = Phil Shaughnessy
+	email = phil.shaughnessy@greenlight.guru

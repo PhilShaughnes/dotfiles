@@ -1,13 +1,12 @@
 local g = vim.g
 
 local M = {
-	{ "nvim-treesitter/playground",    cmd = "TSPlaygroundToggle" },
-	{ 'RRethy/nvim-treesitter-endwise' },
+	-- { 'RRethy/nvim-treesitter-endwise' },
 	{
 		'nvim-treesitter/nvim-treesitter',
 		lazy = true,
 		dependencies = {
-			'RRethy/nvim-treesitter-endwise',
+			-- 'RRethy/nvim-treesitter-endwise',
 		},
 		config = function()
 			vim.treesitter.language.register('make', 'just')
@@ -21,16 +20,16 @@ local M = {
 				ensure_installed = { "ruby", "bash", "c", "cmake", "comment", "css",
 					"dockerfile", "eex", "elixir", "erlang", "glimmer", "go", "graphql",
 					"heex", "html", "hurl", "java", "javascript", "jsdoc", "json", "lua",
-					"make", "python", "regex", "scss", "markdown", "help",
+					"make", "python", "regex", "scss", "markdown", "vimdoc",
 					"typescript", "tsx", "vim", "vue", "toml", "yaml", "hcl",
 					"markdown_inline", "cue" },
-				ignore_install = { "help" },
+				ignore_install = { "rust" },
 				highlight = {
 					enable = true,   -- false will disable the whole extension
 					additional_vim_regex_highlighting = { "markdown" },
 					disable = { "rust" }, -- list of language that will be disabled
 				},
-				endwise = { enable = true },
+				-- endwise = { enable = true },
 				-- incremental_selection = {
 				--   enable = true,
 				--   keymaps = {
@@ -40,7 +39,7 @@ local M = {
 				--     node_decremental = "grm",
 				--   },
 				-- },
-				-- indent = { enable = true },
+				indent = { enable = true },
 				playground = {
 					enable = true,
 					disable = {},

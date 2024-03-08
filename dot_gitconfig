@@ -1,6 +1,6 @@
 [user]
-	name = {{ .name }}
-	email = {{ .email }}
+	name = Phil Shaughnessy
+	email = philip.shaughnessy@gmail.com
 [core]
 	autocrlf = false
 	safecrlf = true
@@ -25,6 +25,9 @@
 	empty = commit --allow-empty -m "Empty-Commit"
 	e = commit --allow-empty -m "Empty-Commit"
 	br = rev-parse --abbrev-ref HEAD
+  cs = log --oneline -n5
+  mkbr = !git checkout -B $(git log --pretty=format:"%s" -1 $1 | tr ' ' '-')
+  pr = !git push -u origin $(git br) && gh pr create --draft --fill
 
 [credential]
 	# this is a comment
@@ -39,29 +42,9 @@
 [pull]
 	rebase = false
 
-{{- if eq .comp "ggp" }}
-[merge]
-	keepBackup = false
-	tool = p4merge
+[rebase]
+	updateRefs = true
 
-[mergetool "p4merge"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
-	keepTemporaries = false
-	trustExitCode = false
-	keepBackup = false
-
-[mergetool]
-	keepBackup = false
-
-[diff]
-	tool = p4merge
-
-[difftool "p4merge"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "$LOCAL" "$REMOTE"
-
-[branch]
-	autosetupmerge = true
-{{- else}}
 [difftool]
 	prompt = true
 
@@ -70,6 +53,9 @@
 
 [difftool "nvimdiff"]
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
-{{- end }}
+
+[branch]
+	autosetupmerge = true
 
 ; git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+;

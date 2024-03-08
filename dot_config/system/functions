@@ -74,6 +74,16 @@ fdir() {
   cd "$dir"
 }
 
+# glist - git commit browser
+glist() {
+  cmt=$(git query "all()" |
+    fzf --ansi --no-sort --reverse --tiebreak=index \
+        --preview 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1; }; f {}' \
+    | awk '{print $1}' \
+  )
+git checkout "$cmt"
+}
+
 # fshow - git commit browser
 fshow() {
   git log --graph --color=always \
@@ -86,6 +96,17 @@ fshow() {
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
 FZF-EOF"
+}
+
+gp() {
+  # create branch if none exists on current or provided commit
+  # push branch to origin
+  # create PR with -f (fill) and maybe -d (draft)
+  # maybe use -H (head) if doing a different branch
+  branch="$1"
+  git co -B "$branch"
+  git push -u origin "$branch"
+  gh pr create --fill --web
 }
 
 # relies on genact, which is found at https://github.com/svenstaro/genact

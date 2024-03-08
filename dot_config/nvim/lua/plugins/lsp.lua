@@ -11,13 +11,13 @@ local function lsp_settings()
 	}
 
 	-- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-	  local signs = {
-			Error = '',
-			-- Error = '',
-			Warn = '',
-			Info = '',
-			Hint = '󰌵',
-		}
+	local signs = {
+		Error = '',
+		-- Error = '',
+		Warn = '',
+		Info = '',
+		Hint = '󰌵',
+	}
 
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
@@ -29,25 +29,42 @@ local function lsp_settings()
 end
 
 local M = {
+	{ 'j-hui/fidget.nvim',              opts = {} },
 	{
 		"williamboman/mason.nvim",
 		-- event = "VeryLazy",
 		opts = {
-			-- ensure_installed = {
-			-- "prettierd",
-			-- "stylua",
-			-- "selene",
-			-- "luacheck",
-			-- "eslint_d",
-			-- "shellcheck",
-			-- "shfmt",
-			-- },
+			ensure_installed = {
+				-- "prettierd",
+				-- "stylua",
+				-- "selene",
+				-- "luacheck",
+				-- "eslint_d",
+				-- "shellcheck",
+				-- "shfmt",
+				"eslint-lsp",
+				"gopls",
+				"golines",
+				"gofumpt",
+				"goimports-reviser",
+				"typescript-language-server",
+				"yamllint",
+				"jsonlint",
+				"prettier",
+				"lua-language-server",
+			},
+			automatic_installation = true,
 		},
 	},
-	{ 'folke/neodev.nvim', lazy = true, ft = "lua", opts = { } },
 	{ 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' },
 	{
+		"hinell/lsp-timeout.nvim",
+		-- event = { "BufReadPost", "BufNewFile" },
+		dependencies = { "neovim/nvim-lspconfig" },
+	},
+	{
 		"neovim/nvim-lspconfig",
+		-- lazy = true,
 		init = function()
 		end,
 		config = function()
@@ -65,16 +82,12 @@ local M = {
 
 			lspconfig.tsserver.setup {}
 			lspconfig.emmet_ls.setup {}
-			lspconfig.bufls.setup {}
-			-- lspconfig.ember.setup{}
-			lspconfig.jsonls.setup {}
 			lspconfig.eslint.setup {
 				-- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript",
 				-- "typescriptreact", "typescript.tsx", "vue", "json" }
 			}
 			lspconfig.dockerls.setup {}
 			-- lspconfig.marksman.setup{}
-			-- lspconfig.zk.setup{}
 			lspconfig.lua_ls.setup {
 				-- on_attach = function(_, _) -- client, bufnr
 				-- 	end,
@@ -113,5 +126,32 @@ local M = {
 		end,
 	}
 }
+
+
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(ev)
+		-- Enable completion triggered by <c-x><c-o>
+		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+		-- Buffer local mappings.
+		-- See `:help vim.lsp.*` for documentation on any of the below functions
+		local nmap = h.mapper('n', { buffer = ev.buf })
+
+		nmap('K', vim.lsp.buf.hover, { desc = 'documentation' })
+		nmap('gd', vim.lsp.buf.definition, { desc = 'show definition' })
+		nmap('gr', vim.lsp.buf.references, { desc = 'references' })
+		nmap('<leader>lr', vim.lsp.buf.references, { desc = 'references' })
+		nmap('<leader>ld', vim.lsp.buf.definition, { desc = 'show definition' })
+		nmap('<leader>lD', vim.lsp.buf.declaration, { desc = 'show declaration' })
+		nmap('<leader>li', vim.lsp.buf.implementation, { desc = 'show implementdation' })
+		-- nmap('<leader>lf', vim.lsp.buf.format, { desc = 'format buffer' });
+		-- vmap('<leader>lf', vim.lsp.buf.format, { desc = 'format buffer' });
+		nmap('<leader>lk', vim.lsp.buf.hover, { desc = 'documentation' })
+		nmap('<leader>lp', vim.diagnostic.goto_prev, { desc = 'prev diagnostic' })
+		nmap('<leader>ln', vim.diagnostic.goto_next, { desc = 'next diagnostic' })
+		nmap('<leader>la', ':CodeActionMenu<CR>', { desc = 'code actions menu' })
+	end,
+})
 
 return M

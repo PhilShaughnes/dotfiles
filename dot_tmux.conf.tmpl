@@ -36,10 +36,10 @@ bind-key -r  L resize-pane -R 5
 
 # act like vim
 setw -g mode-keys vi
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+# bind h select-pane -L
+# bind j select-pane -D
+# bind k select-pane -U
+# bind l select-pane -R
 
 # Use Ctrl-s to cycle (prefix is Ctrl a)
 bind -n C-s select-pane -t :.+
@@ -62,9 +62,20 @@ bind -n C-s select-pane -t :.+
 # Shift arrow to switch windows
 bind -n S-Left  previous-window
 bind -n S-Right next-window
+bind -n M-Tab next-window
+bind -n M-a select-window -t !
+bind a select-window -t !
+# bind v link-window -s 
+bind '#' command-prompt -p "create pane from:"  "join-pane -s ':%%'"
+bind $ command-prompt -p "swap window with:"  "swap-window -s ':%%'"
+bind ! command-prompt -p "send pane to:"  "join-pane -t ':%%'"
+bind @ join-pane -s :+1
 
 # cycle windows with bind tab
 bind Tab next-window
+
+# cycle layout
+bind l select-layout even-horizontal
 
 # No delay for escape key press
 set -sg escape-time 0

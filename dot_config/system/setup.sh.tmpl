@@ -40,7 +40,7 @@ fi
 # mac settings
 echo "setting custom mac settings"
 # assume we are in the correct directory...
-source ./other/mac_settings.sh
+# source ./mac_settings.sh
 
 echo "brewing..."
 # assume we are in the correct directory...
@@ -69,8 +69,8 @@ asdf_plugin_update "nodejs" "https://github.com/asdf-vm/asdf-nodejs"
 export NODEJS_CHECK_SIGNATURES=no
 asdf install nodejs 16.6.1
 
-asdf_plugin_update "tmux" "https://github.com/aphecetche/asdf-tmux.git"
-asdf install tmux latest
+# asdf_plugin_update "tmux" "https://github.com/aphecetche/asdf-tmux.git"
+# asdf install tmux latest
 
 asdf_plugin_update "neovim"
 asdf install neovim latest
@@ -89,3 +89,4 @@ asdf install helm latest
 
 asdf_plugin_update "lua"
 asdf install lua latest
+

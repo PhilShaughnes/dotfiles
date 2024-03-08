@@ -38,7 +38,7 @@ set.splitright = true
 set.ignorecase = true
 set.smartcase = true
 set.signcolumn = 'yes'
-set.colorcolumn = {80}
+set.colorcolumn = { 80 }
 set.scrolloff = 10
 set.laststatus = 3
 set.mouse = 'a'
@@ -49,19 +49,20 @@ set.smarttab = true
 set.tabstop = 2
 set.softtabstop = 2
 set.shiftwidth = 2
+set.conceallevel = 2
 set.thesaurus:append(nvim_dir .. '/thes/thesaurii.txt')
 set.clipboard = 'unnamed'
 -- set.completeopt = { 'menu', 'preview' }
 set.completeopt = { 'menu', 'menuone', 'noselect' }
 set.list = true
 set.listchars = {
-  space = "·",
+	space = "·",
 	-- eol = "↴",
-  -- tab = "▸▹",
-  -- tab = "▹ ",
-  tab = "❘⠀",
-  trail = "·",
-  nbsp = "·"
+	-- tab = "▸▹",
+	-- tab = "▹ ",
+	tab = "❘⠀",
+	trail = "·",
+	nbsp = "·"
 }
 set.undofile = true
 set.undodir = tmpdir
@@ -77,4 +78,3 @@ set.background = 'dark'
 --   "%{get(b:,'gitsigns_status','')}"..
 --   '%<%= %p%% | %-l:%v |'..
 --   ' %L'
-

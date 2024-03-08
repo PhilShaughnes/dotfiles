@@ -1,118 +1,112 @@
-local h = require('helpers')
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local clear_autocmds = vim.api.nvim_clear_autocmds
+-- local h = require('helpers')
+-- local augroup = vim.api.nvim_create_augroup
+-- local autocmd = vim.api.nvim_create_autocmd
+-- local clear_autocmds = vim.api.nvim_clear_autocmds
 local M = {
 	{
-		"nvimdev/guard.nvim",
+		"stevearc/conform.nvim",
 		lazy = true,
-		cmd = "GuardFmt",
-		config = function()
-			local ft = require('guard.filetype')
-			ft('just')
-				:fmt({
-					cmd = "just",
-					args = { "--dump", "-f"},
-					fname = true,
-				})
-			ft('html')
-				:fmt({
-					cmd = "prettierd",
-					args = { '--stdin-filepath', },
-					stdin = true,
-					fname = true,
-				})
-				-- :fmt('prettier')
-			require('guard').setup({fmt_on_save = false})
-		end
-	},
-	{
-		"mfussenegger/nvim-lint",
-		lazy = true,
-	},
-	{
-		"mhartington/formatter.nvim",
-		lazy = true,
-		cmd = "Format",
-		opts = {
-			filetype = {
-				just = function()
-					return {
-						exe = "just",
-						args = { "--fmt", "--unstable", "-f" },
-					}
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		keys = {
+			{
+				-- Customize or remove this keymap to your liking
+				"<leader>lf",
+				function()
+					require("conform").format({ async = true, lsp_fallback = true })
 				end,
-				cue = {
-					-- function()
-					-- 	return { exe = "cueimports" }
-					-- end,
-					function()
-						return { exe = "cue", args = { "fmt" } };
-					end,
-				},
-				html = {
-					function()
-						return {
-							exe = "prettierd",
-							args = {},
-							stdin = true,
-						};
-					end,
+				mode = "",
+				desc = "Format buffer",
+			},
+		},
+		-- Everything in opts will be passed to setup()
+		opts = {
+			-- Define your formatters
+			formatters_by_ft = {
+				lua = { "stylua" },
+				javascript = { { "prettierd", "prettier" } },
+				typescript = { { "prettierd", "prettier" } },
+				json = { "fixjson", "jq" },
+				-- just = { "just" },
+				go = {
+					-- { "gofumpt",           "gofmt" },
+					{ "goimports-reviser", "goimports" },
+					{ "golines" },
+				}
+			},
+			-- Set up format-on-save
+			-- format_on_save = { timeout_ms = 500, lsp_fallback = true },
+			format_on_save = function(bufnr)
+				-- Disable with a global or buffer-local variable
+				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+					return
+				end
+				return { timeout_ms = 500, lsp_fallback = true }
+			end,
+			-- format_on_save = false,
+			-- Customize formatters
+			formatters = {
+				shfmt = {
+					prepend_args = { "-i", "2" },
 				},
 			},
 		},
-	},
-	{
-		"jose-elias-alvarez/null-ls.nvim",
-		ft = { "go", "json", "just", "javascript", "cue", "json", "yaml", "proto" },
-		opts = function()
-			local null_ls = require("null-ls")
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.gofumpt,
-					null_ls.builtins.formatting.goimports_reviser,
-					null_ls.builtins.formatting.golines,
-					null_ls.builtins.formatting.jq,
-					-- null_ls.builtins.formatting.just,
-					null_ls.builtins.formatting.cueimports,
-					null_ls.builtins.formatting.cue_fmt,
-					null_ls.builtins.diagnostics.cue_fmt,
-					null_ls.builtins.diagnostics.vacuum,
-					-- null_ls.builtins.diagnostics.buf,
-					-- null_ls.builtins.formatting.buf,
-					-- null_ls.builtins.diagnostics.protolint,
-					-- null_ls.builtins.formatting.protolint,
-				},
-				on_attach = function(client, bufnr)
-					local lspfmt = augroup('lspformatting', {})
-					if client.supports_method("textDocument/formatting") then
-						clear_autocmds({
-							group = lspfmt,
-							buffer = bufnr,
-						})
-						autocmd("BufWritePre", {
-							group = lspfmt,
-							buffer = bufnr,
-							callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end,
-						})
-					end
-				end
-			})
-		end,
 		init = function()
-			local toggle = function(source)
-				return function()
-					require('null-ls').toggle(source)
-				end
-			end
-			h.nmap(
-				"<leader>ltt",
-				":lua require('null-ls').toggle('')<left><left>",
-				{ desc = 'toggle null-ls', silent = false }
-			)
-			h.nmap("<leader>ltv", toggle('vacuum'), { desc = 'toggle vacuum' })
-		end
+			-- If you want the formatexpr, here is the place to set it
+			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+		end,
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		event = { "BufWritePre" },
+		config = function()
+			require("lint").linters_by_ft = {
+				-- yaml = { 'yamllint' },
+				json = { 'jsonlint' },
+				go = { 'staticcheck' },
+				-- javascript = { 'eslint' },
+				-- typescript = { 'eslint' },
+				terraform = { 'tflint' },
+			}
+		end,
+		keys = {
+			{
+				"<leader>lc",
+				function()
+					require("lint").try_lint()
+				end,
+				mode = "n",
+				desc = "lint"
+			},
+		}
 	},
 }
+
+vim.api.nvim_create_augroup('fix', { clear = true })
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	callback = function()
+		require("lint").try_lint()
+	end,
+})
+
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+	if args.bang then
+		-- FormatDisable! will disable formatting just for this buffer
+		vim.b.disable_autoformat = true
+	else
+		vim.g.disable_autoformat = true
+	end
+end, {
+	desc = "Disable autoformat-on-save",
+	bang = true,
+})
+vim.api.nvim_create_user_command("FormatEnable", function()
+	vim.b.disable_autoformat = false
+	vim.g.disable_autoformat = false
+end, {
+	desc = "Re-enable autoformat-on-save",
+})
+
 
 return M

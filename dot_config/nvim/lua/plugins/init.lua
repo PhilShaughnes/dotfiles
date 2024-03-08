@@ -82,3 +82,57 @@
 -- 	},
 -- })
 return {}
+-- PERSONAL BUT USEFUL (12)
+-- ● arrow.nvim 8.49ms  ; - primary buffer set
+-- ● Comment.nvim 1.13ms  start - toggle comments
+-- ● fzf-lua 14.56ms 󰢱 fzf-lua  keys - fuzzy find all the things
+-- ● indent-o-matic 0.6ms  start - auto setup indent
+-- ● kanagawa.nvim 3.2ms  start - colorscheme
+-- ● lazy.nvim 5.38ms  init.lua - package manager
+-- ● nnn.nvim 18.41ms  NnnPicker - file browser/manager
+-- ● nvim-bqf 1.02ms  qf - make qf list better
+-- ● nvim-snippy 3.4ms  nvim-cmp - snippets
+-- ● nvim-surround 1.88ms  start - add/remove surrounding stuff
+-- ● vim-niceblock 0.71ms  InsertEnter - add stuff in block mode
+-- ○ obsidian.nvim  markdown  - notes
+-- GIT STUFF (5)
+-- ○ neogit  Neogit
+-- ● gitsigns.nvim 0.99ms  VeryLazy
+-- ○ gitlinker.nvim
+-- ○ diffview.nvim  DiffviewFileHistory  DiffviewOpen  neogit
+-- ○ plenary.nvim  gitlinker.nvim  neogit  diffview.nvim
+-- NICE TO HAVE (8)
+-- ● troublesum.nvim 2.1ms  BufWritePost - show diagnostics in corner
+-- ● which-key.nvim 0.24ms 󰢱 which-key  keys - key help/hints
+-- ○ treesj  TSJToggle  - reverse J
+-- ● cinnamon.nvim 0.73ms  VeryLazy - smooth scroll
+-- ● nvim-autopairs 3ms  InsertEnter - auto parents etc
+-- ○ nvim-align  Align  - align stuff
+-- ○ venn.nvim  VBox - add boxes and diagrams to notes
+-- ● tabout.nvim 3.62ms  InsertEnter - tab to get out of parens, etc
+-- MAYBE NOT NEEDED (7)
+-- ○ tokyonight.nvim - alternative colorscheme
+-- ○ cellular-automaton.nvim  CellularAutomaton - cool animation
+-- ○ vimwiki  VimwikiIndex - old notes
+-- ○ nvim-osc52 - should enable copy via ssh, but haven't got to work
+-- ○ mini.clue - whichkey alternative
+-- ○ lualine.nvim - pretty line
+-- ○ doom-one.nvim - another colorscheme
+-- IDE STUFF (10) - format, lint, lsp, treesitter
+-- ● conform.nvim 2.67ms  BufWritePre
+-- ● nvim-lint 3.72ms  BufWritePre
+-- ● fidget.nvim 4.8ms  start
+-- ● lsp-timeout.nvim 0.35ms  start
+-- ● lspkind-nvim 0.09ms  nvim-cmp
+-- ● mason.nvim 2.01ms  start
+-- ● nvim-treesitter 6.1ms 󰢱 nvim-treesitter.query  nvim-treesitter-endwise
+-- ● nvim-web-devicons 0.6ms 󰢱 nvim-web-devicons  arrow.nvim
+-- ● nvim-lspconfig 7.02ms  start
+-- ○ nvim-code-action-menu  CodeActionMenu
+-- COMPLETION (5)
+-- ● nvim-cmp 27.23ms  InsertEnter
+-- ● cmp-cmdline 1.86ms  nvim-cmp
+-- ● cmp-nvim-lsp 0.05ms 󰢱 cmp_nvim_lsp  nvim-lspconfig
+-- ● cmp-path 16.61ms  nvim-cmp
+-- ● cmp-snippy 1.46ms  nvim-cmp
+--

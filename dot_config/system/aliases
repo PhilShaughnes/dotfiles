@@ -6,7 +6,8 @@ alias .....="cd ../../../.."
 
 
 alias gs='git status'
-alias g='git'
+alias g='git-branchless wrap --'
+alias gl='g sl'
 alias pull='git pull'
 alias push='git push'
 alias gco='git checkout'
@@ -20,10 +21,12 @@ alias ga='git add -p' # interactive mode
 alias gc='git commit -v'
 alias cpbr='git rev-parse --abbrev-ref HEAD | pbcopy'
 
+alias j='just'
 alias ll='ls -laph'
 # [ "$(uname)" != "Darwin" ] && alias ls='ls --color' # conditionally only use this on linux
 # alias fd='rg --files'
 # alias tkl='tmux kill-session -t $(tmux list-sessions -F "#{session_name}" | fzf --height 20% --reverse -m)'
+alias cze='chezmoi edit --apply'
 
 alias jqp='pbpaste | jq .'
 

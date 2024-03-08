@@ -37,7 +37,7 @@ cask "font-fira-code-nerd-font"
 
 brew "bash"
 brew "bash-completion"
-brew "dash" # faster bash for scripting
+# brew "dash" # faster bash for scripting
 # brew "ctags"
 brew "dfu-util" # for keyboard
 brew "cowsay"
@@ -58,6 +58,8 @@ brew "reattach-to-user-namespace" # for tmux
 # brew "neovim"
 brew "mosh" # better ssh
 brew "git"
+brew "git-branchless"
+brew "gh"
 brew "htop"
 # brew "sd" # better sed
 # brew "gotop"
@@ -68,12 +70,13 @@ brew 'hyperfine' # rust benchmark tool
 brew "tokei" # statitics on codebase
 brew "noti"  # push cli results to notification
 brew "entr"  # autorun stuff on changes
-brew "devd"  # local webserver with live reload (devd -ol .)
+# brew "devd"  # local webserver with live reload (devd -ol .)
 brew "wrk"   # http benchmarking and load tool
 # brew "moreutils" # lots of useful utils like vipe and vidir
 brew "parallel"
 brew "tealdeer"
 brew "pass"
+brew "direnv" # allow using .envrc to load/unload when in directory
 brew "zoxide" # jump to frequently used directories with z
 brew "starship" # prompt
 brew "just"
