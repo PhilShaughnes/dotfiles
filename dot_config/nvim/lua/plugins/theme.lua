@@ -57,6 +57,7 @@ local M = {
 			}
 		},
 	},
+	{ 'nvim-tree/nvim-web-devicons' },
 	{
 		'nvim-lualine/lualine.nvim',
 		-- event = 'VeryLazy',
