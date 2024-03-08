@@ -1,6 +1,6 @@
 README.md
 {{- if ne .chezmoi.hostname "PSMac"}}
-# only manage these files if the hostname matches PSMac	
+# only manage these files if the hostname matches PSMac
 {{- end }}
 
 {{ if ne .chezmoi.os "darwin" }}

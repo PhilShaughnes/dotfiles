@@ -9,6 +9,7 @@ vim.filetype.add({
   },
   filename = {
     ['justfile'] = "just",
+    ['.env.local'] = "sh",
     -- ['dot_tmux.conf.tmpl'] = "tmux",
     -- ['dot_gitconfig.tmpl'] = "gitconfig",
   },

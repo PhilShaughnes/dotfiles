@@ -4,15 +4,7 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
 fi
 
-# if [ -d "$HOME/dotfiles" ] ; then
-#   export DOTFILES=$HOME/dotfiles
-# elif [ -d "$HOME/.dotfiles" ] ; then
-#   export DOTFILES=$HOME/.dotfiles
-# else
-#   echo "UH-OH! No dotfiles directory found!"
-# fi
 # export XDG_CONFIG_HOME=$HOME/.config
-
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -26,21 +18,18 @@ NNN_PLUGINS='o:fzopen;p:preview-tui'
 export NNN_PLUG="$NNN_FOLDERS;$NNN_PLUGINS"
 export NNN_OPENER="$HOME/.config/nnn/plugins/nuke"
 export ERL_AFLAGS="-kernel shell_history enabled"
-{{- if eq .chezmoi.os "darwin" }}
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
-homebrew=/usr/local/bin:/usr/local/sbin
-export PATH="$HOME/.local/bin:$homebrew:$PATH"
-
-export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-{{- end }}
 
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
+export GOBIN="$HOME/.local/bin"
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+
 if [ -e "$HOME/.env.local" ] ; then
   . "$HOME/.env.local"
 fi
+export PATH="$HOME/.local/bin:$PATH"
 
-{{- if eq .chezmoi.os "darwin" }}
+
 . $HOME/.asdf/asdf.sh
-{{- end }}
