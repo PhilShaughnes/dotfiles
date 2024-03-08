@@ -101,18 +101,20 @@ local M = {
 	},
 	{
 		'p00f/alabaster.nvim',
-		-- lazy = true,
-		lazy = false,
-		priority = 1000,
+		lazy = true,
+		-- lazy = false,
+		-- priority = 1000,
 		config = function()
-			cmd([[colorscheme kanagawa]])
+			vim.g.alabaster_dim_comments = true
+			vim.g.alabaster_floatborder = true
+			-- cmd([[colorscheme alabaster]])
 		end,
 	},
 	{
 		'rebelot/kanagawa.nvim',
-		lazy = true,
-		-- lazy = false,
-		-- priority = 1000,
+		-- lazy = true,
+		lazy = false,
+		priority = 1000,
 		config = function()
 			require('kanagawa').setup({
 				compile = false,
