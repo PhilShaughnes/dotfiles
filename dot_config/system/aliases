@@ -27,12 +27,13 @@ alias ll='ls -laph'
 # alias fd='rg --files'
 # alias tkl='tmux kill-session -t $(tmux list-sessions -F "#{session_name}" | fzf --height 20% --reverse -m)'
 alias cze='chezmoi edit --apply'
+alias cz='chezmoi'
+aliaz czpull='chezmoi git pull -- --autostash --rebase && chezmoi diff'
 
 alias jqp='pbpaste | jq .'
 
 alias mkdir='mkdir -pv'
 alias v='nvim'
-alias nv='nvim -u ~/.dotfiles/vetc/dev_vimrc'
 alias k='kak'
 
 alias icat="kitty +kitten icat --align=left"
