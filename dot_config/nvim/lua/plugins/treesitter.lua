@@ -46,7 +46,7 @@ local incremental = {
 	keymaps = {
 		init_selection = "<C-t>",
 		node_incremental = "<C-t>",
-		scope_incremental = false,
+		scope_incremental = "<C-t>",
 		node_decremental = "<bs>",
 	},
 }
