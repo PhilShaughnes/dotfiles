@@ -24,6 +24,48 @@ local M = {
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		cmd = { 'DiffviewFileHistory', 'DiffviewOpen' },
 	},
+	{
+		'saccarosium/neomarks',
+		config = true,
+		keys = {
+			{
+				'<leader>jj',
+				function() require('neomarks').menu_toggle() end,
+				desc = 'neomarks menu',
+				mode = 'n'
+			},
+			{
+				'<leader>ja',
+				function() require('neomarks').mark_file() end,
+				desc = 'neomark file',
+				mode = 'n'
+			},
+			{
+				'<leader>jw',
+				function() require('neomarks').jump_to(1) end,
+				desc = 'neomark goto 1',
+				mode = 'n'
+			},
+			{
+				'<leader>je',
+				function() require('neomarks').jump_to(2) end,
+				desc = 'neomark goto 2',
+				mode = 'n'
+			},
+			{
+				'<leader>jr',
+				function() require('neomarks').jump_to(3) end,
+				desc = 'neomark goto 3',
+				mode = 'n'
+			},
+			{
+				'<leader>jt',
+				function() require('neomarks').jump_to(4) end,
+				desc = 'neomark goto 4',
+				mode = 'n'
+			},
+		},
+	}
 }
 
 return M
