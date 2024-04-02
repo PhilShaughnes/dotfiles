@@ -89,9 +89,14 @@ M.nmap(']<space>', ':set paste<CR>m`o<Esc>``:set nopaste<CR>', { desc = "add lin
 
 M.nmap("'", '`', { desc = 'go to mark location (set with letter m)' })
 M.nmap('<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
-M.nmap('gn', ':bn<CR>', { desc = 'next buffer on list' })
-M.nmap('gp', ':bp<CR>', { desc = 'previous buffer on list' })
-M.nmap('gm', ':b#<CR>', { desc = 'last buffer' })
+-- M.nmap('gn', ':bn<CR>', { desc = 'next buffer on list' })
+-- M.nmap('gp', ':bp<CR>', { desc = 'previous buffer on list' })
+-- M.nmap('gm', ':b#<CR>', { desc = 'last buffer' })
+M.nmap('gn', ':n<CR>', { desc = 'next buffer on list' })
+M.nmap('gp', ':N<CR>', { desc = 'previous buffer on list' })
+M.nmap('gm', ':la#<CR>', { desc = 'last arg buffer' })
+M.nmap('g1', ':rew<CR>', { desc = 'first arg buffer' })
+M.nmap('g2', ':argu 2<CR>', { desc = 'first arg buffer' })
 
 M.nmap('z/', ':set cursorcolumn! <bar> set cursorline!<CR>', { desc = 'toggle cursor line and column highlight' })
 M.nmap('z.', ':set list!<CR>', { desc = 'toggle show tabs' })
@@ -171,14 +176,23 @@ M.fzf = function() return require('fzf-lua') end
 
 set_group('n', '<leader>f', '+find')
 M.nmap('<leader>ff', function()
-		M.fzf().files({ fd_opts = "--color=never --type f --follow --exclude .git" })
+		M.fzf().files({
+			fd_opts = "--color=never --type f --follow --exclude .git",
+			-- actions = { ["ctrl-l"] = require 'fzf-lua.actions'.arg_add, },
+		})
 	end,
 	{ desc = 'find files' })
+
 M.nmap('<leader>fa', function()
-		M.fzf().files({ fd_opts = "--color=never --type f --follow --no-ignore" })
+		M.fzf().files({
+			fd_opts = "--color=never --type f --follow --no-ignore",
+			-- actions = { ["ctrl-l"] = require 'fzf-lua.actions'.arg_add, },
+		})
 	end,
 	{ desc = 'find all files' })
-M.nmap('<leader>fh', function() M.fzf().files() end, { desc = 'find hidden files' })
+
+M.nmap('<leader>fa', function() M.fzf().args() end, { desc = 'find arglist' })
+M.nmap('<leader>fh', function() M.fzf().files({}) end, { desc = 'find hidden files' })
 M.nmap('<leader>fb', function() M.fzf().buffers() end, { desc = 'find buffers' })
 M.nmap('<leader>fc', function() M.fzf().git_commits() end, { desc = 'find commits' })
 M.nmap('<leader>fd', function() M.fzf().diagnostics_document() end, { desc = 'find diagnostics' })

@@ -31,6 +31,11 @@ end
 
 local M = {
 	{ 'j-hui/fidget.nvim',              opts = {} },
+	-- {
+	-- 	"icholy/lsplinks.nvim",
+	-- 	lazy = true,
+	-- 	config = true,
+	-- },
 	{
 		"williamboman/mason.nvim",
 		-- event = "VeryLazy",
@@ -134,14 +139,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(ev)
 		-- Enable completion triggered by <c-x><c-o>
 		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+		-- local gx = function() require("lsplinks").gx() end
 
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local nmap = h.mapper('n', { buffer = ev.buf })
-
 		nmap('K', vim.lsp.buf.hover, { desc = 'documentation' })
 		nmap('gd', vim.lsp.buf.definition, { desc = 'show definition' })
 		nmap('gr', vim.lsp.buf.references, { desc = 'references' })
+		-- nmap("gx", gx, { desc = 'go linked documentation' })
+
 		nmap('<leader>lr', vim.lsp.buf.references, { desc = 'references' })
 		nmap('<leader>ld', vim.lsp.buf.definition, { desc = 'show definition' })
 		nmap('<leader>lD', vim.lsp.buf.declaration, { desc = 'show declaration' })

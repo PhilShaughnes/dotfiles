@@ -73,9 +73,10 @@ bind @ join-pane -s :+1
 
 # cycle windows with bind tab
 bind Tab next-window
+bind Space select-window -t !
 
 # cycle layout
-bind l select-layout even-horizontal
+bind l select-layout next-layout
 
 # No delay for escape key press
 set -sg escape-time 0
@@ -158,6 +159,8 @@ set-option -g visual-bell off
 set-option -g visual-silence off
 set-window-option -g monitor-activity off
 set-option -g bell-action none
+
+set -g allow-passthrough on
 
 # set -g default-terminal "screen-256color"
 # set -ga terminal-overrides ",xterm-256color*:Tc"
