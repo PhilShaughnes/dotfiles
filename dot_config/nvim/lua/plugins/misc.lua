@@ -65,7 +65,14 @@ local M = {
 				mode = 'n'
 			},
 		},
-	}
+	},
+	-- {
+	-- 	'jinh0/eyeliner.nvim',
+	-- 	opt = {
+	-- 		highlight_on_key = true,
+	-- 	},
+	-- 	keys = { 'f', 't' }
+	-- },
 }
 
 return M
