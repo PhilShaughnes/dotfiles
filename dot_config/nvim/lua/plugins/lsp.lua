@@ -16,7 +16,8 @@ local function lsp_settings()
 		-- Error = '',
 		Warn = '',
 		Info = '',
-		Hint = '󰌵',
+		-- Hint = '󰌵',
+		Hint = " ",
 	}
 
 	for type, icon in pairs(signs) do
