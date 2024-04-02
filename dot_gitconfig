@@ -25,9 +25,10 @@
 	empty = commit --allow-empty -m "Empty-Commit"
 	e = commit --allow-empty -m "Empty-Commit"
 	br = rev-parse --abbrev-ref HEAD
-  cs = log --oneline -n5
-  mkbr = !git checkout -B $(git log --pretty=format:"%s" -1 $1 | tr ' ' '-')
-  pr = !git push -u origin $(git br) && gh pr create --draft --fill
+	cs = log --oneline -n5
+	mkbr = !git checkout -B $(git log --pretty=format:"%s" -1 $1 | tr ' ' '-')
+	pr = !git push -u origin $(git br) && gh pr create --draft --fill
+	pf = push --force-with-lease
 
 [credential]
 	# this is a comment
