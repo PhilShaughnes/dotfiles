@@ -6,6 +6,7 @@ vim.filetype.add({
     tf = "hcl",
     http = "hurl",
     hurl = "hurl",
+    tftpl = "yaml",
   },
   filename = {
     ['justfile'] = "just",
