@@ -113,21 +113,10 @@ M.vmap('<', '<gv', { desc = 'un-indent' })
 M.vmap('>', '>gv', { desc = 'indent' })
 
 M.imap('<C-e>', '<esc>ea', { desc = "like 'e' but in insert" })
--- M.imap('<C-t>', '<esc>/[)}"\'\\]>]<CR>:nohlsearch<CR>a', { desc = "move outside next closing thing" })
--- M.imap('(<CR>', '(<CR>)<esc>O', { desc = "add a closing paren" })
--- M.imap('[<CR>', '[<CR>]<esc>O', { desc = "add a closing bracket" })
--- M.imap('{<CR>', '{<CR>}<esc>O', { desc = "add a closing bracket" })
--- M.imap('{;<CR>', '{<CR>};<esc>O', { desc = "add a closing bracket" })
--- M.imap([["<tab>]], [[""<left>]], { desc = "close the quote" })
--- M.imap([['<tab>]], [[''<left>]], { desc = "close the quote" })
--- M.imap([[`<tab>]], [[``<left>]], { desc = "close the backtick" })
--- M.imap('(<tab>', '()<left>', { desc = "close the parens" })
--- M.imap('[<tab>', '[]<left>', { desc = "close the bracket" })
--- M.imap('{<tab>', '{}<left>', { desc = "close the bracket" })
-
+M.imap('<C-t>', '<esc>/[)}"\'\\]>]<CR>:nohlsearch<CR>a', { desc = "move outside next closing thing" })
 
 M.tmap('<C-q>', h.t([[<C-\><C-n><C-W>w]]), { desc = 'cycle splits' })
-M.tmap('<C-t>n', h.t([[<C-\><C-n>]]), { desc = 'normal mode' })
+-- M.tmap('<C-t>n', h.t([[<C-\><C-n>]]), { desc = 'normal mode' })
 
 --lsp
 local toggle_state = true
