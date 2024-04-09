@@ -63,12 +63,12 @@ local M = {
 				h.nmap('<leader>hS', function() gs.show('~1') end, { desc = "show file state in last commit" })
 				h.nmap('<leader>hb', function() gs.toggle_current_line_blame() end, { desc = "toggle line blame" })
 				h.oxmap('ih', ":<C-U>Gitsigns select_hunk<CR>", { desc = "select hunk" })
-				h.nmap(']c', function()
+				h.nmap(']h', function()
 					if vim.wo.diff then return ']c' end
 					vim.schedule(function() gs.next_hunk() end)
 					return '<Ignore>'
 				end, { desc = "next hunk" })
-				h.nmap('[c', function()
+				h.nmap('[h', function()
 					if vim.wo.diff then return '[c' end
 					vim.schedule(function() gs.prev_hunk() end)
 					return '<Ignore>'
