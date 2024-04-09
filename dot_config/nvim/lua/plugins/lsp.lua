@@ -10,14 +10,14 @@ local function lsp_settings()
 		virtual_text = { severity = { min = vim.diagnostic.severity.WARN } }
 	}
 
-	-- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+	-- local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 	local signs = {
 		Error = '',
 		-- Error = '',
 		Warn = '',
 		Info = '',
-		-- Hint = '󰌵',
-		Hint = " ",
+		Hint = '󰌵',
+		-- Hint = " ",
 	}
 
 	for type, icon in pairs(signs) do

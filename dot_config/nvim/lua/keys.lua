@@ -97,18 +97,11 @@ M.nmap('gp', ':N<CR>', { desc = 'previous buffer on list' })
 M.nmap('gm', ':la#<CR>', { desc = 'last arg buffer' })
 M.nmap('g1', ':rew<CR>', { desc = 'first arg buffer' })
 M.nmap('g2', ':argu 2<CR>', { desc = 'second arg buffer' })
-M.nmap('<leader>a', ':args<CR>', { desc = 'show arglist' })
+M.nmap('<leader>as', ':args<CR>', { desc = 'show arglist' })
+M.nmap('<leader>aa', ':argadd %<CR>', { desc = 'add to arglist' })
+M.nmap('<leader>ad', ':argdelete %<CR>', { desc = 'delete from arglist' })
+M.nmap('<leader>ac', ':argdelete *<CR>', { desc = 'clear arglist' })
 
-M.nmap('z/', ':set cursorcolumn! <bar> set cursorline!<CR>', { desc = 'toggle cursor line and column highlight' })
-M.nmap('z.', ':set list!<CR>', { desc = 'toggle show tabs' })
-M.nmap('z,', ':set relativenumber!<CR>', { desc = 'toggle relative number' })
--- M.nmap('z,', ':set hlsearch!<CR>', { desc = 'toggle search highlight' })
-M.nmap('<C-q>', '<C-w>w', { desc = 'cycle splits' })
-M.nmap('<C-w>m', ':tab split<CR>', { desc = 'open current buffer in new tab' })
--- M.nmap('<c-h>', '5zh', { desc = 'scroll left 5 characters' })
--- M.nmap('<c-l>', '5zh', { desc = 'scroll left 5 characters' })
-M.vmap('J', [[:m '>+1<CR>gv=gv]], { desc = 'move visual block down' })
-M.vmap('K', [[:m '<-2<CR>gv=gv]], { desc = 'move visual block up' })
 M.vmap('<', '<gv', { desc = 'un-indent' })
 M.vmap('>', '>gv', { desc = 'indent' })
 
@@ -197,6 +190,16 @@ M.nmap('<leader>fv', function() M.fzf().colorschemes() end, { desc = 'find color
 M.nmap('<leader>fk', function() M.fzf().help_tags() end, { desc = 'find help' })
 
 M.vmap('<leader>ff', function() M.fzf().grep_visual() end, { desc = 'grep visual selection' })
+-- markdown
+M.nmap('<leader>mm', function() M.fzf().files({ cwd = '~/notes/wiki' }) end, { desc = 'find notes' })
+
+-- plugin groups
+set_group('n', '<leader>h', 'git hunk')
+set_group('n', '<leader>g', 'git')
+set_group('n', '<leader>w', 'Vimwiki')
+-- nnn
+set_group('n', '<leader>n', 'nnn file manager')
+return M
 -- markdown
 M.nmap('<leader>mm', function() M.fzf().files({ cwd = '~/notes/wiki' }) end, { desc = 'find notes' })
 
