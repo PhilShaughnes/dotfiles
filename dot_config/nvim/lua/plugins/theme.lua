@@ -36,8 +36,8 @@ local M = {
 	},
 	{
 		'ivanjermakov/troublesum.nvim',
-		-- config = { severity_format = { '', '', '', '󰌵' }, enabled = true },
-		config = { severity_format = { '', '', '', '󰌵' }, enabled = true },
+		config = { severity_format = { '', '', '', '󰌵' }, enabled = true },
+		-- config = { severity_format = { '', '', '', '󰌵' }, enabled = true },
 		lazy = true,
 		event = { "BufWritePost" },
 		keys = {
