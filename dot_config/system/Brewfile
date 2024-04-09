@@ -2,13 +2,12 @@ tap 'Homebrew/bundle'
 tap 'cjbassi/gotop'
 
 cask_args appdir: "/Applications"
-tap "homebrew/cask"
+# tap "homebrew/cask"
 
 # cask apps
 # cask "iterm2"
 # cask "vanilla"
-cask "ngrok"
-cask "dropbox"
+# cask "dropbox"
 cask "karabiner-elements"
 # cask "qlstephen" #quicklook for text files (without dedicated plugin)
 # cask "qlcolorcode" # quicklook for code with synta highlighting
@@ -28,8 +27,10 @@ cask "kitty" # fast terminal emulator
 # fonts
 tap "homebrew/cask-fonts"
 
-cask "font-jetbrains-mono-nerd-font"
-cask "font-fira-code-nerd-font"
+cask "font-jetbrains-mono"
+cask "font-symbols-only-nerd-font"
+# cask "font-jetbrains-mono-nerd-font"
+# cask "font-fira-code-nerd-font"
 
 # for dotfiles
 # tap "thoughtbot/formulae"
@@ -48,9 +49,8 @@ brew "tree" # ls, but as a tree
 brew "fzf" # fuzzy search
 brew "zsh-completions"
 brew "zsh"
-# brew "ranger" # file browser
 brew "nnn" # file browser
-brew "tmux"
+# brew "tmux"
 brew "wifi-password"
 brew "ripgrep" # super fast txt file search
 # brew "ms-jpq/sad/sad" # interactive (with diff) sed alternative
@@ -65,6 +65,7 @@ brew "htop"
 # brew "gotop"
 brew "jq"  # json format (json | jq .)
 brew "wget"
+brew "hurl" # cli postman-ish
 # brew "yt-dlp" # better yt downloader
 brew 'hyperfine' # rust benchmark tool
 brew "tokei" # statitics on codebase
@@ -72,7 +73,6 @@ brew "noti"  # push cli results to notification
 brew "entr"  # autorun stuff on changes
 # brew "devd"  # local webserver with live reload (devd -ol .)
 brew "wrk"   # http benchmarking and load tool
-# brew "moreutils" # lots of useful utils like vipe and vidir
 brew "parallel"
 brew "tealdeer"
 brew "pass"
