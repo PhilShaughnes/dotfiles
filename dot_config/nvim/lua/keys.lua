@@ -199,14 +199,5 @@ set_group('n', '<leader>g', 'git')
 set_group('n', '<leader>w', 'Vimwiki')
 -- nnn
 set_group('n', '<leader>n', 'nnn file manager')
-return M
--- markdown
-M.nmap('<leader>mm', function() M.fzf().files({ cwd = '~/notes/wiki' }) end, { desc = 'find notes' })
 
--- plugin groups
-set_group('n', '<leader>h', 'git hunk')
-set_group('n', '<leader>g', 'git')
-set_group('n', '<leader>w', 'Vimwiki')
--- nnn
-set_group('n', '<leader>n', 'nnn file manager')
 return M
