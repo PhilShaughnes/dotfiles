@@ -98,6 +98,14 @@ fshow() {
 FZF-EOF"
 }
 
+gbc() {
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $@..$(git rev-parse --abbrev-ref HEAD)
+}
+
+gbbc() {
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $(git rev-parse --abbrev-ref HEAD)..$@
+}
+
 gp() {
   # create branch if none exists on current or provided commit
   # push branch to origin
