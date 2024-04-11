@@ -102,6 +102,17 @@ M.nmap('<leader>aa', ':argadd %<CR>', { desc = 'add to arglist' })
 M.nmap('<leader>ad', ':argdelete %<CR>', { desc = 'delete from arglist' })
 M.nmap('<leader>ac', ':argdelete *<CR>', { desc = 'clear arglist' })
 
+M.nmap('z/', ':set cursorcolumn! <bar> set cursorline!<CR>', { desc = 'toggle cursor line and column highlight' })
+M.nmap('z.', ':set list!<CR>', { desc = 'toggle show tabs' })
+M.nmap('z,', ':set relativenumber!<CR>', { desc = 'toggle relative number' })
+-- M.nmap('z,', ':set hlsearch!<CR>', { desc = 'toggle search highlight' })
+M.nmap('<C-q>', '<C-w>w', { desc = 'cycle splits' })
+M.nmap('<C-w>m', ':tab split<CR>', { desc = 'open current buffer in new tab' })
+-- M.nmap('<c-h>', '5zh', { desc = 'scroll left 5 characters' })
+-- M.nmap('<c-l>', '5zh', { desc = 'scroll left 5 characters' })
+M.vmap('J', [[:m '>+1<CR>gv=gv]], { desc = 'move visual block down' })
+M.vmap('K', [[:m '<-2<CR>gv=gv]], { desc = 'move visual block up' })
+
 M.vmap('<', '<gv', { desc = 'un-indent' })
 M.vmap('>', '>gv', { desc = 'indent' })
 
