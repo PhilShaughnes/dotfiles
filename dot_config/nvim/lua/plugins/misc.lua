@@ -59,11 +59,6 @@ local M = {
 		event = 'InsertEnter',
 	},
 	{
-		'abecodes/tabout.nvim',
-		config = true,
-		event = 'InsertEnter',
-	},
-	{
 		'Wansmer/treesj',
 		cmd = 'TSJToggle',
 		dependencies = { 'nvim-treesitter' },
@@ -71,11 +66,6 @@ local M = {
 		init = function()
 			h.nmap('<leader>v', ':TSJToggle<cr>', { desc = 'toggle joins' })
 		end,
-	},
-	{
-		'sindrets/diffview.nvim',
-		dependencies = { 'nvim-lua/plenary.nvim' },
-		cmd = { 'DiffviewFileHistory', 'DiffviewOpen' },
 	},
 	{
 		'saccarosium/neomarks',
