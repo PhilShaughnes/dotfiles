@@ -177,7 +177,7 @@ M.nmap('<leader>ff', function()
 	end,
 	{ desc = 'find files' })
 
-M.nmap('<leader>fa', function()
+M.nmap('<leader>f;', function()
 		M.fzf().files({
 			fd_opts = "--color=never --type f --follow --no-ignore",
 			-- actions = { ["ctrl-l"] = require 'fzf-lua.actions'.arg_add, },

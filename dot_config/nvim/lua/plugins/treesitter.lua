@@ -136,7 +136,7 @@ local M = {
 					disable = { "rust" }, -- list of language that will be disabled
 				},
 				-- endwise = { enable = true },
-				incremental_selection = incremental,
+				-- incremental_selection = incremental,
 				textobjects = ts_textobjects,
 				indent = { enable = true },
 				playground = playground,
