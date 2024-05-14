@@ -1,16 +1,6 @@
 local h = require('helpers')
 local M = {
 	{
-		'numToStr/Comment.nvim',
-		config = function()
-			require('Comment').setup()
-			local ft = require('Comment.ft')
-			ft.yaml = '#%s'
-			ft({ 'toml', 'graphql', 'hurl' }, '#%s')
-		end
-	},
-	{ 'kevinhwang91/nvim-bqf',     ft = 'qf' },
-	{
 		'dcampos/nvim-snippy',
 		keys = {
 			{
@@ -32,8 +22,8 @@ local M = {
 			},
 		}
 	},
-	{ 'echasnovski/mini.surround', opts = {} },
-	{ 'Darazaki/indent-o-matic',   opts = {} },
+	{ 'echasnovski/mini.surround', event = "BufReadPost", opts = {} },
+	{ 'echasnovski/mini.comment',  event = "BufReadPost", opts = {} },
 	{
 		'ibhagwan/fzf-lua',
 		lazy = true,
@@ -78,17 +68,6 @@ local M = {
 		end
 	},
 	{ 'folke/which-key.nvim', lazy = true },
-	{
-		"otavioschwanck/arrow.nvim",
-		lazy = true,
-		keys = {
-			{ ";", function() require("arrow.ui").openMenu() end, desc = "arrow" },
-		},
-		opts = {
-			show_icons = true,
-			leader_key = ';' -- Recommended to be a single key
-		}
-	},
 }
 
 return M

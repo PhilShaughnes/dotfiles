@@ -31,10 +31,11 @@ local get_closing_for_line = function(line)
 end
 
 local M = {
-	{ 'ojroques/nvim-osc52',             lazy = true },              -- probably can trigger this via keymaps
-	{ 'eandrju/cellular-automaton.nvim', cmd = 'CellularAutomaton' }, -- make_it_rain / game_of_life
-	{ 'RRethy/nvim-align',               cmd = 'Align' },
-	{ 'kana/vim-niceblock',              event = 'InsertEnter' },
+	{ 'ojroques/nvim-osc52',     lazy = true }, -- probably can trigger this via keymaps
+	{ 'RRethy/nvim-align',       cmd = 'Align' },
+	{ 'kevinhwang91/nvim-bqf',   ft = 'qf' },
+	{ 'Darazaki/indent-o-matic', cmd = "IndentOMatic", opts = {} },
+	{ 'kana/vim-niceblock',      event = 'InsertEnter' },
 	{
 		'windwp/nvim-autopairs',
 		opts = {},
@@ -66,6 +67,17 @@ local M = {
 		init = function()
 			h.nmap('<leader>v', ':TSJToggle<cr>', { desc = 'toggle joins' })
 		end,
+	},
+	{
+		"otavioschwanck/arrow.nvim",
+		lazy = true,
+		keys = {
+			{ ";", function() require("arrow.ui").openMenu() end, desc = "arrow" },
+		},
+		opts = {
+			show_icons = true,
+			leader_key = ';' -- Recommended to be a single key
+		}
 	},
 	{
 		'saccarosium/neomarks',
@@ -109,13 +121,6 @@ local M = {
 			},
 		},
 	},
-	-- {
-	-- 	'jinh0/eyeliner.nvim',
-	-- 	opt = {
-	-- 		highlight_on_key = true,
-	-- 	},
-	-- 	keys = { 'f', 't' }
-	-- },
 }
 
 return M

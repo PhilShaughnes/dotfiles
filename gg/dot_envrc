@@ -1,7 +1,7 @@
 # export GIT_CONFIG=~/gg/.gitconfig-gg
 export GIT_CONFIG_GLOBAL=~/gg/.gitconfig-gg
 export NPM_CONFIG_USERCONFIG=~/gg/.npmrc
-export TLS_LOCAL="~/gg/tls"
+export TLS_LOCAL=~/gg/tls
 export AWS_CONFIG_FILE=~/gg/.aws/config
 export AWS_SHARED_CREDENTIALS_FILE=~/gg/.aws/credentials
 export MAVEN_HOME=~/gg/.m2

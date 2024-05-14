@@ -78,3 +78,7 @@ set.background = 'dark'
 --   "%{get(b:,'gitsigns_status','')}"..
 --   '%<%= %p%% | %-l:%v |'..
 --   ' %L'
+
+vim.g.zenbones_solid_line_nr = true
+vim.g.zenbones_darken_comments = 45
+vim.g.bones_compat = 1

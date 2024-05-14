@@ -100,11 +100,30 @@ local M = {
 			'kyazdani42/nvim-web-devicons',
 		}
 	},
+	{ 'ribru17/bamboo.nvim' },
+	{ 'yorickpeterse/nvim-grey' },
 	{
-		'rebelot/kanagawa.nvim',
+		'EdenEast/nightfox.nvim',
 		-- lazy = true,
 		lazy = false,
 		priority = 1000,
+		config = function()
+			cmd([[colorscheme terafox]])
+			-- cmd([[colorscheme dayfox]])
+		end
+	},
+	{
+		'mcchrish/zenbones.nvim',
+		lazy = true,
+		init = function()
+			vim.g.zenbones_compat = 1
+		end
+	},
+	{
+		'rebelot/kanagawa.nvim',
+		lazy = true,
+		-- lazy = false,
+		-- priority = 1000,
 		config = function()
 			require('kanagawa').setup({
 				compile = false,
@@ -121,7 +140,7 @@ local M = {
 				--	 }
 				-- end,
 			})
-			cmd([[colorscheme kanagawa]])
+			-- cmd([[colorscheme kanagawa]])
 		end,
 	},
 }
