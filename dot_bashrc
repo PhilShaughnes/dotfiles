@@ -2,6 +2,8 @@
 set -o vi
 
 . $HOME/.env
+export GG_ENV="local"
+
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 . $HOME/.fzf.bash
@@ -13,6 +15,8 @@ fi
 
 . $HOME/.config/system/aliases
 . $HOME/.config/system/functions
+. $HOME/.config/system/tools
+
 
 bind "set completion-ignore-case on"
 bind 'set show-all-if-ambiguous on'

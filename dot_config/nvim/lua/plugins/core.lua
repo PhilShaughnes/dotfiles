@@ -22,8 +22,10 @@ local M = {
 			},
 		}
 	},
-	{ 'echasnovski/mini.surround', event = "BufReadPost", opts = {} },
-	{ 'echasnovski/mini.comment',  event = "BufReadPost", opts = {} },
+	{ 'echasnovski/mini.surround', event = "VeryLazy", opts = {} },
+	{ 'echasnovski/mini.comment',  event = "VeryLazy", opts = {} },
+	-- { 'echasnovski/mini.surround', event = "BufReadPost", opts = {} },
+	-- { 'echasnovski/mini.comment',  event = "BufReadPost", opts = {} },
 	{
 		'ibhagwan/fzf-lua',
 		lazy = true,
