@@ -23,9 +23,7 @@ local M = {
 		}
 	},
 	{ 'echasnovski/mini.surround', event = "VeryLazy", opts = {} },
-	{ 'echasnovski/mini.comment',  event = "VeryLazy", opts = {} },
 	-- { 'echasnovski/mini.surround', event = "BufReadPost", opts = {} },
-	-- { 'echasnovski/mini.comment',  event = "BufReadPost", opts = {} },
 	{
 		'ibhagwan/fzf-lua',
 		lazy = true,
@@ -69,7 +67,7 @@ local M = {
 			h.nmap('<leader>nl', ":NnnExplorer %:p:h<CR>", { desc = "nnn sidebar in dir of current file" })
 		end
 	},
-	{ 'folke/which-key.nvim', lazy = true },
+	{ 'folke/which-key.nvim',      lazy = true },
 }
 
 return M
