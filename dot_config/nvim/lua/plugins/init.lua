@@ -136,3 +136,70 @@ return {}
 -- ● cmp-path 16.61ms  nvim-cmp
 -- ● cmp-snippy 1.46ms  nvim-cmp
 --
+-- ROUND 2
+-- TOP 5
+-- 1 fzf-lua
+-- 2 git-signs
+-- 3 nvim-treesitter
+-- 4 conform or lint?
+-- 5 snippy? lsp-config?
+--
+-- UI
+--   ● cinnamon.nvim 1.16ms  VeryLazy
+--   ● nightfox.nvim 4.78ms  start
+--   ● nvim-web-devicons 0.64ms 󰢱 nvim-web-devicons  fzf-lua
+--   ○ kanagawa.nvim
+--   ○ lualine.nvim
+--   ○ troublesum.nvim  <leader>ud  BufWritePost
+--   ○ zenbones.nvim
+--
+-- AUTOCOMPLETION
+--   ● nvim-cmp 37.95ms 󰢱 cmp  fzf-lua
+--   ● cmp-cmdline 1.47ms  nvim-cmp
+--   ● cmp-nvim-lsp 4.62ms  nvim-cmp
+--   ● cmp-path 21.15ms  nvim-cmp
+--   ● cmp-snippy 4.19ms  nvim-cmp
+--
+-- LSP
+--   ● nvim-lspconfig 12.52ms  BufReadPre
+--   ● fidget.nvim 4.84ms  LspAttach
+--   ● lsp-timeout.nvim 0.56ms  LspAttach
+--   ● lspkind-nvim 0.53ms  nvim-cmp
+--   ● mason.nvim 3.31ms  start
+--   ○ nvim-code-action-menu  CodeActionMenu
+--
+-- FUZZY
+--   ● fzf-lua 53.03ms 󰢱 fzf-lua  keys
+--
+-- GIT
+--   ● gitsigns.nvim 3.08ms  VeryLazy
+--   ○ diffview.nvim  DiffviewFileHistory  DiffviewOpen  neogit
+--   ○ gitlinker.nvim
+--   ○ neogit  Neogit
+--
+-- PLUGINS
+--   ● lazy.nvim 7.21ms  init.lua
+--
+--   ● mini.surround 1.1ms  VeryLazy
+--   ● nnn.nvim 23.93ms  NnnPicker
+--   ● nvim-snippy 3.12ms  nvim-cmp
+--   ● nvim-treesitter 20.71ms  BufReadPost
+--   ● nvim-treesitter-textobjects 11.08ms  nvim-treesitter
+--   ● which-key.nvim 0.7ms 󰢱 which-key  keys
+--
+-- Not Loaded (23)
+--   ○ conform.nvim  ConformInfo  <leader>lf ()  BufWritePre
+--   ○ nvim-lint  <leader>lc  BufWritePre
+--   ○ indent-o-matic  IndentOMatic
+--   ○ arrow.nvim  ;
+--   ○ neomarks  <leader>jt  <leader>jj  <leader>ja  <leader>jw  <leader>je  <leader>jr
+--   ○ nvim-align  Align
+--   ○ nvim-autopairs  InsertEnter
+--   ○ nvim-bqf  qf
+--   ○ nvim-osc52
+--   ○ treesj  TSJToggle
+--   ○ vim-niceblock  InsertEnter
+--   ○ plenary.nvim  neogit  diffview.nvim  gitlinker.nvim
+--   ○ obsidian.nvim  markdown
+--   ○ venn.nvim  VBox
+--   ○ vimwiki  VimwikiIndex

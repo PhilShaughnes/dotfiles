@@ -31,7 +31,8 @@ set.wrap = false
 set.number = true
 set.relativenumber = true
 -- set.cursorcolumn = true
--- set.cursorline = true
+set.cursorline = true
+set.cursorlineopt = "number"
 set.ruler = true
 set.splitbelow = true
 set.splitright = true
@@ -73,13 +74,29 @@ set.grepformat = '%f:%l:%c:%m'
 set.omnifunc = 'syntaxcomplete#Complete'
 
 set.termguicolors = true
-set.background = 'dark'
+set.background = 'light'
 
--- set.statusline = '%f '..
---   "%{get(b:,'gitsigns_status','')}"..
---   '%<%= %p%% | %-l:%v |'..
---   ' %L'
+vim.g.zenbones_compat = 1
 
-vim.g.zenbones_solid_line_nr = true
-vim.g.zenbones_darken_comments = 45
-vim.g.bones_compat = 1
+if os.getenv('theme') == 'dark' then
+	set.background = 'dark'
+end
+
+-- set.rulerformat = '%35(%t ' ..
+-- 		"%{get(b:,'gitsigns_status','')}" ..
+-- 		'%<%= %p%%%=%-l:%v' ..
+-- 		' %L' ..
+-- 		'%)'
+-- set.rulerformat = '%35(%t ' ..
+-- 		"%{get(b:,'gitsigns_status','')}" ..
+-- 		-- '%<%= %p%%%=%-l:%v' ..
+-- 		'%=%l:%v%=%p%%' ..
+-- 		-- ' %L' ..
+-- 		'%)'
+
+-- default, with added line number
+-- set.rulerformat = '%20(%l,%c%V%=%p%% %L%)'
+-- adds file name a slightly different line num/col format and total lines
+-- set.rulerformat = '%25(%t %l:%v%=%p%% %L%)'
+-- just tweaks the format
+set.rulerformat = '%10(%l:%v%=%p%%%)'

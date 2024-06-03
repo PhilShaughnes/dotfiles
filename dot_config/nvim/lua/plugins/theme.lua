@@ -103,51 +103,50 @@ local M = {
 	},
 	{
 		'EdenEast/nightfox.nvim',
-		-- lazy = true,
-		lazy = false,
-		priority = 1000,
-		config = function()
-			cmd([[colorscheme terafox]])
-			-- cmd([[colorscheme dayfox]])
-		end
+		bg = 'dark',
+		colo = 'terafox',
+		lazy = true,
 	},
 	{
 		'mcchrish/zenbones.nvim',
+		bg = 'light',
+		colo = 'zenbones',
 		lazy = true,
-		init = function()
-			vim.g.zenbones_compat = 1
-		end
+		-- priority = 1000,
+		-- init = function()
+		-- 	vim.g.zenbones_compat = 1
+		-- 	vim.g.zenbones_solid_line_nr = true
+		-- 	vim.g.zenbones_darken_comments = 45
+		-- end
 	},
 	{
 		'rebelot/kanagawa.nvim',
 		lazy = true,
 		-- lazy = false,
 		-- priority = 1000,
-		config = function()
-			require('kanagawa').setup({
-				compile = false,
-				-- transparent = false,
-				transparent = false,
-				-- overrides = function(colors)
-				--	 local theme = colors.theme
-				--	 return {
-				--		 Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg }, -- add `blend = vim.o.pumblend` to enable transparency
-				--		 -- PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-				--		 PmenuSel = { fg = theme.ui.fg_reverse, bg = theme.syn.constant },
-				--		 PmenuSbar = { bg = theme.ui.bg_m1 },
-				--		 PmenuThumb = { bg = theme.ui.bg_p2 },
-				--	 }
-				-- end,
-			})
-			-- cmd([[colorscheme kanagawa]])
-		end,
+		opt = {
+			compile = false,
+			transparent = false,
+		},
 	},
 }
+local function setTheme(colorschemeTable)
+	local currentbg = vim.o.background
+	for i, config in ipairs(colorschemeTable) do
+		if config.bg and config.bg == currentbg then
+			config.lazy = false
+			config.priority = 1000
+			config.config = function() vim.cmd("colorscheme " .. config.colo) end
+		end
+	end
+end
+setTheme(M)
 
 -- _G.colo = function(cs)
 --	 cmd('colorscheme ' .. cs)
 --	 sems()
 --	 cmd([[highlight Normal guibg=none]])
 -- end
+
 _G.sems = sems
 return M

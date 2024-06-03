@@ -21,13 +21,6 @@ require("lazy").setup("plugins", {
 		enabled = true,
 		notify = false,
 	},
-	install = {
-		-- try to load one of these colorschemes when starting an installation during startup
-		colorscheme = {
-			"terafox",
-			"default",
-		},
-	},
 	performance = {
 		rtp = {
 			---@type string[] list any plugins you want to disable here
