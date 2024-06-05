@@ -14,5 +14,5 @@ load 'helpers'
 load 'settings'
 load 'plugin'
 load 'keys'
+load 'abbrev'
 load 'augroups'
-

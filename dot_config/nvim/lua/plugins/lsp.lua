@@ -10,13 +10,13 @@ local function lsp_settings()
 		virtual_text = { severity = { min = vim.diagnostic.severity.WARN } }
 	}
 
-	local signs = {
-		Error = '',
-		-- Error = '',
-		Warn = '',
-		Info = '',
-		Hint = '󰌵',
-	}
+	-- local signs = {
+	-- 	Error = '',
+	-- 	-- Error = '',
+	-- 	Warn = '',
+	-- 	Info = '',
+	-- 	Hint = '󰌵',
+	-- }
 	-- NON-NERDFONT
 	-- Error = '✗',
 	-- Error = '⊗',
@@ -24,11 +24,20 @@ local function lsp_settings()
 	-- Info = '⏼',
 	-- Hint = '⊙',
 	-- local signs = { Error = "⊗", Warn = "⚠", Hint = "⊙", Info = "⏼" }
-
-	for type, icon in pairs(signs) do
-		local hl = "DiagnosticSign" .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-	end
+	vim.diagnostic.config({
+		signs = {
+			text = {
+				[vim.diagnostic.severity.ERROR] = '',
+				[vim.diagnostic.severity.WARN] = '',
+				[vim.diagnostic.severity.HINT] = '󰌵',
+				[vim.diagnostic.severity.INFO] = '',
+				-- [vim.diagnostic.severity.ERROR] = '✘',
+				-- [vim.diagnostic.severity.WARN] = '▲',
+				-- [vim.diagnostic.severity.HINT] = '⚑',
+				-- [vim.diagnostic.severity.INFO] = '»',
+			},
+		},
+	})
 
 	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
 	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
@@ -60,8 +69,7 @@ local M = {
 				"eslint-lsp",
 				"gopls",
 				"golines",
-				"gofumpt",
-				"goimports-reviser",
+				"goimports",
 				"typescript-language-server",
 				"yamllint",
 				"jsonlint",
@@ -71,7 +79,6 @@ local M = {
 			automatic_installation = true,
 		},
 	},
-	{ 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' },
 	{
 		"hinell/lsp-timeout.nvim",
 		event = { "LspAttach" },
@@ -167,7 +174,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		nmap('<leader>lk', vim.lsp.buf.hover, { desc = 'documentation' })
 		nmap('<leader>lp', vim.diagnostic.goto_prev, { desc = 'prev diagnostic' })
 		nmap('<leader>ln', vim.diagnostic.goto_next, { desc = 'next diagnostic' })
-		nmap('<leader>la', ':CodeActionMenu<CR>', { desc = 'code actions menu' })
+		nmap('<leader>la', vim.lsp.buf.code_action, { desc = 'code actions menu' })
 	end,
 })
 

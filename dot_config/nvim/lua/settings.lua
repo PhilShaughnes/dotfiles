@@ -78,7 +78,7 @@ set.background = 'light'
 
 vim.g.zenbones_compat = 1
 
-if os.getenv('theme') == 'dark' then
+if os.getenv('THEME') == 'dark' then
 	set.background = 'dark'
 end
 

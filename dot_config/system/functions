@@ -8,7 +8,7 @@ n () {
   fi
 
   NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-  nnn -e "$@"
+  nnn "$@"
 
   if [ -f "$NNN_TMPFILE" ]; then
     . "$NNN_TMPFILE"
@@ -169,4 +169,16 @@ ggpass() {
 
 yt() {
   yt-dlp --extract-audio --audio-format aac -P "~/Music/songs/yt" -o $@
+}
+
+light() {
+	kitten themes --reload-in=all zenbones_light
+	export THEME="light"
+	tmux setenv -g THEME "light"
+}
+
+dark() {
+	kitten themes --reload-in=all Minimal
+	export THEME="dark"
+	tmux setenv -g THEME "dark"
 }

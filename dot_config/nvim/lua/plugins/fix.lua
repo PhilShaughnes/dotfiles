@@ -30,7 +30,8 @@ local M = {
 				-- just = { "just" },
 				go = {
 					-- { "gofumpt",           "gofmt" },
-					{ "goimports-reviser", "goimports" },
+					-- { "goimports-reviser", "goimports" },
+					{ "goimports" },
 					{ "golines" },
 				}
 			},

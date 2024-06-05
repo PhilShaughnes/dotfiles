@@ -1,6 +1,13 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
+local enter = augroup('vimenter', { clear = true })
+autocmd({ 'VimEnter' }, {
+	pattern = '*',
+	callback = function() vim.fn.setreg('p', '<++>') end,
+	group = enter,
+})
+
 local term = augroup('term', { clear = true })
 autocmd({ 'BufEnter', 'TermOpen' }, {
 	pattern = 'term://*',

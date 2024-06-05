@@ -56,10 +56,13 @@ end
 
 M.nmap('<C-k>', ':cprev<CR>', { desc = 'quickfix previous' })
 M.nmap('<C-j>', ':cnext<CR>', { desc = 'quickfix next' })
-M.nmap('<leader>k', h.go_up, { desc = 'up cliff' })
-M.nmap('<leader>j', h.go_down, { desc = 'down cliff' })
+M.nmap('<leader>K', h.go_up, { desc = 'up cliff' })
+M.nmap('<leader>J', h.go_down, { desc = 'down cliff' })
 M.nmap('\\\\', toggle_qf, { desc = 'quickfix toggle' })
 
+M.imap("<C-o>)", '<CR>)<esc>O', { desc = "adds closing )" })
+M.imap("<C-o>]", '<CR>]<esc>O', { desc = "adds closing ]" })
+M.imap("<C-o>}", '<CR>}<esc>O', { desc = "adds closing }" })
 M.nmap("<leader>,", function() M.line_end_toggle(',') end, { desc = "toggle , at end of line" })
 M.nmap("<leader>;", function() M.line_end_toggle(';') end, { desc = "toggle ; at end of line" })
 M.imap("<C-o>,", function() M.line_end_toggle(',') end, { desc = "toggle , at end of line" })
@@ -72,6 +75,9 @@ M.nmap('<leader>/', [[:'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/]],
 	{ desc = 'replace all word in paragraph', silent = false })
 M.nmap('<leader>%', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
 	{ desc = 'replace all word in buffer', silent = false })
+
+M.nmap('<leader><space>', [[<ESC>/<++><CR>"_c4l]], { desc = "go to next <++>" })
+M.nmap('<leader><CR>', [[<ESC>?<++><CR>"_c4l]], { desc = "go to prev <++>" })
 
 M.nmap('j', 'gj', { desc = 'down' })
 M.nmap('k', 'gk', { desc = 'up' })
