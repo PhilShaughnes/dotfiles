@@ -54,8 +54,9 @@ set.shiftwidth = 2
 set.conceallevel = 2
 set.thesaurus:append(nvim_dir .. '/thes/thesaurii.txt')
 set.clipboard = 'unnamed'
--- set.completeopt = { 'menu', 'preview' }
-set.completeopt = { 'menu', 'menuone', 'noselect' }
+set.completeopt = { 'menu', 'menuone', 'popup', 'noinsert' }
+-- set.completeopt = { 'menu', 'menuone', 'noselect' }
+set.pumheight = 10
 set.list = true
 set.listchars = {
 	space = "·",
@@ -71,7 +72,8 @@ set.undodir = tmpdir
 -- set.undodir = nvim_dir .. '/.vimundo'
 set.grepprg = 'rg --smart-case --vimgrep'
 set.grepformat = '%f:%l:%c:%m'
-set.omnifunc = 'syntaxcomplete#Complete'
+set.omnifunc = 'lspcomplete#Complete'
+set.wildmode = { 'longest:full', 'full' }
 
 set.termguicolors = true
 set.background = 'light'

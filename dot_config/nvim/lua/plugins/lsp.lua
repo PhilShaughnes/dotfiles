@@ -79,11 +79,11 @@ local M = {
 			automatic_installation = true,
 		},
 	},
-	{
-		"hinell/lsp-timeout.nvim",
-		event = { "LspAttach" },
-		dependencies = { "neovim/nvim-lspconfig" },
-	},
+	-- {
+	-- 	"hinell/lsp-timeout.nvim",
+	-- 	event = { "LspAttach" },
+	-- 	dependencies = { "neovim/nvim-lspconfig" },
+	-- },
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
@@ -99,8 +99,14 @@ local M = {
 			lsp_defaults.capabilities = vim.tbl_deep_extend(
 				'force',
 				lsp_defaults.capabilities,
-				require('cmp_nvim_lsp').default_capabilities()
+				require('epo').register_cap()
 			)
+
+			-- lsp_defaults.capabilities = vim.tbl_deep_extend(
+			-- 	'force',
+			-- 	lsp_defaults.capabilities,
+			-- 	require('cmp_nvim_lsp').default_capabilities()
+			-- )
 
 			lspconfig.tsserver.setup {}
 			lspconfig.emmet_ls.setup {}
@@ -160,7 +166,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local nmap = h.mapper('n', { buffer = ev.buf })
+		local imap = h.mapper('i', { buffer = ev.buf })
 		nmap('K', vim.lsp.buf.hover, { desc = 'documentation' })
+		imap('<C-k>', vim.lsp.buf.signature_help, { desc = 'sig help' })
 		nmap('gd', vim.lsp.buf.definition, { desc = 'show definition' })
 		nmap('gr', vim.lsp.buf.references, { desc = 'references' })
 		-- nmap("gx", gx, { desc = 'go linked documentation' })

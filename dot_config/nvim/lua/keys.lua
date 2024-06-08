@@ -53,6 +53,24 @@ local toggle_qf = function()
 	end
 end
 
+M.imap('<C-Space>', '<C-x><C-o>', { desc = 'lsp completion' })
+
+vim.keymap.set('i', '<C-n>', function()
+	if vim.snippet.active { direction = 1 } then
+		return '<cmd>lua vim.snippet.jump(1)<cr>'
+	else
+		return '<C-n>'
+	end
+end, { expr = true })
+
+vim.keymap.set('i', '<C-p>', function()
+	if vim.snippet.active { direction = -1 } then
+		return '<cmd>lua vim.snippet.jump(-1)<CR>'
+	else
+		return '<C-p>'
+	end
+end, { expr = true })
+
 
 M.nmap('<C-k>', ':cprev<CR>', { desc = 'quickfix previous' })
 M.nmap('<C-j>', ':cnext<CR>', { desc = 'quickfix next' })
@@ -98,11 +116,23 @@ M.nmap('<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
 -- M.nmap('gn', ':bn<CR>', { desc = 'next buffer on list' })
 -- M.nmap('gp', ':bp<CR>', { desc = 'previous buffer on list' })
 -- M.nmap('gm', ':b#<CR>', { desc = 'last buffer' })
+--
 M.nmap('gn', ':n<CR>', { desc = 'next buffer on list' })
 M.nmap('gp', ':N<CR>', { desc = 'previous buffer on list' })
-M.nmap('gm', ':la#<CR>', { desc = 'last arg buffer' })
-M.nmap('g1', ':rew<CR>', { desc = 'first arg buffer' })
-M.nmap('g2', ':argu 2<CR>', { desc = 'second arg buffer' })
+M.nmap('gm', ':la#<CR>', { desc = 'last arg buffer' });
+M.nmap(',1', ':rew<CR>', { desc = 'first arg buffer' })
+M.nmap(',2', ':argu 2<CR>', { desc = 'second arg buffer' })
+M.nmap(',3', ':argu 3<CR>', { desc = 'third arg buffer' })
+M.nmap(',4', ':argu 4<CR>', { desc = 'fourth arg buffer' })
+M.nmap(',,', ':args<CR>', { desc = 'show arglist' })
+M.nmap(',s', ':args<CR>', { desc = 'show arglist' })
+M.nmap(',a', ':argadd %<CR>', { desc = 'add to arglist' })
+M.nmap(',d', ':argdelete %<CR>', { desc = 'delete from arglist' })
+M.nmap(',c', ':argdelete *<CR>', { desc = 'clear arglist' })
+M.nmap('<leader>1', ':rew<CR>', { desc = 'first arg buffer' })
+M.nmap('<leader>2', ':argu 2<CR>', { desc = 'second arg buffer' })
+M.nmap('<leader>3', ':argu 3<CR>', { desc = 'third arg buffer' })
+M.nmap('<leader>4', ':argu 4<CR>', { desc = 'fourth arg buffer' })
 M.nmap('<leader>as', ':args<CR>', { desc = 'show arglist' })
 M.nmap('<leader>aa', ':argadd %<CR>', { desc = 'add to arglist' })
 M.nmap('<leader>ad', ':argdelete %<CR>', { desc = 'delete from arglist' })
@@ -171,46 +201,9 @@ end, { desc = 'all errors in qf' })
 -- M.nmap('<leader>la', ':CodeActionMenu<CR>', { desc = 'code actions menu' })
 
 
--- fzf
-M.fzf = function() return require('fzf-lua') end
-
-set_group('n', '<leader>f', '+find')
-M.nmap('<leader>ff', function()
-		M.fzf().files({
-			fd_opts = "--color=never --type f --follow --exclude .git",
-			-- actions = { ["ctrl-l"] = require 'fzf-lua.actions'.arg_add, },
-		})
-	end,
-	{ desc = 'find files' })
-
-M.nmap('<leader>f;', function()
-		M.fzf().files({
-			fd_opts = "--color=never --type f --follow --no-ignore",
-			-- actions = { ["ctrl-l"] = require 'fzf-lua.actions'.arg_add, },
-		})
-	end,
-	{ desc = 'find all files' })
-
-M.nmap('<leader>fa', function() M.fzf().args() end, { desc = 'find arglist' })
-M.nmap('<leader>fh', function() M.fzf().files({}) end, { desc = 'find hidden files' })
-M.nmap('<leader>fb', function() M.fzf().buffers() end, { desc = 'find buffers' })
-M.nmap('<leader>fc', function() M.fzf().git_commits() end, { desc = 'find commits' })
-M.nmap('<leader>fd', function() M.fzf().diagnostics_document() end, { desc = 'find diagnostics' })
-M.nmap('<leader>fq', function() M.fzf().quickfix() end, { desc = 'find in quickfix' })
-M.nmap('<leader>fg', function() M.fzf().grep() end, { desc = 'grep text' })
-M.nmap('<leader>ft', function() M.fzf().grep_project() end, { desc = 'find text project' })
-M.nmap('<leader>fl', function() M.fzf().live_grep_native() end, { desc = 'find text live' })
-M.nmap('<leader>fw', function() M.fzf().grep_cword() end, { desc = 'find word under cursor' })
-M.nmap('<leader>fW', function() M.fzf().grep_cWORD() end, { desc = 'find WORD under cursor' })
-M.nmap('<leader>fv', function() M.fzf().colorschemes() end, { desc = 'find colorscheme' })
--- M.nmap('<leader>fh', function() M.fzf().highlights() end, { desc = 'find highlight group' })
-M.nmap('<leader>fk', function() M.fzf().help_tags() end, { desc = 'find help' })
-
-M.vmap('<leader>ff', function() M.fzf().grep_visual() end, { desc = 'grep visual selection' })
--- markdown
-M.nmap('<leader>mm', function() M.fzf().files({ cwd = '~/notes/wiki' }) end, { desc = 'find notes' })
 
 -- plugin groups
+set_group('n', '<leader>f', '+find')
 set_group('n', '<leader>h', 'git hunk')
 set_group('n', '<leader>g', 'git')
 set_group('n', '<leader>w', 'Vimwiki')

@@ -7,7 +7,7 @@ function M.merge(a, b)
 end
 
 function M.t(str)
-	return vim.api.nvim_replace_termcodes(str, true, true, true)
+	return vim.api.nvim_replace_termcodes(str, true, false, true)
 end
 
 function M.feedkeys(str)

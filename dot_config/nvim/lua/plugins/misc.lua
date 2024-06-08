@@ -31,48 +31,30 @@ local M = {
 			leader_key = ';' -- Recommended to be a single key
 		}
 	},
-	{
-		'saccarosium/neomarks',
-		config = true,
-		keys = {
-			{
-				'<leader>jj',
-				function() require('neomarks').menu_toggle() end,
-				desc = 'neomarks menu',
-				mode = 'n'
-			},
-			{
-				'<leader>ja',
-				function() require('neomarks').mark_file() end,
-				desc = 'neomark file',
-				mode = 'n'
-			},
-			{
-				'<leader>jw',
-				function() require('neomarks').jump_to(1) end,
-				desc = 'neomark goto 1',
-				mode = 'n'
-			},
-			{
-				'<leader>je',
-				function() require('neomarks').jump_to(2) end,
-				desc = 'neomark goto 2',
-				mode = 'n'
-			},
-			{
-				'<leader>jr',
-				function() require('neomarks').jump_to(3) end,
-				desc = 'neomark goto 3',
-				mode = 'n'
-			},
-			{
-				'<leader>jt',
-				function() require('neomarks').jump_to(4) end,
-				desc = 'neomark goto 4',
-				mode = 'n'
-			},
-		},
-	},
+	{ 'nvimdev/epo.nvim', event = "InsertEnter", config = true, },
+	-- { 'echasnovski/mini.completion', event = "insertEnter", config = true, },
+	-- {
+	-- 	'dcampos/nvim-snippy',
+	-- 	keys = {
+	-- 		{
+	-- 			'<c-t>',
+	-- 			function() require('snippy').complete() end,
+	-- 			desc = 'snippet completion',
+	-- 			mode = 'i',
+	-- 		}
+	-- 	},
+	-- 	opts = {
+	-- 		mappings = {
+	-- 			is = {
+	-- 				['<c-j>'] = 'expand_or_advance',
+	-- 				['<c-k>'] = 'previous',
+	-- 			},
+	-- 			nx = {
+	-- 				['<leader>x'] = 'cut_text',
+	-- 			},
+	-- 		},
+	-- 	}
+	-- },
 }
 
 return M
