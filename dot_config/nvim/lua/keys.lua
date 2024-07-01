@@ -78,9 +78,9 @@ M.nmap('<leader>K', h.go_up, { desc = 'up cliff' })
 M.nmap('<leader>J', h.go_down, { desc = 'down cliff' })
 M.nmap('\\\\', toggle_qf, { desc = 'quickfix toggle' })
 
-M.imap("<C-o>)", '<CR>)<esc>O', { desc = "adds closing )" })
-M.imap("<C-o>]", '<CR>]<esc>O', { desc = "adds closing ]" })
-M.imap("<C-o>}", '<CR>}<esc>O', { desc = "adds closing }" })
+-- M.imap("<C-o>)", '<CR>)<esc>O', { desc = "adds closing )" })
+-- M.imap("<C-o>]", '<CR>]<esc>O', { desc = "adds closing ]" })
+-- M.imap("<C-o>}", '<CR>}<esc>O', { desc = "adds closing }" })
 M.nmap("<leader>,", function() M.line_end_toggle(',') end, { desc = "toggle , at end of line" })
 M.nmap("<leader>;", function() M.line_end_toggle(';') end, { desc = "toggle ; at end of line" })
 M.imap("<C-o>,", function() M.line_end_toggle(',') end, { desc = "toggle , at end of line" })
@@ -125,7 +125,14 @@ M.nmap(',2', ':argu 2<CR>', { desc = 'second arg buffer' })
 M.nmap(',3', ':argu 3<CR>', { desc = 'third arg buffer' })
 M.nmap(',4', ':argu 4<CR>', { desc = 'fourth arg buffer' })
 M.nmap(',,', ':args<CR>', { desc = 'show arglist' })
-M.nmap(',s', ':args<CR>', { desc = 'show arglist' })
+M.nmap(',s', function()
+	-- made dir if not exists
+	-- write arglist to file if not exists
+end, { desc = 'save arglist' })
+M.nmap(',l', function()
+	-- load list of saved arglists
+	-- 'e argsavedir/*<C-d>'
+end, { desc = 'load arglist' })
 M.nmap(',a', ':argadd %<CR>', { desc = 'add to arglist' })
 M.nmap(',d', ':argdelete %<CR>', { desc = 'delete from arglist' })
 M.nmap(',c', ':argdelete *<CR>', { desc = 'clear arglist' })
