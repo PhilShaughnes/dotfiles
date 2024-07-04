@@ -33,7 +33,7 @@ local M = {
 		'declancm/cinnamon.nvim',
 		event = 'VeryLazy',
 		-- event = 'BufWinEnter',
-		opts = { default_delay = 1 },
+		-- opts = { delay = 1 },
 	},
 	{
 		'ivanjermakov/troublesum.nvim',
