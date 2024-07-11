@@ -1,0 +1,6 @@
+registry=https://registry.npmjs.org/
+@greenlight-guru:registry=https://greenlightguru.jfrog.io/artifactory/api/npm/gg-npm-repo/
+//greenlightguru.jfrog.io/artifactory/api/npm/gg-npm-repo/:_password=bEpEYWdhMTIzMThjdmg1OWRLIXJIeTRBTw==
+//greenlightguru.jfrog.io/artifactory/api/npm/gg-npm-repo/:username=localdev-artifactory-user
+//greenlightguru.jfrog.io/artifactory/api/npm/gg-npm-repo/:email=devops+localdev-artifactory-user@greenlight.guru
+//greenlightguru.jfrog.io/artifactory/api/npm/gg-npm-repo/:always-auth=true
