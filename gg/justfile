@@ -6,6 +6,24 @@
 # loads envs from .env
 # set dotenv-load := true
 
+default:
+	@just --list
+
+# offboarding
+offboard LASTNAME EMAIL:
+ echo "implement offboarding"
+ # need to action:
+ # 1) github - code: remove by github username, PR
+ # 2) aws - UI - gg_root, IAM identity Center, delete user
+ # 3) datadog - UI - user disable
+ # 4) tailscale - UI - machine, user, code: remove email
+ # 5) harness - code: remove email, PR
+ # 6) snyk - UI
+ # 7) jira - UI
+ # 8) opsgenie - code: remove email, PR
+ # 9) ansible - code: search, remove refs to slack username, PR
+ # 10) postman - UI
+
 # setup/login
 morning:
   echo "implement good morning stuff"
