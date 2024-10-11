@@ -5,10 +5,23 @@ local M = {
 		cmd = { 'VBox' },
 	},
 	{
+		'nfrid/markdown-togglecheck',
+		dependencies = { 'nfrid/treesitter-utils' },
+		ft = { 'markdown' },
+		keys = {
+			{
+				"<leader>x",
+				function() require('markdown-togglecheck').toggle() end,
+				desc = "Toggle checkmark",
+				mode = { 'n', 'x' }
+			},
+		},
+	},
+	{
 		'epwalsh/obsidian.nvim',
 		version = "*",
 		lazy = true,
-		ft = "markdown",
+		-- ft = "markdown",
 		opts = {
 			workspaces = {
 				{
@@ -55,7 +68,7 @@ local M = {
 		cmd = "VimwikiIndex",
 		config = function()
 			vim.g.vimwiki_list = {
-				['path'] = '~/vimwiki',
+				['path'] = '~/Documents/vimwiki',
 				['syntax'] = 'default',
 				['ext'] = '.wiki'
 			}

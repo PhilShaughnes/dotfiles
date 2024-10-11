@@ -95,7 +95,11 @@ local M = {
 
 			local lspconfig = require('lspconfig')
 			local lsp_defaults = lspconfig.util.default_config
-
+			-- lsp_defaults.capabilities.workspace = {
+			-- 	didChangeWatchedFiles = {
+			-- 		dynamicRegistration = true,
+			-- 	},
+			-- }
 			lsp_defaults.capabilities = vim.tbl_deep_extend(
 				'force',
 				lsp_defaults.capabilities,
@@ -115,7 +119,8 @@ local M = {
 				-- "typescriptreact", "typescript.tsx", "vue", "json" }
 			}
 			lspconfig.dockerls.setup {}
-			-- lspconfig.marksman.setup{}
+			-- lspconfig.marksman_oxide.setup {}
+			lspconfig.marksman.setup {}
 			lspconfig.lua_ls.setup {
 				-- on_attach = function(_, _) -- client, bufnr
 				-- 	end,

@@ -1,4 +1,17 @@
 local h = require('helpers')
+
+local fzf_gitshow = function(opts)
+	local fzf_lua = require 'fzf-lua'
+	opts = opts or {}
+	opts.prompt = "git> "
+	opts.actions = {
+		['default'] = function(selected)
+			vim.cmd("Gitsigns show " .. selected[1]:match("(%w+)(.+)"))
+		end
+	}
+	fzf_lua.fzf_exec([[git query "((draft() | branches() | @) % main()) | branches() | @"]], opts)
+end
+
 local fzfKeymaps = function()
 	local fzf = function() return require('fzf-lua') end
 
@@ -23,6 +36,7 @@ local fzfKeymaps = function()
 	h.nmap('<leader>fh', function() fzf().files({}) end, { desc = 'find hidden files' })
 	h.nmap('<leader>fb', function() fzf().buffers() end, { desc = 'find buffers' })
 	h.nmap('<leader>fc', function() fzf().git_commits() end, { desc = 'find commits' })
+	h.nmap('<leader>fs', function() fzf_gitshow() end, { desc = 'show commits' })
 	h.nmap('<leader>fd', function() fzf().diagnostics_document() end, { desc = 'find diagnostics' })
 	h.nmap('<leader>fq', function() fzf().quickfix() end, { desc = 'find in quickfix' })
 	h.nmap('<leader>fg', function() fzf().grep() end, { desc = 'grep text' })
@@ -47,6 +61,14 @@ local M = {
 		lazy = true,
 		init = fzfKeymaps,
 		opts = {
+			-- 			git = {
+			-- 				actions = {
+			-- -- ["enter"]   = require("fzf-lua.actions").git_checkout,
+			-- ["enter"]   = require("fzf-lua.actions").git_checkout,
+			--         -- remove `exec_silent` or set to `false` to exit after yank
+			--         ["ctrl-y"]  = { fn = require("fzf-lua.actions").git_yank_commit, exec_silent = true },
+			-- 				}
+			-- 			},
 			keymap = {
 				builtin = {
 					["<C-f>"]    = "toggle-fullscreen",
