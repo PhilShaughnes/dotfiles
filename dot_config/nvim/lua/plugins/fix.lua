@@ -24,8 +24,8 @@ local M = {
 			-- Define your formatters
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { { "prettierd", "prettier" } },
-				typescript = { { "prettierd", "prettier" } },
+				javascript = { { "prettierd" } },
+				typescript = { { "prettierd" } },
 				json = { "fixjson", "jq" },
 				-- just = { "just" },
 				go = {
