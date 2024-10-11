@@ -36,7 +36,7 @@ alias jqp='pbpaste | jq .'
 
 alias mkdir='mkdir -pv'
 alias v='nvim'
-alias k='kak'
+alias yz='yazi'
 
 alias icat="kitty +kitten icat --align=left"
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'

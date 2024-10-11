@@ -88,7 +88,7 @@ M.imap("<C-o>;", function() M.line_end_toggle(';') end, { desc = "toggle ; at en
 
 M.nmap('<leader>:', ':lua ', { desc = 'command mode with lua', silent = false })
 M.nmap('<leader>b', ':ls<CR>:b<space>', { desc = "show buffers", silent = false })
-M.nmap('<leader> ', ':set hlsearch!<CR>', { desc = 'toggle search highlight' })
+M.nmap('<leader>s', ':set hlsearch!<CR>', { desc = 'toggle search highlight' })
 M.nmap('<leader>/', [[:'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/]],
 	{ desc = 'replace all word in paragraph', silent = false })
 M.nmap('<leader>%', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],

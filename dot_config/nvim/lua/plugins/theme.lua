@@ -108,6 +108,12 @@ local M = {
 		lazy = true,
 	},
 	{
+		'rose-pine/neovim',
+		name = 'rose-pine',
+		colo = 'rose-pine',
+		lazy = true,
+	},
+	{
 		'mcchrish/zenbones.nvim',
 		bg = 'light',
 		colo = 'zenbones',

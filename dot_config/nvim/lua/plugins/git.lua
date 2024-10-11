@@ -38,7 +38,12 @@ local M = {
 			"sindrets/diffview.nvim", -- optional
 			"ibhagwan/fzf-lua",    -- optional
 		},
-		config = true,
+		config = {
+			integrations = {
+				diffview = true,
+				fzf_lua = true,
+			}
+		},
 		cmd = "Neogit",
 		init = function()
 			h.nmap('<leader>gg', ':Neogit<CR>', { desc = "open git view" })
