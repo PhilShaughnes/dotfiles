@@ -1,0 +1,15 @@
+# theme = "light:rosepine-light,dark:"
+theme = "rosepine-light"
+# theme = "NvimDark"
+font-family = "Hack"
+font-size = 11
+font-thicken = true
+macos-titlebar-style = tabs
+
+bold-is-bright = true
+confirm-close-surface = false
+adjust-cell-height = 20%
+
+# keybind = global:super+\=toggle_quick_terminal
+# keybind = global:super+g=toggle_visibility
+# keybind = super+s=goto_split:next
