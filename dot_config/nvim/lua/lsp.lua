@@ -1,5 +1,4 @@
 local h = require('helpers')
-local lserv = vim.api.nvim_create_augroup('lserv', { clear = true })
 
 local function pumvisible()
 	return tonumber(vim.fn.pumvisible()) ~= 0

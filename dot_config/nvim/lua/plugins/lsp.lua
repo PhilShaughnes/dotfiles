@@ -35,9 +35,9 @@ local lua_setup = {
 }
 
 local M = {
-	{
-		'williamboman/mason-lspconfig.nvim',
-	},
+	-- {
+	-- 	'williamboman/mason-lspconfig.nvim',
+	-- },
 	{
 		"williamboman/mason.nvim",
 		-- event = "VeryLazy",
@@ -56,11 +56,11 @@ local M = {
 				-- "prettier",
 				-- "tflint",
 				-- ""
-				"gopls",
+				-- "gopls",
 				"goimports",
-				"typescript-language-server",
+				-- "typescript-language-server",
 				"yamlfmt",
-				"lua-language-server",
+				-- "lua-language-server",
 				-- "marksman",
 			},
 			automatic_installation = true,

@@ -8,18 +8,6 @@ autocmd({ 'VimEnter' }, {
 	group = enter,
 })
 
-local misc = augroup('misc', { clear = true })
-autocmd('ColorScheme', {
-	pattern = { 'default' },
-	nested = true,
-	group = misc,
-	callback = function()
-		if vim.opt.background:get() == 'light' then
-			fire()
-		end
-	end
-})
-
 local term = augroup('term', { clear = true })
 autocmd({ 'BufEnter', 'TermOpen' }, {
 	pattern = 'term://*',
@@ -45,9 +33,12 @@ autocmd({ 'InsertEnter' }, {
 	group = interface,
 	callback = function() vim.o.hlsearch = false end
 })
-autocmd({ 'InsertLeave' }, {
+vim.api.nvim_create_autocmd("CmdlineEnter", {
 	group = interface,
-	callback = function() vim.o.hlsearch = true end
+	callback = function()
+		local cmd_type = vim.fn.getcmdtype()
+		if cmd_type == '/' or cmd_type == '?' then vim.o.hlsearch = true end
+	end,
 })
 -- keep split proportions when resizing terminal
 autocmd({ 'VimResized' }, {
@@ -79,25 +70,7 @@ autocmd({ 'VimLeave' }, {
 	command = 'wshada!'
 })
 
-local h = require('helpers')
-local nmapbuf = h.mapper('n', { buffer = true })
-
-local function vimwiki_mappings()
-	vim.keymap.set({ 'n', 'v' }, '<leader>x', '<Plug>VimwikiToggleListItem',
-		{ desc = 'toggle list item', remap = true, buffer = true })
-	nmapbuf('=', '<Plug>VimwikiAddHeaderLevel', { desc = 'add header level' })
-	nmapbuf('-', '<Plug>VimwikiRemoveHeaderLevel', { desc = 'remove header level' })
-end
-
-
-local ft = augroup('filetype', { clear = true })
-autocmd({ "BufEnter" }, {
-	group = ft,
-	pattern = "*.wiki",
-	callback = function()
-		vimwiki_mappings()
-	end
-})
+local ft = augroup('ft', { clear = true })
 autocmd({ "BufEnter" }, {
 	group = ft,
 	pattern = "*.lua",

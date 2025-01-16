@@ -57,33 +57,19 @@ local toggle_qf = function()
 	end
 end
 
--- niceblock
--- local niceblock_keys = {
--- 	['$']  = { v = 'g$h', V = '$', ['<C-v>'] = '$h' },
--- 	['I']  = { v = '<C-v>I', V = '<C-v>^o^I', ['<C-v>'] = 'I' },
--- 	['A']  = { v = '<C-v>A', V = '<C-v>0o$A', ['<C-v>'] = 'A' },
--- 	['gI'] = { v = '<C-v>0I', V = '<C-v>0o$I', ['<C-v>'] = '0I' },
--- 	['>']  = { v = '<C-v>>', V = '0<C-v>>', ['<C-v>'] = '>' },
--- 	['<']  = { v = '<C-v><', V = '0<C-v><', ['<C-v>'] = '<' },
--- }
---
--- local function niceblock(key)
--- 	local mode = vim.fn.mode() -- Get current mode
--- 	return niceblock_keys[key][mode] or ''
--- end
---
--- -- Create mappings in visual mode for each command
--- local keys = { '$', 'I', 'A', 'gI', '>', '<' }
--- for _, key in ipairs(keys) do
--- 	vim.keymap.set('x', key, function() return niceblock(key) end, { expr = true, silent = true })
--- end
+-- replaces niceblock like functionality
+M.xmap('A', function()
+	if vim.fn.mode() == 'V' then h.feedkeys '<C-v>0o$A' else h.feedkeys 'A' end
+end, { expr = true, desc = 'better A in vis line mode' })
+
+M.xmap('I', function()
+	if vim.fn.mode() == 'V' then h.feedkeys '<C-v>0I' else h.feedkeys 'I' end
+end, { expr = true, desc = 'better I in vis line mode' })
 
 M.map({ 'n', 'x' }, '<leader>k', h.go_indent_start, { desc = "go indent start" })
 M.map({ 'n', 'x' }, '<leader>j', h.go_indent_end, { desc = "go indent end" })
 M.map({ 'n', 'x' }, '[[', h.go_indent_start, { desc = "go indent start" })
 M.map({ 'n', 'x' }, ']]', h.go_indent_end, { desc = "go indent end" })
--- M.nmap('[[', h.go_indent_start, { desc = "go indent start" })
--- M.nmap(']]', h.go_indent_end, { desc = "go indent end" })
 
 M.imap('<C-Space>', '<C-x><C-o>', { desc = 'lsp completion' })
 
@@ -101,9 +87,6 @@ M.nmap('<C-k>', ':cprev<CR>', { desc = 'quickfix previous' })
 M.nmap('<C-j>', ':cnext<CR>', { desc = 'quickfix next' })
 M.nmap('\\\\', toggle_qf, { desc = 'quickfix toggle' })
 
--- M.imap("<C-o>)", '<CR>)<esc>O', { desc = "adds closing )" })
--- M.imap("<C-o>]", '<CR>]<esc>O', { desc = "adds closing ]" })
--- M.imap("<C-o>}", '<CR>}<esc>O', { desc = "adds closing }" })
 M.nmap("<leader>,", function() M.line_end_toggle(',') end, { desc = "toggle , at end of line" })
 M.nmap("<leader>;", function() M.line_end_toggle(';') end, { desc = "toggle ; at end of line" })
 M.imap("<C-o>,", function() M.line_end_toggle(',') end, { desc = "toggle , at end of line" })
@@ -136,9 +119,6 @@ M.nmap(']<space>', ':set paste<CR>m`o<Esc>``:set nopaste<CR>', { desc = "add lin
 
 M.nmap("'", '`', { desc = 'go to mark location (set with letter m)' })
 M.nmap('<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
--- M.nmap('gn', ':bn<CR>', { desc = 'next buffer on list' })
--- M.nmap('gp', ':bp<CR>', { desc = 'previous buffer on list' })
--- M.nmap('gm', ':b#<CR>', { desc = 'last buffer' })
 
 -- args list instead of arrow or harpoon
 M.nmap('gn', ':n<CR>', { desc = 'next buffer on list' })
@@ -209,10 +189,7 @@ end, { desc = 'prev diagnostic error' })
 M.nmap(']e', function()
 	vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1, float = true })
 end, { desc = 'next diagnostic error' })
--- M.nmap('K', vim.lsp.buf.hover, { desc = 'documentation' })
--- M.nmap('gd', vim.lsp.buf.definition, { desc = 'show definition' })
--- M.nmap('gr', vim.lsp.buf.references, { desc = 'references' })
---
+
 set_group('n', '<leader>', '+leader')
 set_group('n', '<leader>l', 'lsp')
 M.nmap('<leader>ll', vim.diagnostic.open_float, { desc = 'show diagnostics' })
@@ -223,17 +200,6 @@ end, { desc = 'all errors in qf buffer' })
 M.nmap('<leader>lQ', function()
 	vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR, })
 end, { desc = 'all errors in qf' })
--- M.nmap('<leader>lr', vim.lsp.buf.references, { desc = 'references' })
--- M.nmap('<leader>ld', vim.lsp.buf.definition, { desc = 'show definition' })
--- M.nmap('<leader>lD', vim.lsp.buf.declaration, { desc = 'show declaration' })
--- M.nmap('<leader>li', vim.lsp.buf.implementation, { desc = 'show declaration' })
--- -- M.nmap('<leader>lf', vim.lsp.buf.format, { desc = 'format buffer' });
--- -- M.vmap('<leader>lf', vim.lsp.buf.format, { desc = 'format buffer' });
--- M.nmap('<leader>lk', vim.lsp.buf.hover, { desc = 'documentation' })
--- M.nmap('<leader>lp', vim.diagnostic.goto_prev, { desc = 'prev diagnostic' })
--- M.nmap('<leader>ln', vim.diagnostic.goto_next, { desc = 'next diagnostic' })
--- M.nmap('<leader>la', ':CodeActionMenu<CR>', { desc = 'code actions menu' })
-
 
 
 -- plugin groups

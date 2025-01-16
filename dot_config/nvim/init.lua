@@ -10,10 +10,9 @@ local function load(name)
 	return require(name)
 end
 
-load 'helpers'
 load 'settings'
 load 'plugin'
 load 'keys'
-load 'abbrev'
+-- load 'abbrev'
 load 'augroups'
 load 'lsp'

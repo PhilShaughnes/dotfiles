@@ -58,22 +58,22 @@ local M = {
 	'ibhagwan/fzf-lua',
 	lazy = true,
 	init = fzfKeymaps,
-	opts = {
-		-- keymap = {
-		-- 	builtin = {
-		-- 		["<C-f>"]    = "toggle-fullscreen",
-		-- 		-- Only valid with the 'builtin' previewer
-		-- 		["<C-w>"]    = "toggle-preview-wrap",
-		-- 		["<C-p>"]    = "toggle-preview",
-		-- 		-- Rotate preview clockwise/counter-clockwise
-		-- 		["<C-l>"]    = "toggle-preview-ccw",
-		-- 		["<C-h>"]    = "toggle-preview-cw",
-		-- 		["<S-down>"] = "preview-page-down",
-		-- 		["<S-up>"]   = "preview-page-up",
-		-- 		["<S-left>"] = "preview-page-reset",
-		-- 	}
-		-- }
-	}
+	-- opts = {
+	-- 	-- keymap = {
+	-- 	-- 	builtin = {
+	-- 	-- 		["<C-f>"]    = "toggle-fullscreen",
+	-- 	-- 		-- Only valid with the 'builtin' previewer
+	-- 	-- 		["<C-w>"]    = "toggle-preview-wrap",
+	-- 	-- 		["<C-p>"]    = "toggle-preview",
+	-- 	-- 		-- Rotate preview clockwise/counter-clockwise
+	-- 	-- 		["<C-l>"]    = "toggle-preview-ccw",
+	-- 	-- 		["<C-h>"]    = "toggle-preview-cw",
+	-- 	-- 		["<S-down>"] = "preview-page-down",
+	-- 	-- 		["<S-up>"]   = "preview-page-up",
+	-- 	-- 		["<S-left>"] = "preview-page-reset",
+	-- 	-- 	}
+	-- 	-- }
+	-- }
 }
 
 return M

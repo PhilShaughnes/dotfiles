@@ -1,7 +1,3 @@
--- local h = require('helpers')
--- local augroup = vim.api.nvim_create_augroup
--- local autocmd = vim.api.nvim_create_autocmd
--- local clear_autocmds = vim.api.nvim_clear_autocmds
 local M = {
 	{
 		"stevearc/conform.nvim",
@@ -19,7 +15,6 @@ local M = {
 				desc = "Format buffer",
 			},
 		},
-		-- Everything in opts will be passed to setup()
 		opts = {
 			-- Define your formatters
 			formatters_by_ft = {
@@ -39,31 +34,23 @@ local M = {
 				end
 				return { timeout_ms = 500, lsp_fallback = true }
 			end,
-			-- format_on_save = false,
-			-- Customize formatters
-			formatters = {
-				shfmt = {
-					prepend_args = { "-i", "2" },
-				},
-			},
 		},
 		init = function()
 			-- If you want the formatexpr, here is the place to set it
 			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 		end,
 	},
-
 	{
 		"mfussenegger/nvim-lint",
 		event = { "BufWritePre" },
 		config = function()
 			require("lint").linters_by_ft = {
 				-- yaml = { 'yamllint' },
-				json = { 'jsonlint' },
-				go = { 'staticcheck' },
+				json = { "jq" },
+				go = { "staticcheck" },
 				-- javascript = { 'eslint' },
-				-- typescript = { 'eslint' },
-				terraform = { 'tflint' },
+				typescript = { 'eslint' },
+				terraform = { "tflint" },
 			}
 		end,
 		keys = {
@@ -73,14 +60,15 @@ local M = {
 					require("lint").try_lint()
 				end,
 				mode = "n",
-				desc = "lint"
+				desc = "lint",
 			},
-		}
+		},
 	},
 }
 
-vim.api.nvim_create_augroup('fix', { clear = true })
+local fixgroup = vim.api.nvim_create_augroup("fix", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	group = fixgroup,
 	callback = function()
 		require("lint").try_lint()
 	end,
@@ -103,6 +91,5 @@ vim.api.nvim_create_user_command("FormatEnable", function()
 end, {
 	desc = "Re-enable autoformat-on-save",
 })
-
 
 return M

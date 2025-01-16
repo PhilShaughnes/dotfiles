@@ -1,21 +1,21 @@
 local g = vim.g
 
-local ensure_install_langs = { "ruby", "bash", "c", "cmake", "comment", "css",
-	"dockerfile", "eex", "elixir", "erlang", "glimmer", "go", "graphql",
-	"heex", "html", "hurl", "java", "javascript", "jsdoc", "json", "lua",
+local ensure_install_langs = { "bash", "c", "comment", "css",
+	"dockerfile", "glimmer", "go", "graphql",
+	"html", "hurl", "java", "javascript", "jsdoc", "json", "lua",
 	"make", "python", "regex", "scss", "markdown", "vimdoc",
 	"typescript", "tsx", "vim", "vue", "toml", "yaml", "hcl",
 	"markdown_inline", "cue" }
 
 
 local incremental = {
-	enable = true,
-	keymaps = {
-		init_selection = "<C-t>",
-		node_incremental = "<C-t>",
-		scope_incremental = "<C-t>",
-		node_decremental = "<bs>",
-	},
+	-- enable = true,
+	-- keymaps = {
+	-- 	init_selection = "<C-t>",
+	-- 	node_incremental = "<C-t>",
+	-- 	scope_incremental = "<C-t>",
+	-- 	node_decremental = "<bs>",
+	-- },
 }
 
 local playground = {
@@ -39,41 +39,38 @@ local playground = {
 
 
 local M = {
-	-- { 'RRethy/nvim-treesitter-endwise' },
-	{
-		'nvim-treesitter/nvim-treesitter',
-		event = { "BufReadPost", "BufNewFile" },
-		dependencies = {
-			-- 'RRethy/nvim-treesitter-endwise',
-		},
-		config = function()
-			vim.treesitter.language.register('make', 'just')
-
-			g.markdown_fenced_languages = {
-				'bash=sh', 'js=javascript', 'json', 'ruby', 'lua',
-				'html', 'css', 'sql', 'java', 'go'
-			}
-			require 'nvim-treesitter.configs'.setup {
-				-- one of "all", "maintained" (parsers with maintainers), or a list of languages
-				ensure_installed = ensure_install_langs,
-				ignore_install = { "rust" },
-				highlight = {
-					enable = true,   -- false will disable the whole extension
-					additional_vim_regex_highlighting = { "markdown" },
-					disable = { "rust" }, -- list of language that will be disabled
-				},
-				-- endwise = { enable = true },
-				incremental_selection = incremental,
-				indent = { enable = true },
-				playground = playground,
-			}
-
-			-- cmd 'set foldmethod=expr'
-			-- cmd 'set foldexpr=nvim_treesitter#foldexpr()'
-			-- vim.wo.foldmethod = expr
-			-- vim.wo.foldexpr = some function
-		end
+	'nvim-treesitter/nvim-treesitter',
+	event = { "BufReadPost", "BufNewFile" },
+	dependencies = {
+		-- 'RRethy/nvim-treesitter-endwise',
 	},
+	config = function()
+		vim.treesitter.language.register('make', 'just')
+
+		g.markdown_fenced_languages = {
+			'bash=sh', 'js=javascript', 'json', 'lua',
+			'html', 'css', 'sql', 'java', 'go'
+		}
+		require 'nvim-treesitter.configs'.setup {
+			-- one of "all", "maintained" (parsers with maintainers), or a list of languages
+			ensure_installed = ensure_install_langs,
+			ignore_install = { "rust" },
+			highlight = {
+				enable = true,     -- false will disable the whole extension
+				additional_vim_regex_highlighting = { "markdown" },
+				disable = { "rust" }, -- list of language that will be disabled
+			},
+			-- endwise = { enable = true },
+			incremental_selection = incremental,
+			indent = { enable = true },
+			playground = playground,
+		}
+
+		-- cmd 'set foldmethod=expr'
+		-- cmd 'set foldexpr=nvim_treesitter#foldexpr()'
+		-- vim.wo.foldmethod = expr
+		-- vim.wo.foldexpr = some function
+	end
 }
 
 return M
