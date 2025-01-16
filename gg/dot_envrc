@@ -1,4 +1,5 @@
 # export GIT_CONFIG=~/gg/.gitconfig-gg
+export GGCONFIG=~/gg/config
 export GIT_CONFIG_GLOBAL=~/gg/.gitconfig-gg
 export NPM_CONFIG_USERCONFIG=~/gg/.npmrc
 export TLS_LOCAL=~/gg/tls

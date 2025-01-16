@@ -3,6 +3,10 @@ local cmd = vim.cmd
 -- maybe consider using https://github.com/mrjones2014/legendary.nvim
 local M = {}
 local h = require('helpers')
+local function pumvisible()
+	return tonumber(vim.fn.pumvisible()) ~= 0
+end
+
 
 local haswk, wk = pcall(require, "which-key")
 local haskm, km = pcall(require, "key-menu")
@@ -14,7 +18,7 @@ if haswk then wk.setup({ plugins = { spelling = { enabled = true } } }) end
 -- HELPER FUNCTIONS
 local function set_group(mode, keys, desc)
 	if haswk then
-		wk.register({ [keys] = { name = desc } })
+		wk.add({ keys, group = desc })
 	elseif haskm then
 		km.set(mode, keys, { desc = desc })
 	else
@@ -53,29 +57,48 @@ local toggle_qf = function()
 	end
 end
 
+-- niceblock
+-- local niceblock_keys = {
+-- 	['$']  = { v = 'g$h', V = '$', ['<C-v>'] = '$h' },
+-- 	['I']  = { v = '<C-v>I', V = '<C-v>^o^I', ['<C-v>'] = 'I' },
+-- 	['A']  = { v = '<C-v>A', V = '<C-v>0o$A', ['<C-v>'] = 'A' },
+-- 	['gI'] = { v = '<C-v>0I', V = '<C-v>0o$I', ['<C-v>'] = '0I' },
+-- 	['>']  = { v = '<C-v>>', V = '0<C-v>>', ['<C-v>'] = '>' },
+-- 	['<']  = { v = '<C-v><', V = '0<C-v><', ['<C-v>'] = '<' },
+-- }
+--
+-- local function niceblock(key)
+-- 	local mode = vim.fn.mode() -- Get current mode
+-- 	return niceblock_keys[key][mode] or ''
+-- end
+--
+-- -- Create mappings in visual mode for each command
+-- local keys = { '$', 'I', 'A', 'gI', '>', '<' }
+-- for _, key in ipairs(keys) do
+-- 	vim.keymap.set('x', key, function() return niceblock(key) end, { expr = true, silent = true })
+-- end
+
+M.map({ 'n', 'x' }, '<leader>k', h.go_indent_start, { desc = "go indent start" })
+M.map({ 'n', 'x' }, '<leader>j', h.go_indent_end, { desc = "go indent end" })
+M.map({ 'n', 'x' }, '[[', h.go_indent_start, { desc = "go indent start" })
+M.map({ 'n', 'x' }, ']]', h.go_indent_end, { desc = "go indent end" })
+-- M.nmap('[[', h.go_indent_start, { desc = "go indent start" })
+-- M.nmap(']]', h.go_indent_end, { desc = "go indent end" })
+
 M.imap('<C-Space>', '<C-x><C-o>', { desc = 'lsp completion' })
 
-vim.keymap.set('i', '<C-n>', function()
-	if vim.snippet.active { direction = 1 } then
-		return '<cmd>lua vim.snippet.jump(1)<cr>'
+M.imap('<C-n>', function()
+	if pumvisible() then
+		h.feedkeys '<C-n>'
+	elseif vim.bo.omnifunc == '' then
+		h.feedkeys '<C-x><C-n>'
 	else
-		return '<C-n>'
+		h.feedkeys '<C-x><C-o>'
 	end
-end, { expr = true })
-
-vim.keymap.set('i', '<C-p>', function()
-	if vim.snippet.active { direction = -1 } then
-		return '<cmd>lua vim.snippet.jump(-1)<CR>'
-	else
-		return '<C-p>'
-	end
-end, { expr = true })
-
+end, { desc = 'Trigger/select next completion' })
 
 M.nmap('<C-k>', ':cprev<CR>', { desc = 'quickfix previous' })
 M.nmap('<C-j>', ':cnext<CR>', { desc = 'quickfix next' })
-M.nmap('<leader>K', h.go_up, { desc = 'up cliff' })
-M.nmap('<leader>J', h.go_down, { desc = 'down cliff' })
 M.nmap('\\\\', toggle_qf, { desc = 'quickfix toggle' })
 
 -- M.imap("<C-o>)", '<CR>)<esc>O', { desc = "adds closing )" })
@@ -94,8 +117,8 @@ M.nmap('<leader>/', [[:'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/]],
 M.nmap('<leader>%', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
 	{ desc = 'replace all word in buffer', silent = false })
 
-M.nmap('<leader><space>', [[<ESC>/<++><CR>"_c4l]], { desc = "go to next <++>" })
-M.nmap('<leader><CR>', [[<ESC>?<++><CR>"_c4l]], { desc = "go to prev <++>" })
+M.nmap('<leader><CR>', [[<ESC>/<CR>"_c4l]], { desc = "go to next <++>" })
+M.nmap('<leader><space>', [[<ESC>?<++><CR>"_c4l]], { desc = "go to prev <++>" })
 
 M.nmap('j', 'gj', { desc = 'down' })
 M.nmap('k', 'gk', { desc = 'up' })
@@ -116,7 +139,8 @@ M.nmap('<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
 -- M.nmap('gn', ':bn<CR>', { desc = 'next buffer on list' })
 -- M.nmap('gp', ':bp<CR>', { desc = 'previous buffer on list' })
 -- M.nmap('gm', ':b#<CR>', { desc = 'last buffer' })
---
+
+-- args list instead of arrow or harpoon
 M.nmap('gn', ':n<CR>', { desc = 'next buffer on list' })
 M.nmap('gp', ':N<CR>', { desc = 'previous buffer on list' })
 M.nmap('gm', ':la#<CR>', { desc = 'last arg buffer' });
@@ -159,7 +183,9 @@ M.vmap('K', [[:m '<-2<CR>gv=gv]], { desc = 'move visual block up' })
 M.vmap('<', '<gv', { desc = 'un-indent' })
 M.vmap('>', '>gv', { desc = 'indent' })
 
-M.imap('<C-e>', '<esc>ea', { desc = "like 'e' but in insert" })
+M.imap('<C-e>', function()
+	if pumvisible() then h.feedkeys '<C-e>' else h.feedkeys '<esc>ea' end
+end, { desc = "like 'e' but in insert" })
 M.imap('<C-t>', '<esc>/[)}"\'\\]>]<CR>:nohlsearch<CR>a', { desc = "move outside next closing thing" })
 
 M.tmap('<C-q>', h.t([[<C-\><C-n><C-W>w]]), { desc = 'cycle splits' })
@@ -174,13 +200,14 @@ local function lsp_diag_toggle()
 	vim.diagnostic.config({ virtual_text = toggled, underline = toggled })
 end
 
-M.nmap('[d', vim.diagnostic.goto_prev, { desc = 'prev diagnostic' })
-M.nmap(']d', vim.diagnostic.goto_next, { desc = 'next diagnostic' })
+M.nmap('<leader>uu', h.show_diagnostics, { desc = 'show diagnostic counts' })
+M.nmap('[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'prev diagnostic' })
+M.nmap(']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'next diagnostic' })
 M.nmap('[e', function()
-	vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, })
+	vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1, float = true })
 end, { desc = 'prev diagnostic error' })
 M.nmap(']e', function()
-	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, })
+	vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1, float = true })
 end, { desc = 'next diagnostic error' })
 -- M.nmap('K', vim.lsp.buf.hover, { desc = 'documentation' })
 -- M.nmap('gd', vim.lsp.buf.definition, { desc = 'show definition' })

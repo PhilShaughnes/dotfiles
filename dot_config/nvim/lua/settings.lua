@@ -10,7 +10,7 @@ g.loaded_netrwPlugin = 1
 
 g.mapleader = ' '
 g.vimsyn_embeded = 'lr'
--- g.editorconfig = true -- true is default
+g.editorconfig = true -- true is default
 -- g.did_load_filetypes = 1
 -- g.did_load_filetypes = 0
 -- g.do_filetype_lua = 1
@@ -29,7 +29,7 @@ set.lazyredraw = true
 set.linebreak = true
 set.wrap = false
 set.number = true
-set.relativenumber = true
+-- set.relativenumber = true
 -- set.cursorcolumn = true
 set.cursorline = true
 set.cursorlineopt = "number"
@@ -54,8 +54,8 @@ set.shiftwidth = 2
 set.conceallevel = 2
 set.thesaurus:append(nvim_dir .. '/thes/thesaurii.txt')
 set.clipboard = 'unnamed'
-set.completeopt = { 'menu', 'menuone', 'popup', 'noinsert' }
--- set.completeopt = { 'menu', 'menuone', 'noselect' }
+-- set.completeopt = { 'menu', 'menuone', 'popup', 'noinsert' }
+set.completeopt = { 'menu', 'fuzzy', 'longest', 'noinsert' }
 set.pumheight = 10
 set.list = true
 set.listchars = {
@@ -76,13 +76,13 @@ set.omnifunc = 'lspcomplete#Complete'
 set.wildmode = { 'longest:full', 'full' }
 
 set.termguicolors = true
-set.background = 'light'
+-- set.background = 'light'
 
 vim.g.zenbones_compat = 1
 
-if os.getenv('THEME') == 'dark' then
-	set.background = 'dark'
-end
+-- if os.getenv('THEME') == 'dark' then
+-- 	set.background = 'dark'
+-- end
 
 -- set.rulerformat = '%35(%t ' ..
 -- 		"%{get(b:,'gitsigns_status','')}" ..

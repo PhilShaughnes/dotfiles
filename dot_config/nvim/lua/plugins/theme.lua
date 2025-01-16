@@ -1,10 +1,106 @@
 local cmd = vim.cmd
-local h = require('helpers')
 
-local function get_fg(names)
-	local utils = require('lualine.utils.utils')
-	return utils.extract_color_from_hllist('fg', names, '#C26BDB')
+local function fire()
+	cmd [[colo default]]
+	local group_styles = {
+		['Normal']          = { fg = '#311126', bg = 'None' },
+		['Statement']       = { fg = '#311126', bold = true },
+		['Comment']         = { fg = '#9893a5', italic = true },
+		['String']          = { fg = '#276983', italic = true },
+		['Function']        = { fg = '#575279' },
+
+		['Structure']       = { fg = '#8a2e33' },
+		['Constant']        = { fg = '#a63e35', italic = true },
+		['PreProc']         = { fg = '#575279', bold = true },
+		['type']            = { fg = '#a63e35' },
+
+		['StatusLine']      = { fg = '#191724', bg = '#f2e9e1' },
+		['Visual']          = { bg = '#dfdad9' },
+		['ColorColumn']     = { bg = '#f4ede8' },
+		['NormalFloat']     = { bg = '#f4ede8' },
+		['Pmenu']           = { fg = '#311126', bg = '#f4ede8' },
+
+		['DiagnosticHint']  = { fg = '#907aa9', },
+		['DiagnosticInfo']  = { fg = '#56949f', },
+		['DiagnosticWarn']  = { fg = '#ea9d34', },
+		['DiagnosticError'] = { fg = '#b4637a', },
+	}
+	for group, style in pairs(group_styles) do
+		vim.api.nvim_set_hl(0, group, style)
+	end
 end
+
+local function ropi()
+	cmd [[colo default]]
+	local group_styles = {
+		['Normal']    = { fg = '#311126', bg = 'None' },
+		['Statement'] = { fg = '#341956', bold = true },
+		['Comment']   = { fg = '#9893a5', italic = true },
+		['String']    = { fg = '#5d3ead', italic = true },
+		['Function']  = { fg = '#575279' },
+
+
+		-- ['Normal']          = { fg = '#575279', bg = 'None' },
+		-- ['Statement']       = { fg = '#575279', bold = true },
+		-- ['Comment']         = { fg = '#9893a5', italic = true },
+		-- ['String']          = { fg = '#b4637a', italic = true },
+		-- ['Function']        = { fg = '#575279' },
+		-- ['Function']        = { fg = '#286983' },
+		-- ['Identifier']  = { fg = '#d7827e' },
+		-- ['Special']         = { fg = '#ea9d34', bold = true },
+
+
+		['Structure']       = { fg = '#341956' },
+		['Constant']        = { fg = '#72197c', italic = true },
+		['PreProc']         = { fg = '#575279', bold = true },
+		['type']            = { fg = '#2b2b69' },
+		-- ['Structure']       = { fg = '#ea9d34' },
+		-- ['Constant']        = { fg = '#575279', italic = true },
+		-- ['PreProc']         = { fg = '#907aa9', bold = true },
+		-- ['type']            = { fg = '#d7827e', bold = true },
+
+		['StatusLine']      = { fg = '#191724', bg = '#f2e9e1' },
+		['Visual']          = { bg = '#dfdad9' },
+		['ColorColumn']     = { bg = '#f4ede8' },
+		['NormalFloat']     = { bg = '#f4ede8' },
+		['Pmenu']           = { fg = '#311126', bg = '#f4ede8' },
+
+		['DiagnosticHint']  = { fg = '#907aa9' },
+		['DiagnosticInfo']  = { fg = '#56949f' },
+		['DiagnosticWarn']  = { fg = '#ea9d34' },
+		['DiagnosticError'] = { fg = '#b4637a' },
+
+
+		-- ['Normal']                = { fg = '#cccccc', bg = 'None' },
+		-- ['Comment']               = { fg = '#777777' },
+		-- ['String']                = { fg = '#bbbbbb' },
+		-- ['Function']              = { fg = '#bbbbbb' },
+		-- ['Identifier']            = { fg = '#dddddd', bold = true },
+		-- ['Special']               = { fg = '#bbbbbb' },
+		-- ['Question']              = { fg = '#666666' },
+		-- ['Directory']             = { fg = '#777777' },
+		--
+		-- ['MoreMsg']               = { fg = '#eeeeee', bg = '#444444' },
+		-- ['QuickFixLine']          = { fg = '#eeeeee', bg = '#444444' },
+		-- ['StatusLine']            = { fg = '#333333', bg = '#222222' },
+		-- ['NormalFloat']           = { bg = 'None' },
+		--
+		-- ['Folded']                = { fg = '#444444' },
+		-- ['MatchParen']            = { fg = '#ffffff', bold = true },
+		-- ['WinSeparator']          = { fg = '#444444' },
+		--
+		-- ['Search']                = { fg = '#000000', bg = '#777777' },
+		-- ['CurSearch']             = { fg = '#000000', bg = '#aaaaaa' },
+		--
+		-- ['DiagnosticUnnecessary'] = { fg = '#bbbbbb' },
+		--
+	}
+
+	for group, style in pairs(group_styles) do
+		vim.api.nvim_set_hl(0, group, style)
+	end
+end
+
 
 local function sems()
 	local links = {
@@ -30,77 +126,33 @@ end
 
 local M = {
 	{
+		'norcalli/nvim-colorizer.lua',
+		opts = {},
+		lazy = true,
+		keys = {
+			{
+				'<leader>uc',
+				function()
+					local c = require 'colorizer'
+					if c.is_buffer_attached(0) then
+						c.detach_from_buffer(0)
+						package.loaded['colorizer'] = nil
+					else
+						package.loaded['colorizer'] = nil
+						require('colorizer').attach_to_buffer(0)
+					end
+				end,
+				desc = 'toggle colorizer'
+			}
+		},
+	},
+	{
 		'declancm/cinnamon.nvim',
 		event = 'VeryLazy',
 		-- event = 'BufWinEnter',
 		-- opts = { delay = 1 },
 	},
-	{
-		'ivanjermakov/troublesum.nvim',
-		config = { severity_format = { '', '', '', '󰌵' }, enabled = true },
-		lazy = true,
-		event = { "BufWritePost" },
-		keys = {
-			{
-				'<leader>ud',
-				function()
-					local c = require("troublesum.config")
-					local t = require("troublesum")
-					if c.config.enabled == false then
-						c.config.enabled = true
-						require('troublesum').update()
-					else
-						require('troublesum').clear()
-						c.config.enabled = false
-					end
-				end,
-				desc = 'toggle diagnostics in corner'
-			}
-		},
-	},
 	{ 'nvim-tree/nvim-web-devicons', lazy = true },
-	{
-		'nvim-lualine/lualine.nvim',
-		-- event = 'VeryLazy',
-		lazy = true,
-		config = function()
-			require('lualine').setup({
-				options = {
-					icons_enabled = true,
-					theme = 'auto',
-					-- theme = 'horizon',
-					-- theme = 'sonokai',
-					component_separators = { '', '' },
-					-- section_separators = {'', ''},
-				},
-				sections = {
-					lualine_a = {
-						{ 'mode', fmt = function(str) return str:sub(1, 1) end }
-					},
-					-- lualine_b = {
-					--	 'branch', 'diff',
-					-- },
-					lualine_b = {
-						'branch', 'diff', {
-						'diagnostics',
-						diagnostics_color = {
-							error = { fg = get_fg({ 'DiagnosticError', 'DiagnosticSignError' }) },
-							warn = { fg = get_fg({ 'DiagnosticWarn', 'DiagnosticSignWarn' }) },
-							info = { fg = get_fg({ 'DiagnosticInfo', 'DiagnosticSignInfo' }) },
-							hint = { fg = get_fg({ 'DiagnosticHint', 'DiagnosticSignHint' }) },
-						}
-					}
-					},
-					lualine_c = { 'filename' },
-					lualine_x = { 'filetype' },
-				}
-			})
-		end,
-		dependencies = {
-			-- 'WhoIsSethDaniel/lualine-lsp-progress.nvim',
-			'kyazdani42/nvim-web-devicons',
-		}
-	},
 	{
 		'EdenEast/nightfox.nvim',
 		bg = 'dark',
@@ -115,7 +167,7 @@ local M = {
 	},
 	{
 		'mcchrish/zenbones.nvim',
-		bg = 'light',
+		-- bg = 'light',
 		colo = 'zenbones',
 		lazy = true,
 		-- priority = 1000,
@@ -135,6 +187,17 @@ local M = {
 			transparent = false,
 		},
 	},
+	-- {
+	-- 	dir = '~/.config/nvim/lua/my/colors.lua',
+	--
+	-- 	event = 'UIEnter',
+	--
+	-- 	config = function()
+	-- 		require('my.colors').setup {
+	-- 			flavour = 'grayscale',
+	-- 		}
+	-- 	end
+	-- },
 }
 local function setTheme(colorschemeTable)
 	local currentbg = vim.o.background
@@ -146,7 +209,7 @@ local function setTheme(colorschemeTable)
 		end
 	end
 end
-setTheme(M)
+-- setTheme(M)
 
 -- _G.colo = function(cs)
 --	 cmd('colorscheme ' .. cs)
@@ -155,4 +218,6 @@ setTheme(M)
 -- end
 
 _G.sems = sems
+_G.ropi = ropi
+_G.fire = fire
 return M

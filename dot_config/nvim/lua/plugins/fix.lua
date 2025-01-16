@@ -24,21 +24,16 @@ local M = {
 			-- Define your formatters
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { { "prettierd" } },
-				typescript = { { "prettierd" } },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+				typescript = { "prettierd", "prettier", stop_after_first = true },
 				json = { "fixjson", "jq" },
 				-- just = { "just" },
-				go = {
-					-- { "gofumpt",           "gofmt" },
-					-- { "goimports-reviser", "goimports" },
-					{ "goimports" },
-					{ "golines" },
-				}
+				go = { "goimports", "golines" },
+				yaml = { "yamlfmt" },
+				terraform = {},
 			},
-			-- Set up format-on-save
 			-- format_on_save = { timeout_ms = 500, lsp_fallback = true },
 			format_on_save = function(bufnr)
-				-- Disable with a global or buffer-local variable
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
 					return
 				end

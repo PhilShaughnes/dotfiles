@@ -1,4 +1,7 @@
 local M = {}
+-- TODO: diagnostics in line or something (e.g. troublesum)
+-- TODO: indentomatic - easy swap to set spaces/tabs
+-- TODO: spit a list on a single linto to multiple
 
 M.border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
@@ -65,64 +68,63 @@ end
 _G.dump = M.dump
 _G.trim_ws = M.trim_ws
 
-local lineLength = function(lnum)
-	local tab_hex_code = 9
+function M.go_indent_start()
+	local current_pos = vim.api.nvim_win_get_cursor(0)
+	local current_line = current_pos[1]
+	local current_column = current_pos[2]
+	local current_indent = vim.fn.indent(current_line)
 
-	-- TODO: tabsize might be different than shiftwidth
-	local expandtab    = vim.api.nvim_buf_get_option(0, "expandtab")
-	local tabsize      = vim.api.nvim_buf_get_option(0, "shiftwidth")
-	local line         = vim.fn.getline(lnum)
-	local length       = #line
+	for i = current_line, 1, -1 do
+		local line_content = vim.fn.getline(i)
+		local line_indent = vim.fn.indent(i)
 
-	if expandtab then
-		return length
-	end
-
-	-- count tabs used as indentation
-	for i = 1, #line do
-		if line:byte(i) ~= tab_hex_code then
-			break
+		-- If the indent is less than the current indent and the line is not empty
+		if line_indent < current_indent and line_content:match("%S") then
+			vim.api.nvim_win_set_cursor(0, { i + 1, current_column })
+			return
 		end
-		length = length + tabsize - 1
 	end
-
-	return length
+	vim.api.nvim_win_set_cursor(0, { 1, current_column }) -- Jump to the first line
 end
 
-local move = function(key)
-	-- NOTE: use norm command because nvim_win_set_cursor doesnt support virtual edit
+function M.go_indent_end()
+	local current_pos = vim.api.nvim_win_get_cursor(0)
+	local current_line = current_pos[1]
+	local current_column = current_pos[2]
+	local current_indent = vim.fn.indent(current_line)
+	local last_line = vim.fn.line('$')
 
-	local row, col = vim.fn.line('.'), vim.fn.virtcol('.')
+	for i = current_line, last_line do
+		local line_content = vim.fn.getline(i)
+		local line_indent = vim.fn.indent(i)
 
-	local first_lnum = vim.fn.line('0')
-	local last_lnum = vim.fn.line('$')
-
-	local diff = key == 'k' and -1 or 1
-	local lnum = row + diff
-	local cnt = -1
-
-	while lnum >= first_lnum and lnum <= last_lnum + 1 do
-		cnt = cnt + 1
-		if lineLength(lnum) < col then break end
-		lnum = lnum + diff
+		-- If the indent is less than the current indent and the line is not empty
+		if line_indent < current_indent and line_content:match("%S") then
+			vim.api.nvim_win_set_cursor(0, { i - 1, current_column })
+			return
+		end
 	end
-
-	if cnt ~= 0 then
-		vim.cmd("norm " .. cnt .. key)
-		return
-	end
-
-	while lnum >= first_lnum and lnum <= last_lnum + 1 do
-		cnt = cnt + 1
-		if lineLength(lnum) >= col then break end
-		lnum = lnum + diff
-	end
-
-	vim.cmd("norm " .. cnt .. key)
+	vim.api.nvim_win_set_cursor(0, { last_line, current_column }) -- Jump to the last line
 end
 
-function M.go_up() move('k') end
+function M.show_diagnostics()
+	-- local fmt = { '', '', '', '󰌵' }
+	local fmt = { 'x', '!', 'i', '?' }
+	local hl = { "DiagnosticError", "DiagnosticWarn", "DiagnosticInfo", "DiagnosticHint" }
+	local counts = { 0, 0, 0, 0, }
+	for _, d in pairs(vim.diagnostic.get(0)) do
+		counts[d.severity] = counts[d.severity] + 1
+	end
 
-function M.go_down() move('j') end
+	local output = { { vim.fn.expand('%:p:.') .. ' | ' } }
+	for i = 1, 4 do
+		if counts[i] > 0 then
+			table.insert(output, { counts[i] .. fmt[i] .. ' ', hl[i] })
+		end
+	end
+	table.insert(output, { vim.b.gitsigns_status })
+
+	vim.api.nvim_echo(output, false, {})
+end
 
 return M

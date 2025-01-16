@@ -38,7 +38,7 @@ local M = {
 			"sindrets/diffview.nvim", -- optional
 			"ibhagwan/fzf-lua",    -- optional
 		},
-		config = {
+		opts = {
 			integrations = {
 				diffview = true,
 				fzf_lua = true,

@@ -8,6 +8,18 @@ autocmd({ 'VimEnter' }, {
 	group = enter,
 })
 
+local misc = augroup('misc', { clear = true })
+autocmd('ColorScheme', {
+	pattern = { 'default' },
+	nested = true,
+	group = misc,
+	callback = function()
+		if vim.opt.background:get() == 'light' then
+			fire()
+		end
+	end
+})
+
 local term = augroup('term', { clear = true })
 autocmd({ 'BufEnter', 'TermOpen' }, {
 	pattern = 'term://*',
@@ -32,6 +44,10 @@ autocmd({ 'textYankPost' }, {
 autocmd({ 'InsertEnter' }, {
 	group = interface,
 	callback = function() vim.o.hlsearch = false end
+})
+autocmd({ 'InsertLeave' }, {
+	group = interface,
+	callback = function() vim.o.hlsearch = true end
 })
 -- keep split proportions when resizing terminal
 autocmd({ 'VimResized' }, {
