@@ -8,6 +8,18 @@ local tmpdir = vim.fn.expand("$TMPDIR")
 -- g.loaded_netrwPlugin = 1
 -- g.loaded_matchit = 1
 
+-- vim.g.clipboard = {
+-- 	name = 'OSC 52',
+-- 	copy = {
+-- 		['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+-- 		['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+-- 	},
+-- 	paste = {
+-- 		['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+-- 		['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+-- 	},
+-- }
+
 g.mapleader = " "
 g.vimsyn_embeded = "lr"
 
