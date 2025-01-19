@@ -1,5 +1,5 @@
-# theme = "light:rosepine-light,dark:"
-theme = "rosepine-light"
+theme = "light:rosepine-light,dark:"
+# theme = "rosepine-light"
 # theme = "NvimDark"
 font-family = "Hack"
 font-size = 11
