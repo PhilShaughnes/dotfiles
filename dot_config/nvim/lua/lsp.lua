@@ -87,6 +87,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			return
 		end
 
+		-- Enable completion triggered by <c-x><c-o>
+		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
 		if client.supports_method('textDocument/completion') then
 			-- Enable auto-completion
 			-- vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
@@ -94,9 +97,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			setup_completion(client, ev.buf)
 		end
 
-
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions

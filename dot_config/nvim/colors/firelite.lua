@@ -1,6 +1,4 @@
-if vim.g.colors_name then
-	vim.cmd("hi clear")
-end
+vim.cmd("hi clear")
 vim.g.colors_name = "firelite"
 
 local function adjust_brightness(hex, factor)
@@ -23,7 +21,8 @@ end
 
 -- comment
 local group_styles = {
-	["Normal"] = { fg = "#311126", bg = "None" },
+	-- ["Normal"] = { fg = "#311126", bg = "None" },
+	["Normal"] = { fg = "#311126", bg = "#faf4ed" },
 	["Statement"] = { fg = "#311126", bold = true },
 	["Comment"] = { fg = "#9893a5", italic = true },
 	["String"] = { fg = "#276983", italic = true },
@@ -77,4 +76,3 @@ end
 for group, style in pairs(group_styles) do
 	vim.api.nvim_set_hl(0, group, style)
 end
-
