@@ -32,6 +32,7 @@ end
 local function setup_completion(client, bufnr)
 	local imap = h.mapper('i', { remap = false, silent = true, buffer = bufnr })
 	local smap = h.mapper({ 'i', 's' }, { remap = false, silent = true, buffer = bufnr })
+	-- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = false })
 	vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
 
 	-- Use enter to accept completions.
@@ -60,11 +61,14 @@ local function setup_completion(client, bufnr)
 		end
 	end, { expr = true })
 
+	imap('<C-space>', vim.lsp.completion.trigger, { desc = 'trigger lsp completion' })
+
 	imap('<C-n>', function()
 		if pumvisible() then
 			h.feedkeys '<C-n>'
 		else
 			if next(vim.lsp.get_clients { bufnr = 0 }) then
+				vim.notify('completing...')
 				vim.lsp.completion.trigger()
 			else
 				if vim.bo.omnifunc == '' then
