@@ -26,7 +26,10 @@ offboard LASTNAME EMAIL:
 
 # setup/login
 morning:
-  echo "implement good morning stuff"
+	echo "implement good morning stuff"
+
+awslogin:
+	aws sso login --profile "${AWS_SSO_PROFILE:-cicd_GreenlightEngineer}"
 
 # list gg repos
 repols:
@@ -34,10 +37,10 @@ repols:
 
 # list images for repo
 imagels REPO:
-  aws ecr list-images \
-    --repository-name gg/{{ REPO }} \
-    --region us-east-2 \
-    --profile cicd_GreenlightEngineer
+	aws ecr list-images \
+		--repository-name gg/{{ REPO }} \
+		--region us-east-2 \
+		--profile cicd_GreenlightEngineer
 
 # list gg repos sorted by last updated
 sortedls:
@@ -47,9 +50,9 @@ sortedls:
 
 # interactively select gg repos to clone
 clonerepos:
-  just sortedls \
-  | fzf --multi --height 50% --reverse \
-  | parallel gh repo clone stingerlabs/{}
+	just sortedls \
+	| fzf --multi --height 50% --reverse \
+	| parallel gh repo clone stingerlabs/{}
 # eventually we want to:
 # - select repos from this list
 # - clone selected repos
@@ -57,6 +60,6 @@ clonerepos:
 # - do something or other with aws, npm, java, etc.
 
 pushpr BRANCH:
-  git co -B {{ BRANCH }}
-  git push -u origin {{ BRANCH }}
-  gh pr create --fill --web
+	git co -B {{ BRANCH }}
+	git push -u origin {{ BRANCH }}
+	gh pr create --fill --web
