@@ -5,6 +5,17 @@ local function pumvisible()
 end
 
 local function lsp_settings()
+	vim.lsp.config('*', {
+		capabilities = {
+			textDocument = {
+				semanticTokens = {
+					multilineTokenSupport = true,
+				}
+			}
+		},
+		root_markers = { '.git' },
+	})
+
 	vim.diagnostic.config {
 		severity_sort = true,
 		underline = { severity = { min = vim.diagnostic.severity.WARN } },
@@ -25,8 +36,8 @@ local function lsp_settings()
 		},
 	})
 
-	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
-	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+	-- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
+	-- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 end
 
 local function setup_completion(client, bufnr)
@@ -61,7 +72,7 @@ local function setup_completion(client, bufnr)
 		end
 	end, { expr = true })
 
-	imap('<C-space>', vim.lsp.completion.trigger, { desc = 'trigger lsp completion' })
+	imap('<C-space>', vim.lsp.completion.get, { desc = 'trigger lsp completion' })
 
 	imap('<C-n>', function()
 		if pumvisible() then
@@ -94,7 +105,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- Enable completion triggered by <c-x><c-o>
 		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-		if client.supports_method('textDocument/completion') then
+		if client:supports_method('textDocument/completion') then
 			-- Enable auto-completion
 			-- vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 			-- vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })

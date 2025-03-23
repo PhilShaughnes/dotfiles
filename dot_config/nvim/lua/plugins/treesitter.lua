@@ -1,11 +1,37 @@
 local g = vim.g
 
-local ensure_install_langs = { "bash", "c", "comment", "css",
-	"dockerfile", "glimmer", "go", "graphql",
-	"html", "hurl", "java", "javascript", "jsdoc", "json", "lua",
-	"make", "python", "regex", "scss", "markdown", "vimdoc",
-	"typescript", "tsx", "vim", "vue", "toml", "yaml", "hcl",
-	"markdown_inline", "cue" }
+local ensure_install_langs = {
+	"bash",
+	"c",
+	"comment",
+	"css",
+	"dockerfile",
+	"glimmer",
+	"go",
+	"graphql",
+	"html",
+	"hurl",
+	"java",
+	"javascript",
+	"jsdoc",
+	"json",
+	"lua",
+	"make",
+	"python",
+	"regex",
+	"scss",
+	"markdown",
+	"vimdoc",
+	"typescript",
+	"tsx",
+	"vim",
+	"vue",
+	"toml",
+	"yaml",
+	"hcl",
+	"markdown_inline",
+	"cue",
+}
 
 
 local incremental = {
@@ -56,7 +82,7 @@ local M = {
 			ensure_installed = ensure_install_langs,
 			ignore_install = { "rust" },
 			highlight = {
-				enable = true,     -- false will disable the whole extension
+				enable = true,    -- false will disable the whole extension
 				additional_vim_regex_highlighting = { "markdown" },
 				disable = { "rust" }, -- list of language that will be disabled
 			},
