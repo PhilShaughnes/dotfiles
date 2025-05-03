@@ -1,0 +1,20 @@
+[tools]
+neovim = "latest"
+golang = '1.24.2'
+tmux = 'latest'
+sqlite = '3.49.1'
+nodejs = '20.19.1'
+lua = '5.4.6'
+helm = '3.12.3'
+usage = "latest"
+"npm:typescript-language-server" = "latest"
+"npm:eslint" = "latest"
+"npm:prettier" = "latest"
+zig = "latest"
+
+[settings]
+experimental = true
+
+
+# "_" is a special key for information you'd like to put into mise.toml that mise will never parse
+[_]

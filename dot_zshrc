@@ -1,16 +1,9 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 #! /bin/zsh
 # zmodload zsh/zprof
 #
 export GG_ENV="local"
 
-. $HOME/.env
+. $HOME/.env.base
 . $HOME/.config/system/aliases
 . $HOME/.config/system/functions
 . $HOME/.config/system/tools
@@ -88,6 +81,8 @@ if ! zgen saved; then
   # generate the init script from plugins above
   zgen save
 fi
+# uncomment this if we want to use jj
+# source <(COMPLETE=zsh jj)
 
 eval "$(zoxide init zsh)"
 # eval "$(starship init zsh)" # add 0.03s
@@ -97,5 +92,6 @@ eval "$(zoxide init zsh)"
 
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
+# eval "$(/Users/phil/.local/bin/mise activate zsh)"
 
 # zprof

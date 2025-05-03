@@ -9,6 +9,12 @@ local M = {
 		cmd = { "VBox" },
 	},
 	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		ft = { "markdown", "codecompanion" },
+		opt = {},
+	},
+	{
 		"nfrid/markdown-togglecheck",
 		dependencies = { "nfrid/treesitter-utils" },
 		ft = { "markdown" },

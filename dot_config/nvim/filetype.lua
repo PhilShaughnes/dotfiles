@@ -7,6 +7,7 @@ vim.filetype.add({
 		http = "hurl",
 		hurl = "hurl",
 		tftpl = "yaml",
+		gitconfig = "gitconfig",
 	},
 	filename = {
 		['justfile'] = "just",

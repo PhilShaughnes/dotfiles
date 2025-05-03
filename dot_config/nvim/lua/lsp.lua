@@ -38,6 +38,11 @@ local function lsp_settings()
 
 	-- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
 	-- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+
+	vim.lsp.enable({ "gopls" })
+	vim.lsp.enable({ "lua_ls" })
+	vim.lsp.enable({ "marksman" })
+	vim.lsp.enable({ "ts_ls" })
 end
 
 local function setup_completion(client, bufnr)

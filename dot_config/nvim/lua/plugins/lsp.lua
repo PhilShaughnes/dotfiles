@@ -66,28 +66,28 @@ local M = {
 			automatic_installation = true,
 		},
 	},
-	{
-		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
-		init = function() end,
-		config = function()
-			local lspconfig = require('lspconfig')
-
-			lspconfig.ts_ls.setup {}
-			lspconfig.dockerls.setup {}
-			lspconfig.marksman.setup {}
-			lspconfig.lua_ls.setup(lua_setup)
-			lspconfig.gopls.setup(gopls_setup)
-			-- lspconfig.sqls.setup {}
-			-- lspconfig.terraform_ls.setup {}
-			-- ◍ fixjson
-			-- ◍ goimports
-			-- ◍ jq
-			-- ◍ staticcheck
-			-- ◍ tflint
-			-- ◍ yamlfmt
-		end,
-	}
+	-- {
+	-- 	"neovim/nvim-lspconfig",
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- 	init = function() end,
+	-- 	config = function()
+	-- 		local lspconfig = require('lspconfig')
+	--
+	-- 		lspconfig.ts_ls.setup {}
+	-- 		lspconfig.dockerls.setup {}
+	-- 		lspconfig.marksman.setup {}
+	-- 		lspconfig.lua_ls.setup(lua_setup)
+	-- 		lspconfig.gopls.setup(gopls_setup)
+	-- 		-- lspconfig.sqls.setup {}
+	-- 		-- lspconfig.terraform_ls.setup {}
+	-- 		-- ◍ fixjson
+	-- 		-- ◍ goimports
+	-- 		-- ◍ jq
+	-- 		-- ◍ staticcheck
+	-- 		-- ◍ tflint
+	-- 		-- ◍ yamlfmt
+	-- 	end,
+	-- }
 }
 -- local lsp_defaults = lspconfig.util.default_config
 -- lspconfig.emmet_ls.setup {}

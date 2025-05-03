@@ -21,6 +21,8 @@ alias gb='git checkout -' # git back - go back to previous branch
 alias ga='git add -p' # interactive mode
 alias gc='git commit -v'
 alias cpbr='git rev-parse --abbrev-ref HEAD | pbcopy'
+alias gf='git sw -i'
+alias gdt='git --detach'
 
 alias j='just'
 alias ll='ls -laph'

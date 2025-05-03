@@ -1,7 +1,7 @@
 #! /bin/bash
 set -o vi
 
-. $HOME/.env
+. $HOME/.env.base
 export GG_ENV="local"
 
 
@@ -22,7 +22,10 @@ bind "set completion-ignore-case on"
 bind 'set show-all-if-ambiguous on'
 bind 'TAB:menu-complete'
 
+# uncomment this if we want to use jj
+# source <(COMPLETE=bash jj)
 . $HOME/.asdf/completions/asdf.bash
 eval "$(zoxide init bash)"
 eval "$(starship init bash)"
 eval "$(direnv hook bash)"
+# eval "$(/Users/phil/.local/bin/mise activate bash)"

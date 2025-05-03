@@ -20,6 +20,7 @@ export NNN_PLUG="$NNN_FOLDERS;$NNN_PLUGINS"
 export NNN_OPENER="$HOME/.config/nnn/plugins/nuke"
 export ERL_AFLAGS="-kernel shell_history enabled"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+export MANPAGER='nvim +Man!'
 
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
@@ -40,5 +41,5 @@ export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 
 export PATH="$HOME/.local/bin:$PATH"
 
-
-. $HOME/.asdf/asdf.sh
+export PATH="/Users/phil/.local/share/mise/shims:$PATH"
+# . $HOME/.asdf/asdf.sh

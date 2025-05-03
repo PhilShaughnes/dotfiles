@@ -1,6 +1,8 @@
 [user]
 	name = Phil Shaughnessy
 	email = philip.shaughnessy@gmail.com
+[includeIf "gitdir:~/gg/"]
+	path = ~/.config/system/gg.gitconfig
 [core]
 	autocrlf = false
 	safecrlf = true
@@ -14,6 +16,8 @@
 	ci = commit
 	st = status
 	b = branch
+	d = --detach
+	cp = --cherry-pick
 	lg = log --stat --abbrev-commit --show-signature
 	tree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	type = cat-file -t
@@ -41,7 +45,7 @@
 	user = philshaughnes
 
 [pull]
-	rebase = false
+	rebase = true
 
 [rebase]
 	updateRefs = true

@@ -163,6 +163,13 @@ M.vmap('K', [[:m '<-2<CR>gv=gv]], { desc = 'move visual block up' })
 M.vmap('<', '<gv', { desc = 'un-indent' })
 M.vmap('>', '>gv', { desc = 'indent' })
 
+M.imap("<C-L>", function()
+	local node = vim.treesitter.get_node()
+	if node ~= nil then
+		local row, col = node:end_()
+		pcall(vim.api.nvim_win_set_cursor, 0, { row + 1, col })
+	end
+end, { desc = "insjump" })
 M.imap('<C-e>', function()
 	if pumvisible() then h.feedkeys '<C-e>' else h.feedkeys '<esc>ea' end
 end, { desc = "like 'e' but in insert" })
@@ -204,6 +211,7 @@ end, { desc = 'all errors in qf' })
 
 -- plugin groups
 set_group('n', '<leader>f', '+find')
+set_group('n', '<leader>lm', '+llm')
 set_group('n', '<leader>h', 'git hunk')
 set_group('n', '<leader>g', 'git')
 set_group('n', '<leader>w', 'Vimwiki')

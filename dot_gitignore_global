@@ -47,3 +47,6 @@ Thumbs.db
 
 # gg specific
 .greenlight.wildcard
+
+# ai tool
+.aider.*
