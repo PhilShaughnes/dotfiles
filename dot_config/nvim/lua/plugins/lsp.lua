@@ -40,6 +40,7 @@ local M = {
 	-- },
 	{
 		"williamboman/mason.nvim",
+		version = "1.11.0",
 		-- event = "VeryLazy",
 		opts = {
 			ensure_installed = {

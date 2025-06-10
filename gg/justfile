@@ -30,6 +30,8 @@ morning:
 
 awslogin:
 	aws sso login --profile "${AWS_SSO_PROFILE:-cicd_GreenlightEngineer}"
+	aws ecr get-login-password --region us-east-2 --profile "${AWS_SSO_PROFILE:-cicd_GreenlightEngineer}" | docker login --username AWS --password-stdin 555752902066.dkr.ecr.us-east-2.amazonaws.com
+
 
 # list gg repos
 repols:

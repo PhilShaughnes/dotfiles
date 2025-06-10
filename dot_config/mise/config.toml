@@ -11,6 +11,15 @@ usage = "latest"
 "npm:eslint" = "latest"
 "npm:prettier" = "latest"
 zig = "latest"
+marksman = "latest"
+lua-language-server = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
+"go:github.com/sqls-server/sqls" = "latest"
+tflint = "latest"
+yamlfmt = "latest"
+redis = "latest"
+yt-dlp = "latest"
+terraform = "latest"
 
 [settings]
 experimental = true
@@ -18,3 +27,8 @@ experimental = true
 
 # "_" is a special key for information you'd like to put into mise.toml that mise will never parse
 [_]
+# age:
+# - https://github.com/slok/agebox
+# - https://github.com/FiloSottile/passage
+# - https://github.com/remko/age-plugin-se
+# - https://github.com/matiaskorhonen/paper-age

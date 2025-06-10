@@ -38,6 +38,10 @@ Thumbs.db
 
 # PERSONAL #
 ############
+# local stuff
+*.local
+local/
+debug/
 
 # asdf version - may want to change this
 .tool-versions

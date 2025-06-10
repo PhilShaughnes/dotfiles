@@ -38,13 +38,42 @@ local group_styles = {
 	["ColorColumn"] = { bg = "#f4ede8" },
 	["NormalFloat"] = { bg = "#f4ede8" },
 	["Pmenu"] = { fg = "#311126", bg = "#f4ede8" },
+	["Cursor"] = { bg = "#311126", fg = "#f4ede8" },
 
 	["DiagnosticHint"] = { fg = "#907aa9" },
 	["DiagnosticInfo"] = { fg = "#56949f" },
 	["DiagnosticWarn"] = { fg = "#ea9d34" },
 	["DiagnosticError"] = { fg = "#b4637a" },
 }
+
 local dark_styles = {
+	["Normal"] = { fg = "#e2e2e5", bg = "#202020" },
+	["Statement"] = { fg = "#7e8aa2", bold = true },
+	["Comment"] = { fg = "#908caa", italic = true },
+	["String"] = { fg = "#a6e4b2", italic = true },
+	["Function"] = { fg = "#ebbcba" },
+
+	["Structure"] = { fg = "#ffafd7" },
+	-- ["Identifier"] = { fg = "#9ccfd8" },
+	["Special"] = { fg = "#9ccfd8" },
+	["Constant"] = { fg = "#eb6f92", italic = true },
+	["PreProc"] = { fg = "#9ccfd8", bold = true },
+	["type"] = { fg = "#ec8790" },
+
+	["StatusLine"] = { fg = "#f2e9e1", bg = "#6e6a86" },
+	["Visual"] = { bg = "#524f67" },
+	["ColorColumn"] = { bg = "#2a2a37" },
+	["NormalFloat"] = { bg = "#2a2a37" },
+	["Pmenu"] = { fg = "#ec8790", bg = "#2a2a37" },
+	["Cursor"] = { bg = "#626262" },
+
+	["DiagnosticHint"] = { fg = "#907aa9" },
+	["DiagnosticInfo"] = { fg = "#56949f" },
+	["DiagnosticWarn"] = { fg = "#ea9d34" },
+	["DiagnosticError"] = { fg = "#b4637a" },
+}
+
+local dark_styles2 = {
 	["Normal"] = { fg = "#e0def4", bg = "#1f1f28" },
 	["Statement"] = { fg = "#e0def4", bold = true },
 	["Comment"] = { fg = "#908caa", italic = true },
