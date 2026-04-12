@@ -1,0 +1,64 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Phil"
+email = "philip.shaughnessy@gmail.com"
+
+# override user.email if the repository is located under ~/gg
+[[--scope]]
+--when.repositories = ["~/gg"]
+[--scope.user]
+email = "phil.shaughnessy@greenlight.guru"
+
+[templates]
+git_push_bookmark = '"phil/push-" ++ change_id.short()'
+# config_list = "builtin_config_list_detailed"
+# elog = "builtin_log_comfortable"
+# log = "builtin_log_oneline"
+
+[template-aliases]
+'format_timestamp(timestamp)' = 'timestamp.ago()'
+'format_short_id(id)' = 'id.shortest(6)'
+# 'format_short_signature(signature)' = 'signature.email()'
+'format_short_signature(signature)' = 'signature.name()'
+
+[aliases]
+d = ["describe", "-m"]
+ls = ["log", "--summary"]
+push = ["git push", "--summary"]
+rb = ["rebase"]
+sp = ["split"]
+sq = ["squash"]
+nb = ["new", "-B @", "--no-edit"]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+
+[ui]
+default-command = ["log"]
+# diff-editor = ["nvim", "-c", "nnoremap q <cmd>qall<cr>", "-c", "packadd nvim.difftool", "-c", "DiffTool $left $right"]
+
+[colors]
+change_id = "green"
+
+[remotes.origin]
+auto-track-bookmarks = "glob:phil/*"
+# Also track any bookmark you create
+auto-track-created-bookmarks = "*"
+
+[git]
+private-commits = "description(glob:'LOCAL:*')"
+
+[merge-tools.nvimdiff]
+program = "nvim"
+edit-args = ["-c", "nnoremap q <cmd>qall<cr>", "-c", "packadd nvim.difftool", "-c", "DiffTool $left $right"]
+
+[fix.tools.prettier]
+command = ["npx", "prettier", "--stdin-filepath=$path"]
+patterns = ["glob:'**/*.tsx'", "glob:'**/*.ts'", "glob:'**/*.jsx'", "glob:'**/*.js'", "glob:'**/*.css'", "glob:'**/*.html'"]
+
+[fix.tools.jq]
+command = ["jq", "."]
+patterns = ["*.json"]
+
+[fix.tools.yamlfmt]
+command = ["yamlfmt", "-"]
+patterns = ["*.yaml", "*.yml"]

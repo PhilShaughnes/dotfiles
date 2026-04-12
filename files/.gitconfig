@@ -1,0 +1,71 @@
+[user]
+	name = Phil Shaughnessy
+	email = philip.shaughnessy@gmail.com
+
+[core]
+	autocrlf = false
+	safecrlf = true
+	excludesfile = ~/.gitignore_global
+	editor = nvim
+	pager = less -x1,3
+	; pager = bat --style="grid"
+
+[includeIf "gitdir:~/gg/"]
+	path = ~/.config/system/gg.gitconfig
+
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	b = branch
+	d = co --detach
+	cp = --cherry-pick
+	lg = log --stat --abbrev-commit --show-signature
+	tree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	type = cat-file -t
+	dump = cat-file -p
+	a = add -A
+	c = commit -v
+	l = log -1 --pretty=%B
+	last = show --stat
+	empty = commit --allow-empty -m "Empty-Commit"
+	e = commit --allow-empty -m "Empty-Commit"
+	br = rev-parse --abbrev-ref HEAD
+	cs = log --oneline -n5
+	mkbr = !git checkout -B $(git log --pretty=format:"%s" -1 $1 | tr ' ' '-')
+	pr = !git push -u origin $(git br) && gh pr create --draft --fill
+	pf = push --force-with-lease
+
+[credential]
+	# this is a comment
+	; helper = store
+[init]
+	; templatedir = ~/.git_template
+	defaultBranch = main
+
+[github]
+	user = philshaughnes
+
+[pull]
+	rebase = true
+
+[rebase]
+	updateRefs = true
+
+[difftool]
+	prompt = true
+
+[diff]
+	tool = nvim_difftool
+
+[difftool "vimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
+[difftool "nvim_difftool"]
+  cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
+
+[branch]
+	autosetupmerge = true
+
+; git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+;

@@ -1,0 +1,185 @@
+#!/usr/bin/env sh
+
+n () {
+	# Block nesting of nnn in subshells
+	if [ -n "$NNNLVL" ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+			echo "nnn is already running"
+			return
+	fi
+
+	NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+	nnn "$@"
+
+	if [ -f "$NNN_TMPFILE" ]; then
+		. "$NNN_TMPFILE"
+		rm -f "$NNN_TMPFILE" > /dev/null
+	fi
+}
+
+weather() {
+	loc="${1:-indianapolis}"
+	curl "wttr.in/$loc"
+}
+
+unwip() {
+	if [[ "$(git log -1 --pretty=%B)" = "wip" ]]; then
+		git reset head^
+	fi
+}
+
+mcd () {
+	mkdir -pv "$1"
+	cd "$1" || return
+}
+
+# fh - repeat history
+fh() {
+	print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --height 25% --reverse | sed 's/ *[0-9]* *//')
+}
+
+# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
+# `tm` will allow you to select your tmux session via fzf.
+# `tm irc` will attach to the irc session (if it exists), else it will create it.
+tm() {
+	[[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+	if [ $1 ]; then
+		tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+	fi
+	session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0 --height 20% --reverse) &&
+		tmux $change -t "$session" || echo "No sessions found."
+}
+
+# fbr - checkout git branch
+fbr() {
+	local branches branch cmd="vv"
+
+	while getopts "a" OPTION
+	do
+		case $OPTION in
+			a) cmd="vva" ;;
+		esac
+	done
+
+	branches=$(git branch -$cmd) &&
+	branch=$(echo "$branches" | fzf +m --height 25% --reverse) &&
+	# git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+	git checkout $(echo "$branch" | awk '{print $1}' | awk -F "/" '{print $NF}' | sed "s/.* //")
+}
+
+# fdir - cd to selected directory
+fdir() {
+	local dir
+	dir=$(find ${1:-.} -path '*/\.*' -prune \
+									-o -type d -print 2> /dev/null | fzf +m --height 25% --reverse) &&
+	cd "$dir"
+}
+
+# glist - git commit browser
+glist() {
+	cmt=$(git query "all()" |
+		fzf --ansi --no-sort --reverse --tiebreak=index \
+				--preview 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1; }; f {}' \
+		| awk '{print $1}' \
+	)
+git checkout "$cmt"
+}
+
+# fshow - git commit browser
+fshow() {
+	git log --graph --color=always \
+			--format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+	fzf --ansi --no-sort --reverse --tiebreak=index \
+			--preview 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1; }; f {}' \
+			--bind=ctrl-s:toggle-sort \
+			--bind "ctrl-m:execute:
+								(grep -o '[a-f0-9]\{7\}' | head -1 |
+								xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+								{}
+FZF-EOF"
+}
+
+gbc() {
+	git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $@..$(git rev-parse --abbrev-ref HEAD)
+}
+
+gbbc() {
+	git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $(git rev-parse --abbrev-ref HEAD)..$@
+}
+
+gp() {
+	# create branch if none exists on current or provided commit
+	# push branch to origin
+	# create PR with -f (fill) and maybe -d (draft)
+	# maybe use -H (head) if doing a different branch
+	branch="$1"
+	git co -B "$branch"
+	git push -u origin "$branch"
+	gh pr create --fill --web
+}
+
+# relies on genact, which is found at https://github.com/svenstaro/genact
+gen() {
+	if [ $1 ]; then
+		MODULES=$(genact -l | fzf --query "$@" | tr -d ' ')
+	else
+		MODULES=$(genact -l | fzf | tr -d ' ')
+	fi
+	echo "running $MODULES"
+	# go a bit faster, using the selected modules
+	genact -s 2 -m "$MODULES"
+}
+
+b() {
+	res=$(rbw unlock && rbw list | fzf --reverse --height 10%)
+	[ -z "$res" ] && return
+	if [ $# -eq 0 ] || ( [ $# -eq 1 ] && [ $1 = "-c" ] ); then
+		rbw get -c "$res"
+	else
+		rbw "$@" "$res";
+	fi
+}
+
+pzf() {
+	pwdir="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+	list=$(fd . --base-directory "$pwdir" --extension gpg)
+	echo "$list" | sed -e 's:.gpg$::gi' | fzf --multi --reverse --height 10%
+}
+
+p() {
+	res=$(pzf)
+	if [ $# -eq 0 ] || ( [ $# -eq 1 ] && [ $1 = "-c" ] ); then
+		pass -c "$res"
+	else
+		pass "$@" "$res";
+	fi
+}
+pp() {
+	if [ -d "/Volumes/ZERO/pass" ]; then
+		# PASSWORD_STORE_DIR="/Volumes/ZERO/pass/pass-store/"
+		pwdir="/Volumes/ZERO/pass/pass-store/"
+		PASSWORD_STORE_DIR="$pwdir" pass "$@"
+	else
+		pass "$@"
+	fi
+}
+
+pshow() {
+	list=$(fd . --base-directory ~/.password-store --extension gpg)
+	select=$(echo "$list" | sed -e 's:.gpg$::gi' | fzf --multi --preview "pass show {}")
+	echo "$select" | sed -e 's:^:~/.password-store/:gi;s:$:.gpg:gi'
+}
+
+killport() {
+	lsof -ti:"$1" | xargs -L1 kill -9
+}
+
+yt() {
+	yt-dlp --extract-audio --audio-format aac -P "~/Music/songs/yt" -o $@
+}
+
+pgs() {
+  local svc="$1"
+  export PGPASSWORD=$(pass show db/$svc)
+  psql service="$svc"
+  unset PGPASSWORD
+}

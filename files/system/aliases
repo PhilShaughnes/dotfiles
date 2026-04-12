@@ -1,0 +1,53 @@
+# Filesystem aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+
+alias gs='git status'
+alias g='git'
+alias gl='g sl'
+alias pull='git pull'
+alias push='git push'
+alias pushf='git push --force-with-lease'
+alias gco='git checkout'
+alias gacm='git add -A && git commit -m'
+alias gac='git add -A && git commit -v'
+alias wip='git add -A && git commit -m "wip"'
+# alias unwip='git reset head^' # currently this is in a fn that only resets if last commit is wip
+alias gdb='git branch -D $(git branch | fzf -m)' # git delete branch - multi-select in fzf
+alias gb='git checkout -' # git back - go back to previous branch
+alias ga='git add -p' # interactive mode
+alias gc='git commit -v'
+alias cpbr='git rev-parse --abbrev-ref HEAD | pbcopy'
+alias gf='git sw -i'
+alias gdt='git co --detach'
+
+alias j='jj'
+alias js='jj st'
+alias jl='jj ls'
+alias jg='jj git'
+
+alias jt='just'
+alias ll='ls -laph'
+# [ "$(uname)" != "Darwin" ] && alias ls='ls --color' # conditionally only use this on linux
+# alias fd='rg --files'
+# alias tkl='tmux kill-session -t $(tmux list-sessions -F "#{session_name}" | fzf --height 20% --reverse -m)'
+alias cze='chezmoi edit --apply'
+alias cz='chezmoi'
+alias czs='chezmoi status'
+alias cza='chezmoi apply'
+alias czpull='chezmoi git pull -- --autostash --rebase && chezmoi diff'
+
+alias jqp='pbpaste | jq .'
+
+alias mkdir='mkdir -pv'
+alias v='nvim'
+# alias nv='NVIM_APPNAME=nv nvim'
+alias yz='yazi'
+
+alias icat="kitty +kitten icat --align=left"
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
+alias ip='curl ifconfig.me'
+alias httpstatus='curl -k https://www.iana.org/assignments/http-status-codes/http-status-codes.txt'

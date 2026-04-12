@@ -1,0 +1,6 @@
+# mac only
+
+[[dotfiles]]
+name = "ghostty"
+src  = "~/.config/dotfiles/files/ghostty"
+dest = "~/.config/ghostty"

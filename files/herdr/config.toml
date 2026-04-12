@@ -1,0 +1,18 @@
+onboarding = false
+[theme]
+name = "terminal"
+auto_switch = false
+
+[ui]
+show_agent_labels_on_pane_borders = true
+accent = "black"
+pane_gaps = false
+# pane_borders = false
+pane_borders = true
+# mobile_width_threshold = 200
+
+
+[keys]
+prefix = "ctrl+a"
+cycle_pane_next = ["prefix+tab", "ctrl+s"]
+split_vertical = "prefix+backslash"

@@ -1,0 +1,66 @@
+# portable: anything a shell on any machine (mac, g4 dev lxc) needs
+
+# shell
+[[dotfiles]]
+name = "zshrc"
+src  = "~/.config/dotfiles/files/.zshrc"
+dest = "~/.zshrc"
+
+[[dotfiles]]
+name = "zshenv"
+src  = "~/.config/dotfiles/files/.zshenv"
+dest = "~/.zshenv"
+
+[[dotfiles]]
+name = "bashrc"
+src  = "~/.config/dotfiles/files/.bashrc"
+dest = "~/.bashrc"
+
+[[dotfiles]]
+name = "env"
+src  = "~/.config/dotfiles/files/.env.base"
+dest = "~/.env.base"
+
+# aliases, functions, tools, completions - sourced by zshrc/bashrc
+[[dotfiles]]
+name = "system"
+src  = "~/.config/dotfiles/files/system"
+dest = "~/.config/system"
+
+# vcs
+[[dotfiles]]
+name = "gitconfig"
+src  = "~/.config/dotfiles/files/.gitconfig"
+dest = "~/.gitconfig"
+
+[[dotfiles]]
+name = "gitignore_global"
+src  = "~/.config/dotfiles/files/.gitignore_global"
+dest = "~/.gitignore_global"
+
+[[dotfiles]]
+name = "jj"
+src  = "~/.config/dotfiles/files/jjconfig.toml"
+dest = "~/.config/jj/config.toml"
+
+# tools
+[[dotfiles]]
+name = "mise"
+src  = "~/.config/dotfiles/files/miseconfig.toml"
+dest = "~/.config/mise/config.toml"
+
+[[dotfiles]]
+name = "starship"
+src  = "~/.config/dotfiles/files/starship.toml"
+dest = "~/.config/starship.toml"
+
+[[dotfiles]]
+name = "tmux"
+src  = "~/.config/dotfiles/files/.tmux.conf"
+dest = "~/.tmux.conf"
+
+[[repos]]
+# default nvim location; drop NVIM_APPNAME=nv from .env.base when migrating
+name = "nvim"
+url  = "git@github.com:PhilShaughnes/nv.git"
+dest = "~/.config/nvim"

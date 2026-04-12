@@ -1,0 +1,17 @@
+# agent tooling - pi, claude, herdr
+
+[[repos]]
+name = "pi"
+url  = "git@github.com:PhilShaughnes/mypi.git"
+dest = "~/.pi"
+
+[[repos]]
+name = "claude"
+url  = "git@github.com:PhilShaughnes/dotfiles-claude.git"
+dest = "~/.claude"
+
+# just the config - ~/.config/herdr also holds sockets, logs, sessions
+[[dotfiles]]
+name = "herdr"
+src  = "~/.config/dotfiles/files/herdr/config.toml"
+dest = "~/.config/herdr/config.toml"

@@ -1,0 +1,21 @@
+# theme = "light:rosepine-light,dark:"
+theme = "rosepine-light"
+font-family = "Hack"
+font-size = 11
+font-thicken = true
+macos-titlebar-style = tabs
+
+bold-is-bright = true
+confirm-close-surface = false
+adjust-cell-height = 20%
+window-save-state = always
+
+shell-integration-features = ssh-terminfo,ssh-env
+
+keybind = global:super+g=toggle_visibility
+keybind = super+a>-=new_split:down
+keybind = super+a>\=new_split:right
+# keybind = shift+enter=text:\n
+keybind = super+shift+k=write_scrollback_file:paste
+keybind = super+shift+u=scroll_page_up
+keybind = super+shift+d=scroll_page_down
