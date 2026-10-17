@@ -45,7 +45,7 @@ cmake = "latest"
 
 [settings]
 experimental = true
-idiomatic_version_file_enable_tools = ["rust", "node", "go", "terraform"]
+idiomatic_version_file_enable_tools = ["rust", "node", "terraform"]
 exec_auto_install = false
 
 
