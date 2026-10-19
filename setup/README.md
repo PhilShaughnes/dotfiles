@@ -20,9 +20,12 @@ Then as `<user>`:
     cd ~/.config/dotfiles
     PATH=~/.local/bin:$PATH
     GOBIN=~/.local/bin mise exec go@latest -- go install github.com/philshaughnes/dots@latest
-    dots apply -f base.toml -f agents.toml
+    dots apply -f base.toml -f agents.toml          # + -f g4.toml on bb8 (BEFORE mise install)
     exec zsh        # picks up env.base (mise shims, PATH)
     mise install
+
+    # repos: base.toml clones the private forge repo (~/.config/forge) - manifests per machine
+    dots apply -f ~/.config/forge/me-air.toml   # e.g.; -f paths are relative to ~/.config/dotfiles
 
 ## mac
 

@@ -1,0 +1,6 @@
+# g4 dev lxc (bb8) only
+
+[[dotfiles]]
+name = "env-g4"
+src  = "~/.config/dotfiles/files/.env.g4"
+dest = "~/.env.g4"

@@ -64,3 +64,9 @@ dest = "~/.tmux.conf"
 name = "nvim"
 url  = "git@github.com:PhilShaughnes/nv.git"
 dest = "~/.config/nvim"
+
+# private repo manifests (code/me, code/ref, ...) - dotfiles is public, forge is not
+[[repos]]
+name = "forge"
+url  = "git@github.com:PhilShaughnes/forge.git"
+dest = "~/.config/forge"
