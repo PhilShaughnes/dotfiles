@@ -21,7 +21,7 @@ Then as `<user>`:
     PATH=~/.local/bin:$PATH
     GOBIN=~/.local/bin mise exec go@latest -- go install github.com/philshaughnes/dots@latest
     dots apply -f base.toml -f agents.toml          # + -f g4.toml on bb8 (BEFORE mise install)
-    exec zsh        # picks up env.base (mise shims, PATH)
+    exec bash       # picks up env.base (mise shims, PATH); bash is the sandbox shell
     mise install
 
     # repos: base.toml clones the private forge repo (~/.config/forge) - manifests per machine
