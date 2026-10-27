@@ -1,9 +1,8 @@
 #! /bin/zsh
 # zmodload zsh/zprof
 #
-export GG_ENV="local"
-
 . $HOME/.env.base
+[[ -d /opt/homebrew/share/zsh/site-functions ]] && fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
 . $HOME/.config/system/aliases
 . $HOME/.config/system/functions
 . $HOME/.config/system/tools
@@ -92,7 +91,7 @@ eval "$(zoxide init zsh)"
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 # eval "$(/Users/phil/.local/bin/mise activate zsh)"
 
 # zprof

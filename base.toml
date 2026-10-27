@@ -17,6 +17,11 @@ src  = "~/.config/dotfiles/files/.bashrc"
 dest = "~/.bashrc"
 
 [[dotfiles]]
+name = "bash_profile"
+src  = "~/.config/dotfiles/files/.bash_profile"
+dest = "~/.bash_profile"
+
+[[dotfiles]]
 name = "env"
 src  = "~/.config/dotfiles/files/.env.base"
 dest = "~/.env.base"

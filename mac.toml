@@ -4,3 +4,8 @@
 name = "ghostty"
 src  = "~/.config/dotfiles/files/ghostty"
 dest = "~/.config/ghostty"
+
+[[dotfiles]]
+name = "env-mac"
+src  = "~/.config/dotfiles/files/.env.mac"
+dest = "~/.env.mac"

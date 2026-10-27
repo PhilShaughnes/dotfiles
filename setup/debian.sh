@@ -22,7 +22,7 @@ packages=(
 	# locale: ssh/mosh forward the client's LANG; C is not good enough
 	locales
 	# shell startup (bashrc/env.base)
-	fzf fd-find zoxide direnv starship
+	fzf fd-find zoxide starship
 	# forge: btrfs snapshots/subvolumes
 	btrfs-progs
 )
@@ -40,9 +40,14 @@ update-locale LANG=en_US.UTF-8
 
 id "$user" >/dev/null 2>&1 || useradd -m -s /bin/bash "$user"
 usermod -aG sudo -s /bin/bash "$user"
+home=$(getent passwd "$user" | cut -d: -f6)
+
+# debian's skel .bashrc blocks dots' symlink - move it aside
+if [ -f "$home/.bashrc" ] && [ ! -L "$home/.bashrc" ]; then
+	mv "$home/.bashrc" "$home/.bashrc.debian"
+fi
 
 # mise (installs to ~/.local/bin/mise)
-home=$(getent passwd "$user" | cut -d: -f6)
 [ -x "$home/.local/bin/mise" ] || su - "$user" -c 'curl -fsSL https://mise.run | sh'
 
 echo "done. next, as $user: see setup/README.md"
