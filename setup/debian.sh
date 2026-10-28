@@ -23,6 +23,8 @@ packages=(
 	locales
 	# shell startup (bashrc/env.base)
 	fzf fd-find zoxide starship
+	# interactive cli with no mise route (nnn: upstream ships linux-only binaries)
+	nnn
 	# forge: btrfs snapshots/subvolumes
 	btrfs-progs
 )
