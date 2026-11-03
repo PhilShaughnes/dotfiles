@@ -40,7 +40,8 @@ neovim = "nightly"
 "npm:firecrawl-cli" = "latest"
 "go:github.com/justestif/qry" = "latest"
 "aqua:openclaw/gogcli" = "latest"
-herdr = "latest"
+# mac only: on linux herdr installs/updates its own ~/.local/bin/herdr to match the mac client (remote machines)
+herdr = { version = "latest", os = ["macos"] }
 just = "latest"
 "github:nolabs-ai/nono" = "latest"
 bun = "latest"
