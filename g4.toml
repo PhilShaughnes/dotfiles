@@ -4,3 +4,9 @@
 name = "env-g4"
 src  = "~/.config/dotfiles/files/.env.g4"
 dest = "~/.env.g4"
+
+# myos lives in forge (sandboxes can mount it); ~/myos is what pi's /load expects
+[[dotfiles]]
+name = "myos"
+src  = "/forge/repos/me/myos"
+dest = "~/myos"

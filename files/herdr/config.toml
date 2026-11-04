@@ -16,3 +16,7 @@ pane_borders = true
 prefix = "ctrl+a"
 cycle_pane_next = ["prefix+tab", "ctrl+s"]
 split_vertical = "prefix+backslash"
+
+[ui.toast]
+# background notification popups: "off" (default) | "herdr" (in-app) | "system" (macOS)
+delivery = "herdr"

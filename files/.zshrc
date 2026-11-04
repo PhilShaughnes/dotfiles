@@ -54,8 +54,6 @@ setopt menu_complete
 alias git status='nocorrect git status'
 alias gs='nocorrect git status'
 
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
 [[ -f ~/.config/zsh/zshrc.local ]] && source ~/.config/zsh/zshrc.local
 
 
@@ -89,6 +87,13 @@ eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# fzf (^R history, ^T files, Alt-C cd). Generated once and cached; to regen
+# (e.g. after `brew upgrade fzf`): rm ~/.fzf.zsh and open a new shell.
+if command -v fzf >/dev/null; then
+  [[ -f ~/.fzf.zsh ]] || fzf --zsh > ~/.fzf.zsh
+  source ~/.fzf.zsh
+fi
 
 eval "$(starship init zsh)"
 # eval "$(direnv hook zsh)"
