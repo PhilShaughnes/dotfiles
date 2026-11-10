@@ -39,6 +39,11 @@ echo "brewing..."
 # assume we are in the correct directory...
 brew bundle
 
+# herdr app (~/Applications) + herdr-core/hc (~/.local/bin, first install only;
+# the app keeps core current). Re-running updates the app.
+echo "herdr app + core..."
+curl -fsSL https://releases.herdr.dev/app/install.sh | sh
+
 # echo "fzf install..."
 # $(brew --prefix)/opt/fzf/install
 

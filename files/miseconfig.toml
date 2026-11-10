@@ -41,6 +41,8 @@ neovim = "nightly"
 "go:github.com/justestif/qry" = "latest"
 "aqua:openclaw/gogcli" = "latest"
 # mac only: on linux herdr installs/updates its own ~/.local/bin/herdr to match the mac client (remote machines)
+# herdr app + herdr-core (hc) are self-managed, not mise: setup/mac.sh runs the
+# official installer (~/Applications/Herdr.app, ~/.local/bin/herdr-core); the app updates core
 herdr = { version = "latest", os = ["macos"] }
 just = "latest"
 "github:nolabs-ai/nono" = "latest"
