@@ -32,6 +32,12 @@ name = "system"
 src  = "~/.config/dotfiles/files/system"
 dest = "~/.config/system"
 
+# global justfile: `just -g` / jtg from any repo (review flow etc)
+[[dotfiles]]
+name = "justfile"
+src  = "~/.config/dotfiles/files/just/justfile"
+dest = "~/.config/just/justfile"
+
 # vcs
 [[dotfiles]]
 name = "gitconfig"

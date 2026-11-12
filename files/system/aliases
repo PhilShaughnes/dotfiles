@@ -30,6 +30,7 @@ alias jl='jj ls'
 alias jg='jj git'
 
 alias jt='just'
+alias jtg='just -g'
 alias ll='ls -laph'
 # [ "$(uname)" != "Darwin" ] && alias ls='ls --color' # conditionally only use this on linux
 # alias fd='rg --files'

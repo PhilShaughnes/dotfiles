@@ -1,0 +1,86 @@
+# global justfile: `just -g <recipe>` (alias: jtg), from any repo.
+# Recipes are [no-cd]: they act on the repo you're in, not this folder.
+
+# list
+default:
+	@just -g --list --unsorted
+
+# --- review: jj "brain" review of a change (agent or human) -----------------
+# Flow (after bengesoff.leaflet.pub/3mg2hkyj7l22k):
+#   start  → review workspace; duplicate the change; empty brain commit under it
+#   ok     → squash files you're happy with into the brain (@ shrinks)
+#   status → reviewed vs left
+#   finish → interdiff of your inline comments vs the original → hc send to agent
+#   done   → drop the workspace and review commits
+# Leave review notes as inline comments in the code (e.g. `REVIEW: ...`).
+
+# start reviewing <rev> (bookmark, change id) in a sibling review workspace
+[no-cd]
+review-start rev name:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	root=$(jj root)
+	ws="$root.review-{{name}}"
+	orig=$(jj log -r '{{rev}}' --no-graph -T 'commit_id ++ "\n"')
+	[ "$(printf '%s\n' "$orig" | wc -l)" -eq 1 ] || { echo "rev must be exactly one commit" >&2; exit 1; }
+	jj workspace add --name "review-{{name}}" "$ws" >/dev/null
+	cd "$ws"
+	dup=$(jj duplicate "$orig" 2>&1 | awk '/^Duplicated/ {print $4}')
+	[ -n "$dup" ] || { echo "jj duplicate failed" >&2; exit 1; }
+	jj edit "$dup"
+	jj new --no-edit --insert-before @ -m "review: {{name}}
+
+	orig: $orig"
+	echo
+	echo "review workspace: $ws"
+	echo "next: cd $ws && jtg review-status"
+
+# reviewed (brain, @-) vs left to review (@)
+[no-cd]
+review-status:
+	@echo "== reviewed"; jj diff -r @- --stat
+	@echo; echo "== left"; jj diff -r @ --stat
+
+# mark files reviewed: squash them into the brain
+[no-cd]
+review-ok +files:
+	jj squash --use-destination-message {{files}}
+
+# your inline comments vs the original change (run when nothing is left)
+[no-cd]
+review-comments:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	orig=$(jj log -r @- --no-graph -T description | sed -n 's/^orig: //p')
+	[ -n "$orig" ] || { echo "@- is not a review brain (no 'orig:' line)" >&2; exit 1; }
+	if [ -n "$(jj diff -r @ --summary)" ]; then
+		echo "note: files still unreviewed:" >&2; jj diff -r @ --summary >&2; echo >&2
+	fi
+	# drop jj's commit-description pseudo-file; keep only code comments
+	jj interdiff --from "$orig" --to @- --git --color=never |
+		awk '/^diff --git/ { skip = ($3 == "a/JJ-COMMIT-DESCRIPTION") } !skip'
+
+# send your review comments to an agent (hc address/name, e.g. bb8/t3)
+[no-cd]
+review-finish agent:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	diff=$("{{just_executable()}}" -f "{{justfile()}}" review-comments)
+	[ -n "$diff" ] || { echo "no comments to send"; exit 0; }
+	hc send '{{agent}}' "Review comments on your change. Each '+' line is a reviewer note at that spot; address them, then report back.
+
+	$diff"
+	echo "sent to {{agent}}"
+
+# finish: forget the review workspace and abandon its commits
+[no-cd]
+[confirm("Forget review workspace and abandon review commits?")]
+review-done name:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	ws="$(jj root).review-{{name}}"
+	case "$(jj root)" in *.review-{{name}}) echo "run this from the main workspace, not the review one" >&2; exit 1;; esac
+	jj abandon 'description(regex:"^review: {{name}}\n")::' 2>/dev/null || true
+	jj workspace forget "review-{{name}}"
+	rm -rf -- "$ws"
+	echo "removed $ws"
