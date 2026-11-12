@@ -26,7 +26,10 @@ bind 'TAB:menu-complete'
 
 # each init is a few ms (measured 2026-10-27: ~16ms total mac, ~5ms bb8)
 command -v fzf      >/dev/null && eval "$(fzf --bash)"
-command -v zoxide   >/dev/null && eval "$(zoxide init bash)"
+# starship goes first: it replaces PROMPT_COMMAND (stashing the old value in
+# STARSHIP_PROMPT_COMMAND), so zoxide must init after it to keep __zoxide_hook
+# visible and avoid the bogus "possible configuration issue" warning from z.
 command -v starship >/dev/null && eval "$(starship init bash)"
+command -v zoxide   >/dev/null && eval "$(zoxide init bash)"
 # command -v direnv >/dev/null && eval "$(direnv hook bash)"
 # eval "$(/Users/phil/.local/bin/mise activate bash)"
